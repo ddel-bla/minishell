@@ -1,0 +1,2 @@
+echo '$SHELL'; $SHELL
+echo "$SHELL"; /bin/bash
