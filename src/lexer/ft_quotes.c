@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean.c                                         :+:      :+:    :+:   */
+/*   ft_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 09:30:14 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/06/12 10:38:36 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:38:20 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@ char	*ft_quotes(char *string)
 {
 	char *src = string, *dst = string;
 	while (*src)
-    {
-        
-    	if (' ' != ((unsigned char)*src))
-			*dst++ = *src;
-        src++;
-    }
+			*dst++ = *src++;
 	*dst = '\0';
-    return (dst);
+	return (dst);
 }
