@@ -1,6 +1,6 @@
 #include "../inc/tests.h"
 
-void test_ft_quotes(const char *input, const char *expected)
+void compare(const char *input, const char *expected)
 {
 	char buffer[100];
 	strcpy(buffer, input);

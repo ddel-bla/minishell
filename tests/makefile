@@ -8,8 +8,8 @@ TEST_DIR = lexer
 OBJ_DIR = obj
 
 # Archivos fuente
-SRC_FILES = $(SRC_DIR)/ft_quotes.c
-TEST_FILES = $(TEST_DIR)/main.c $(TEST_DIR)/test_ft_quotes.c
+SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
+TEST_FILES = $(wildcard $(TEST_DIR)/*.c)
 
 # Archivos objeto
 OBJ_FILES = $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SRC_FILES))) $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(TEST_FILES)))
@@ -33,6 +33,7 @@ clean:
 
 fclean: clean
 	rm -f $(TARGET)
+	rm -f files/lexer.txt files/quotes.txt
 
 re: fclean all
 

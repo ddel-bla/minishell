@@ -1,0 +1,2 @@
+echo '$SHELL'; '$SHELL'; hola; adios;
+echo "$SHELL"; $SHELL; hola; adios;

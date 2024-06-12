@@ -1,17 +1,23 @@
 #include "../inc/tests.h"
 
-int main() 
+void	test_quotes(const char *test_file, int col1_index, int col2_index)
 {
-	FILE *file = fopen("lexer/ft_quotes.txt", "r");
-	if (!file) {
+	FILE *file;
+	
+	create_test_file(test_file, col1_index,col2_index);
+	file = fopen("files/quotes.txt", "r");
+	if (!file) 
+	{
 		perror("No se pudo abrir el archivo de casos de prueba");
-		return 1;
+		return ;
 	}
 
 	char line[256];
-	while (fgets(line, sizeof(line), file)) {
+	while (fgets(line, sizeof(line), file)) 
+	{
 		char *semicolon = strchr(line, ';');
-		if (!semicolon) {
+		if (!semicolon)
+		{
 			fprintf(stderr, "Formato incorrecto en la línea: %s\n", line);
 			continue;
 		}
@@ -24,8 +30,8 @@ int main()
 		char *newline = strchr(expected, '\n');
 		if (newline)
 			*newline = '\0';
-		test_ft_quotes(input, expected);
+		compare(input, expected);
 	}
 	fclose(file);
-    return 0;
 }
+
