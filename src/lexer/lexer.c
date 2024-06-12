@@ -2,8 +2,11 @@
 
 static void	process_quotes(t_token **token_list, char *input, int *i);
 static void	process(t_token **token_list, char *input, int start, int end);
-static int	get_type(char *token);
+static int	check_syntax(t_token **token_list);
 
+/*
+ * Main function of the lexer process
+ */
 void	lexer(char *input, t_token **token_list)
 {
 	int	i;
@@ -26,8 +29,13 @@ void	lexer(char *input, t_token **token_list)
 		if (i > j)
 			process(token_list, input, j, i - 1);
 	}
+	get_definitive_type(token_list);
+	printf("%d", check_syntax(token_list));
 }
 
+/*
+ * Process tokens with quotations (simple or double)
+ */
 static void    process_quotes(t_token **token_list, char *input, int *i)
 {
         char    quote;
@@ -50,6 +58,9 @@ static void    process_quotes(t_token **token_list, char *input, int *i)
                 printf("Error en las comillas\n");
 }
 
+/*
+ * Process normal tokens (no quotes)
+ */
 static void	process(t_token **token_list, char *input, int start, int end)
 {
 	char	*aux;
@@ -57,23 +68,48 @@ static void	process(t_token **token_list, char *input, int start, int end)
 	int	index;
 
 	aux = ft_substr(input, start, end);
-	type = get_type(aux);
+	type = get_basic_type(aux);
 	index = lst_size(*token_list);
 	add_token(token_list, create_token(aux, type, index));
 }
 
-
-static int get_type(char *token)
+/*
+ * Checks sintax based on token order.
+ */
+static int	check_syntax(t_token **token_list)
 {
-	if (!ft_strcmp(token, "|"))
-		return T_PIPE;
-	else if (!ft_strcmp(token, ">"))
-		return T_RED_OUT;
-	else if (!ft_strcmp(token, ">>"))
-		return T_RED_APP;
-	else if (!ft_strcmp(token, "<"))
-		return T_RED_IN;
-	else if (!ft_strcmp(token, "<<"))
-		return T_RED_HER;
-	return T_OTHER;
+	t_token *aux;
+
+	aux = *token_list;
+	while (aux)
+	{
+		if (aux->type == T_PIPE && !aux->next)
+			return (0);
+		if ((aux->type == T_RED_IN || aux->type == T_RED_HER) && \
+                                !aux->next)
+                        return (0);
+                if ((aux->type == T_RED_OUT || aux->type == T_RED_APP) && \
+                                !aux->next)
+			return (0);
+		if (aux->type == T_PIPE && aux->next->type == T_PIPE)
+			return (0);
+		if ((aux->type == T_RED_IN || aux->type == T_RED_HER) && \
+			       	aux->next->type != T_INFILE)
+			return (0);
+		if ((aux->type == T_RED_OUT || aux->type == T_RED_APP) && \
+				aux->next->type != T_OUTFILE)
+			return (0);
+		aux = aux->next;
+	}
+	return (1);
 }
+/*
+int main(void)
+{
+	t_token *token_list;
+
+	token_list = NULL;
+	char *command = "cat Makefile >> 1 | > outfile.txt | echo \"HOLA '$PATH'\"";
+       	lexer(command, &token_list);
+	print_lst(token_list);	
+}*/

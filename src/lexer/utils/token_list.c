@@ -68,7 +68,7 @@ void	print_lst(t_token *list)
 	{
 		printf("%d token = ", aux->index + 1);
 		printf("value:\033[0;31m %s \033[0m", aux->value);
-                printf("type:\033[0;35m %d \033[0m\n", aux->type);
+                printf("type:\033[0;35m %s \033[0m\n", get_str_types(aux->type));
 		aux = aux->next;
 	}
 }

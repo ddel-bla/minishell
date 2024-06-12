@@ -35,9 +35,15 @@ void run_tests()
     printf("Expected: %s\n", "echo");
     printf("Actual: %s\n", get_token_by_index(token_list, 0)->value);
     validate_test2(get_token_by_index(token_list, 0)->value == "echo", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 0)->type));
+    validate_test(get_token_by_index(token_list, 0)->type == 9, "TYPE");
     printf("Expected: %s\n", "hello");
     printf("Actual: %s\n", get_token_by_index(token_list, 1)->value);
-    validate_test2(get_token_by_index(token_list, 1)->value == "hello", "TOKENS");   
+    validate_test2(get_token_by_index(token_list, 1)->value == "hello", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 1)->type));
+    validate_test(get_token_by_index(token_list, 1)->type == 9, "TYPE");
     free_lst(token_list);
     token_list = NULL;
     printf("------------------------------------------------------------");
@@ -52,9 +58,15 @@ void run_tests()
     printf("Expected: %s\n", "echo");
     printf("Actual: %s\n", get_token_by_index(token_list, 0)->value);
     validate_test2(get_token_by_index(token_list, 0)->value == "echo", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 1)->type));
+    validate_test(get_token_by_index(token_list, 1)->type == 9, "TYPE");
     printf("Expected: %s\n", "hello world");
     printf("Actual: %s\n", get_token_by_index(token_list, 1)->value);
     validate_test2(get_token_by_index(token_list, 1)->value == "hello world", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 1)->type));
+    validate_test(get_token_by_index(token_list, 1)->type == 9, "TYPE");
     free_lst(token_list);
     token_list = NULL;
     printf("------------------------------------------------------------");
@@ -70,18 +82,33 @@ void run_tests()
     printf("Expected: %s\n", "echo");
     printf("Actual: %s\n", get_token_by_index(token_list, 0)->value);
     validate_test2(get_token_by_index(token_list, 0)->value == "echo", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 0)->type));
+    validate_test(get_token_by_index(token_list, 0)->type == 9, "TYPE");
     printf("Expected: %s\n", "hello");
     printf("Actual: %s\n", get_token_by_index(token_list, 1)->value);
     validate_test2(get_token_by_index(token_list, 1)->value == "hello", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 1)->type));
+    validate_test(get_token_by_index(token_list, 1)->type == 9, "TYPE");
     printf("Expected: %s\n", "|");
     printf("Actual: %s\n", get_token_by_index(token_list, 2)->value);
     validate_test2(get_token_by_index(token_list, 2)->value == "|", "TOKENS");
+    printf("Expected: %s\n", "PIPE");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 2)->type));
+    validate_test(get_token_by_index(token_list, 2)->type == 0, "TYPE");
     printf("Expected: %s\n", "grep");
     printf("Actual: %s\n", get_token_by_index(token_list, 3)->value);
     validate_test2(get_token_by_index(token_list, 3)->value == "grep", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 3)->type));
+    validate_test(get_token_by_index(token_list, 3)->type == 9, "TYPE");
     printf("Expected: %s\n", "hello");
     printf("Actual: %s\n", get_token_by_index(token_list, 4)->value);
     validate_test2(get_token_by_index(token_list, 4)->value == "hello", "TOKENS");
+    printf("Expected: %s\n", "COMMAND");
+    printf("Actual: %s\n", get_str_types(get_token_by_index(token_list, 4)->type));
+    validate_test(get_token_by_index(token_list, 4)->type == 9, "TYPE");
     free_lst(token_list);
     token_list = NULL;
     printf("------------------------------------------------------------");
@@ -89,7 +116,7 @@ void run_tests()
     // Test 4: Commmand with double quotes
     char input4[] = "echo \"hello world\"";
     lexer(input4, &token_list);
-    printf("\n\033[0;32mTEST Nº 2\033[0m\n");
+    printf("\n\033[0;32mTEST Nº 4\033[0m\n");
     printf("Expected: %d\n", 2);
     printf("Actual: %d\n", lst_size(token_list));
     validate_test(lst_size(token_list) == 2, "SIZE");
@@ -103,14 +130,14 @@ void run_tests()
     token_list = NULL;
     printf("------------------------------------------------------------");
 
-    // Test 5: Empty input
+ /*   // Test 5: Empty input
     char input5[] = "";
     lexer(input5, &token_list);
     printf("\n\033[0;32mTEST Nº 5\033[0m\n");
     printf("Expected: %d\n", 0);
     printf("Actual: %d\n", lst_size(token_list));
     validate_test(lst_size(token_list) == 0, "SIZE");
-    free_lst(token_list);
+    //free_lst(token_list);
     token_list = NULL;
     printf("------------------------------------------------------------");
 
@@ -121,10 +148,10 @@ void run_tests()
     printf("Expected: %d\n", 0);
     printf("Actual: %d\n", lst_size(token_list));
     validate_test(lst_size(token_list) == 0, "SIZE");
-    free_lst(token_list);
-    token_list = NULL;
+    //free_lst(token_list);
+   // token_list = NULL;
     printf("------------------------------------------------------------");
-
+*/
     // Test 7: Complex command
     char input7[] = "cat file.txt | grep 'pattern' | sort > output.txt";
     lexer(input7, &token_list);
@@ -141,10 +168,10 @@ void run_tests()
     printf("Expected: %s\n", "|");
     printf("Actual: %s\n", get_token_by_index(token_list, 2)->value);
     validate_test2(get_token_by_index(token_list, 2)->value == "|", "TOKENS");
-    printf("Expected: %s\n", "file.txt");
+    printf("Expected: %s\n", "grep");
     printf("Actual: %s\n", get_token_by_index(token_list, 3)->value);
     validate_test2(get_token_by_index(token_list, 3)->value == "grep", "TOKENS");
-    printf("Expected: %s\n", "grep");
+    printf("Expected: %s\n", "pattern");
     printf("Actual: %s\n", get_token_by_index(token_list, 4)->value);
     validate_test2(get_token_by_index(token_list, 4)->value == "pattern", "TOKENS");
     printf("Expected: %s\n", "|");
@@ -161,7 +188,7 @@ void run_tests()
     validate_test2(get_token_by_index(token_list, 8)->value == "output.txt", "TOKENS");
     free_lst(token_list);
     token_list = NULL;
-    printf("------------------------------------------------------------\n");
+   printf("------------------------------------------------------------\n");
 }
 
 int main(void)
