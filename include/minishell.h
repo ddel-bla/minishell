@@ -23,7 +23,10 @@
 # define T_RED_HER      3
 # define T_RED_APP      4
 # define T_OTHER        5
-
+# define T_LIMIT	6
+# define T_OUTFILE	7
+# define T_INFILE	8
+# define T_COMMAND	9
 	
 // ............ LIBS ............
 # include <stdio.h>
@@ -50,6 +53,9 @@ typedef struct s_token
 //lexer
 char	*ft_quotes(char *string);
 void	lexer(char *input, t_token **token_list);
+int	get_basic_type(char *token);
+void	get_definitive_type(t_token **token_list);
+char	*get_str_types(int type);
 //lexer-utils
 t_token *create_token(char *value, int type, int index);
 int     lst_size(t_token *list);
