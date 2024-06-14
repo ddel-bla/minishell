@@ -4,17 +4,19 @@
 
 NAME	=	minishell
 
-CC		=	gcc
+CC	=	gcc
 
 CFLAGS	=	-Wall -Wextra -Werror
 
-RM		=	rm -f
+RM	=	rm -f
 
 # ---------------------------------
 # ---------- SRC & OBJS -----------
 # ---------------------------------
 
 SRC		=	./src/main.c \
+			./src/lexer/lexer.c ./src/lexer/token_types.c \
+			./src/lexer/utils/token_list.c ./src/lexer/utils/utils.c \
 
 OBJS	=	$(SRC:.c=.o)
 
