@@ -87,7 +87,7 @@ void	free_lst(t_token *list)
 		next = aux->next;
 		free(aux->value);
 		free(aux);
-		aux = aux->next;
+		aux = next;
 	}
 }
 

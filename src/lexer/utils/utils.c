@@ -19,6 +19,7 @@ int	ft_strlen(char *str)
 		len++;
 	return (len);
 }
+
 char	*ft_substr(char *input, int start, int end)
 {
 	int	len;
@@ -36,4 +37,10 @@ char	*ft_substr(char *input, int start, int end)
 		aux[i++] = input[start++];
 	aux[i] = '\0';
 	return (aux);
+}
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' \
+			|| c == '\f');
 }
