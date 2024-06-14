@@ -52,7 +52,7 @@ typedef struct s_token
 // ......... FUNCTIONS ..........
 //lexer
 char	*ft_quotes(char *string);
-void	lexer(char *input, t_token **token_list);
+int	lexer(char *input, t_token **token_list);
 int	get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
@@ -66,4 +66,5 @@ void	free_lst(t_token *list);
 t_token *get_token_by_index(t_token *token_list, int index);
 int     ft_strcmp(char *str, char *c);
 char    *ft_substr(char *input, int start, int end);
+int	ft_isspace(char c);
 #endif
