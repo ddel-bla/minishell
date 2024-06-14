@@ -18,14 +18,13 @@ void	lexer(char *input, t_token **token_list)
 		while (input[i] && input[i] == ' ') //cambiar a isspace()
 			i++;
 		if (input[i] && (input[i] == '\'' || input[i] == '\"'))
-		{
 			process_quotes(token_list, input, &i);
-			continue;
-		}
 		j = i;
 		while (input[i] && input[i] != ' ' && input[i] != '\'' \
 				&& input[i] != '\"')
 			i++;
+		if (i == j)
+			break;
 		if (i > j)
 			process(token_list, input, j, i - 1);
 	}
@@ -81,6 +80,8 @@ static int	check_syntax(t_token **token_list)
 	t_token *aux;
 
 	aux = *token_list;
+	if (aux->type == T_PIPE)
+		return (0);
 	while (aux)
 	{
 		if (aux->type == T_PIPE && !aux->next)
@@ -103,13 +104,26 @@ static int	check_syntax(t_token **token_list)
 	}
 	return (1);
 }
-/*
+
 int main(void)
 {
 	t_token *token_list;
 
 	token_list = NULL;
-	char *command = "cat Makefile >> 1 | > outfile.txt | echo \"HOLA '$PATH'\"";
+	//En error
+	//char *command = "echo \"Hello\" >";
+	//char *command = "ls -l |";
+	//char *command = "cat <";
+	//char *command = "grep \"pattern";
+	//char *command = "gcc source.c -o program >";
+	char *command = "| echo \"This is a test";
+	//Buenos comandos
+	//char *command = "echo \"Hello world!\" > outfile.txt && cat < infile.txt | grep -i \"pattern\"";
+	//char *command = "ls -l $HOME/*.txt | grep \"file\"";
+	//char *command = "gcc source.c -o program > errors.log > output.log";
+	//char *command = "echo \"Current directory: $(pwd), '$USER'\"";
+	//char *command = "command1 < input.txt | command2 | command3 > output.txt";
+	//char *command = "cat Makefile >> 1 | > outfile.txt | echo \"HOLA '$PATH'\"";
        	lexer(command, &token_list);
 	print_lst(token_list);	
-}*/
+}
