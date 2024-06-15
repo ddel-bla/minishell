@@ -18,9 +18,9 @@ t_token	*create_token(char *value, int type, int index)
 }
 
 /*
- * Returns the length of a given list.
+ * Returns the length of a given token list.
  */
-int	lst_size(t_token *list)
+int	tokens_size(t_token *list)
 {
 	int	len;
 
@@ -34,9 +34,9 @@ int	lst_size(t_token *list)
 }
 
 /*
- * Returns the last element of a list
+ * Returns the last element of a token list
  */
-t_token	*lst_last(t_token *list)
+t_token	*token_last(t_token *list)
 {
 	if (!list)
 		return (NULL);
@@ -46,20 +46,20 @@ t_token	*lst_last(t_token *list)
 }
 
 /*
- * Adds an element to a given list.
+ * Adds an element to a given token list.
  */
 void	add_token(t_token **list, t_token *token)
 {
 	if (*list == NULL)
 		*list = token;
 	else
-		(lst_last(*list))->next = token;
+		(token_last(*list))->next = token;
 }
 
 /*
- * Prints a given list.
+ * Prints a given token list.
  */
-void	print_lst(t_token *list)
+void	print_tokens(t_token *list)
 {
 	t_token	*aux;
 
@@ -74,9 +74,9 @@ void	print_lst(t_token *list)
 }
 
 /*
- * Frees all the elements of a given list.
+ * Frees all the elements of a given token list.
  */
-void	free_lst(t_token *list)
+void	free_tokens(t_token *list)
 {
 	t_token	*aux;
 	t_token	*next;
@@ -92,22 +92,21 @@ void	free_lst(t_token *list)
 }
 
 /*
- * Gets an element of a list by his index.
+ * Gets an element of a token list by his index.
  */
-t_token	*get_token_by_index(t_token *token_list, int index)
+t_token	*get_token_by_index(t_token *list, int index)
 {
-	int	current_index;
+	int	i;
 	t_token	*current;
 
-	current_index = 0;
-	current = token_list;
-	
+	i = 0;
+	current = list;
 	while (current != NULL)
 	{
-		if (current_index == index)
+		if (index == i)
 			return current;
 		current = current->next;
-		current_index++;
+		i++;
 	}
 	return (NULL);
 }

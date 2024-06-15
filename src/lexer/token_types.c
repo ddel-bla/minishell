@@ -75,5 +75,7 @@ char	*get_str_types(int type)
 		return "INFILE";
 	else if (type == T_COMMAND)
 		return "COMMAND";
+	else if (type == T_END)
+		return "END";
 	return "OTHER";
 }
