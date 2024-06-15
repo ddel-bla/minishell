@@ -16,7 +16,9 @@ RM	=	rm -f
 
 SRC		=	./src/main.c \
 			./src/lexer/lexer.c ./src/lexer/token_types.c \
-			./src/lexer/utils/token_list.c ./src/lexer/utils/utils.c \
+			./src/lexer/utils/token_struct.c ./src/lexer/utils/utils.c \
+			./src/parser/parser.c ./src/parser/utils/command_struct.c \
+			./src/parser/utils/redir_struct.c \
 
 OBJS	=	$(SRC:.c=.o)
 
