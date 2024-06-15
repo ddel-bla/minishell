@@ -17,6 +17,7 @@
 // __________ visuals ___________
 # define PROMPT "minishell>$"
 // _________ TOKEN_TYPE _________
+# define T_END		-1
 # define T_PIPE         0
 # define T_RED_IN       1
 # define T_RED_OUT      2
@@ -33,21 +34,18 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+// .......... HEADERS ...........
+# include "./lexer.h"
+# include "./parser.h"
 // .......... STRUCTS ...........
+
 typedef struct s_lexer
 {
 	char		*input;  //Entrada recibida
 	size_t		index;   //Posición actual de la cadena
 	struct s_token	*token_list;//Puntero a lista de tokens
 }		t_lexer;
-
-typedef struct s_token
-{
-	char		*value;  //Valor del token
-	int		type;   //Tipo del token
-	int		index;  //Posición del token
-	struct s_token	*next;   //Siguiente elemento
-}			t_token;
 
 // ......... FUNCTIONS ..........
 //lexer
@@ -56,15 +54,12 @@ int	lexer(char *input, t_token **token_list);
 int	get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
+//parser
+void	parser(t_token **tokens, t_cmd **cmd);
 //lexer-utils
-t_token *create_token(char *value, int type, int index);
-int     lst_size(t_token *list);
-t_token	*lst_last(t_token *list);
-void    add_token(t_token **list, t_token *token);
-void    print_lst(t_token *list);
-void	free_lst(t_token *list);
-t_token *get_token_by_index(t_token *token_list, int index);
 int     ft_strcmp(char *str, char *c);
 char    *ft_substr(char *input, int start, int end);
 int	ft_isspace(char c);
+int	ft_isquote(char c);
+char	*ft_trim_spaces(char *str);
 #endif
