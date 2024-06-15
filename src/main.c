@@ -27,22 +27,30 @@ int	main(int argc, char **argv, char **envp)
 void	start_minishell(void)
 {
 	char	*input;
-	t_token	*token;
+	t_token	*tokens;
+	t_cmd	*cmd;
 
-	token = NULL;
-	(void)token;
+	tokens = NULL;
+	cmd = NULL;
 	while (1)
 	{
 		input = readline("minishell>$");
 		// clean input start and end spaces(\t\s\v...)
 		//if (*input)
 			//TODO history
-		if (lexer(input, &token))
-			printf("Error sintáctico\n");
-		else
-			print_lst(token);
-		free_lst(token);
-		token =  NULL;
+		if (*input)
+		{
+			if (lexer(input, &tokens))
+				printf("Error sintáctico\n");
+			else
+				print_tokens(tokens);
+		}
+		parser(&tokens, &cmd);
+		print_cmd(cmd);
+		free_cmd(cmd);
+		cmd = NULL;
+		free_tokens(tokens);
+		tokens =  NULL;
 		//parseer
 		//expander
 		//executor
