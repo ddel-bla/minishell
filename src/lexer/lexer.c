@@ -2,7 +2,7 @@
 
 static int	extract_tokens(t_token **tokens, char *input);
 static int	process_quotes(t_token **tokens, char *input, int *i);
-static void	process(t_token **tokens, char *input, int start, int end);
+static int	process(t_token **tokens, char *input, int start, int end);
 static int	check_syntax(t_token **tokens);
 
 /*
@@ -19,31 +19,31 @@ int	lexer(char *input, t_token **tokens)
 
 /*
  * Extract the tokens from the input.
+ * - In stands for input.
  */
-static	int	extract_tokens(t_token **tokens, char *input)
+static	int	extract_tokens(t_token **tokens, char *in)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (input[i])
+	while (in[i])
 	{
-		while (input[i] && ft_isspace(input[i]))
+		while (in[i] && ft_isspace(in[i]))
 			i++;
-		if (!input[i])
+		if (!in[i])
 			return (1);
-		if (input[i] && ft_isquote(input[i]))
+		if (in[i] && ft_isquote(in[i]))
 		{
-			if (process_quotes(tokens, input, &i))
+			if (process_quotes(tokens, in, &i))
 				return (1);
 			continue;
 		}
 		j = i;
-		while (input[i] && !ft_isspace(input[i]) \
-				&& !ft_isquote(input[i]))
+		while (in[i] && !ft_isspace(in[i]) && !ft_isquote(in[i]))
 			i++;
-		if (i > j)
-			process(tokens, input, j, i - 1);
+		if (process(tokens, in, j, i - 1))
+			return (1);
 		if (i == j)
 			break;
 	}
@@ -78,16 +78,21 @@ static int    process_quotes(t_token **tokens, char *input, int *i)
 /*
  * Process normal tokens (no quotes)
  */
-static void	process(t_token **tokens, char *input, int start, int end)
+static int	process(t_token **tokens, char *input, int start, int end)
 {
 	char	*aux;
 	int	type;
 	int	index;
 
+	if (start > end)
+		return (1);
 	aux = ft_substr(input, start, end);
+	if (!validate_token(aux))
+		return (1);
 	type = get_basic_type(aux);
 	index = tokens_size(*tokens);
 	add_token(tokens, create_token(aux, type, index));
+	return (0);
 }
 
 /*
