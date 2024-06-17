@@ -21,8 +21,8 @@
 # define T_PIPE         0
 # define T_RED_IN       1
 # define T_RED_OUT      2
-# define T_RED_HER      3
-# define T_RED_APP      4
+# define T_RED_APP      3
+# define T_RED_HER      4
 # define T_OTHER        5
 # define T_LIMIT	6
 # define T_OUTFILE	7
@@ -54,6 +54,7 @@ int	lexer(char *input, t_token **token_list);
 int	get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
+int	validate_token(char *token);
 //parser
 void	parser(t_token **tokens, t_cmd **cmd);
 //lexer-utils
