@@ -112,8 +112,9 @@ static int	check_syntax(t_token **tokens)
 			return (1);
 		if (aux->type == T_PIPE && aux->next->type == T_PIPE)
 			return (1);
-		if ((aux->type == T_RED_IN || aux->type == T_RED_HER) && \
-			       	aux->next->type != T_INFILE)
+		if (aux->type == T_RED_IN && aux->next->type != T_INFILE)
+			return (1);
+		if (aux->type == T_RED_HER && aux->next->type != T_LIMIT)
 			return (1);
 		if ((aux->type == T_RED_OUT || aux->type == T_RED_APP) && \
 				aux->next->type != T_OUTFILE)
