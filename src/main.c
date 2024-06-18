@@ -42,8 +42,7 @@ void	start_minishell(void)
 		{
 			if (lexer(input, &tokens))
 				printf("Error sintáctico\n");
-			else
-				print_tokens(tokens);
+			print_tokens(tokens);
 		}
 		parser(&tokens, &cmd);
 		print_cmd(cmd);
@@ -51,7 +50,6 @@ void	start_minishell(void)
 		cmd = NULL;
 		free_tokens(tokens);
 		tokens =  NULL;
-		//parseer
 		//expander
 		//executor
 		//free
