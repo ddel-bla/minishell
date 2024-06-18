@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/18 17:20:53 by claferna          #+#    #+#             */
+/*   Updated: 2024/06/18 17:22:50 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-static char	**get_cmds(t_token **tokens);
-static int	get_operator(t_token **tokens);
+static char		**get_cmds(t_token **tokens);
+static int		get_operator(t_token **tokens);
 static t_redir	*get_redirections(t_token **tokens);
 
 /*
@@ -10,13 +22,13 @@ static t_redir	*get_redirections(t_token **tokens);
 void	parser(t_token **tokens, t_cmd **cmd)
 {
 	t_token	*aux;
-	char **args;
+	char	**args;
 	t_redir	*redir;
-	int	operator;
-	
+	int		operator;
+
 	aux = *tokens;
-	redir = NULL;	
-	while (aux) 
+	redir = NULL;
+	while (aux)
 	{
 		args = get_cmds(&aux);
 		redir = get_redirections(&aux);
@@ -34,8 +46,8 @@ void	parser(t_token **tokens, t_cmd **cmd)
  */
 static char	**get_cmds(t_token **token)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	**args;
 
 	len = tokens_size(*token);
@@ -59,7 +71,6 @@ static char	**get_cmds(t_token **token)
  */
 static	int	get_operator(t_token **token)
 {
-
 	if (*token && (*token)->type == T_PIPE)
 		return ((*token)->type);
 	return (-1);
@@ -77,7 +88,7 @@ static t_redir	*get_redirections(t_token **token)
 	while (*token && (*token)->type >= T_RED_IN \
 			&& (*token)->type <= T_RED_HER \
 			&& (*token)->next \
-		       	&& ((*token)->next->type == T_OUTFILE \
+			&& ((*token)->next->type == T_OUTFILE \
 			|| (*token)->next->type == T_INFILE \
 			|| (*token)->next->type == T_LIMIT))
 	{
@@ -86,16 +97,3 @@ static t_redir	*get_redirections(t_token **token)
 	}
 	return (redir);
 }
-/*
-int main() {
-	t_token *tokens = NULL;	
-	//char *command = "echo Hello > outfile.txt | cat < infile.txt | grep -i \"pattern\"";
-	char *command = "cat Makefile >> 1 | echo \"HOLA '$PATH'\"";
-        lexer(command, &tokens);
-	print_tokens(tokens);
-	t_cmd *cmd_list = NULL;
-    parser(&tokens, &cmd_list);
-
-	print_cmd(cmd_list);
-    return 0;
-}*/
