@@ -17,10 +17,19 @@ RM	=	rm -f
 SRC		=	./src/main.c \
 			./src/lexer/lexer.c ./src/lexer/token_types.c ./src/lexer/validation.c\
 			./src/lexer/utils/token_struct.c ./src/lexer/utils/token_struct2.c ./src/lexer/utils/utils.c \
-			./src/parser/parser.c ./src/parser/utils/command_struct.c \
-			./src/parser/utils/redir_struct.c \
+			./src/parser/parser.c ./src/parser/utils/command_struct.c ./src/parser/utils/command_struct2.c\
+			./src/parser/utils/redir_struct.c ./src/parser/utils/redir_struct2.c\
 
 OBJS	=	$(SRC:.c=.o)
+
+# ---------------------------------
+# ---------- LIBRARIES ------------
+# ---------------------------------
+#
+# ............ LIBFT ..............
+
+LIBFT		=	./lib/libft
+LIBFT_A		=	$(LIBFT)/libft.a
 
 # ---------------------------------
 # --------- FLOWER POWER ----------
@@ -44,16 +53,19 @@ CLEAN_DONE = "$(PINK)Clean $(TURQUOISE)complete!$(RESET)"
 # ---------------------------------
 all		:	$(OBJS)
 			@echo $(START)
-			@$(CC) $(CFLAGS) -g $(SRC) -o $(NAME) -lreadline
+			@make -C $(LIBFT) -f Makefile
+			@$(CC) $(CFLAGS) -g $(SRC) -o $(NAME) -lreadline $(LIBFT_A)
 			@echo $(DONE)
 
 clean	:
 			@echo $(CLEAN)
+			@make -C $(LIBFT) clean
 			@$(RM) $(OBJS)
 			@echo $(CLEAN_DONE)
 
 fclean	:	clean
 			@$(RM) $(NAME)
+			@make -C $(LIBFT) fclean
 			@$(RM) philo
 
 leaks	: 	$(OBJS_PHILO)
