@@ -6,7 +6,7 @@
 /*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:01:10 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 17:09:18 by claferna         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:52:02 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static	int	extract_tokens(t_token **tokens, char *in)
 			continue ;
 		}
 		j = i;
-		while (in[i] && !ft_isspace(in[i]) && !ft_isquote(in[i]))
+		while (in[i] && !ft_isspace(in[i]))
 			i++;
 		if (process(tokens, in, j, i - 1))
 			return (1);
@@ -95,10 +95,13 @@ static int	process(t_token **tokens, char *input, int start, int end)
 {
 	char	*aux;
 	int		type;
+	int		i;
+	int		k;
 	int		index;
 
 	if (start > end)
 		return (1);
+	i = 0;
 	aux = ft_substr(input, start, end);
 	if (!validate_token(aux))
 		return (1);

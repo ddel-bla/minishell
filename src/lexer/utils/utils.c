@@ -6,7 +6,7 @@
 /*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:27 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 17:19:28 by claferna         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:39:53 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,19 @@ int	ft_isspace(char c)
 }
 
 /*
- * Checks wether a character is a quote (double/simple)
+ * Checks whether a character is a quote (double/simple)
  */
 int	ft_isquote(char c)
 {
 	return (c == '\'' || c == '\"');
+}
+
+/*
+ * Check whether a character is a special character ('|', '<', '>').
+ */
+int	ft_isspecial(char c)
+{
+	return (c == '|' || c == '>' || c == '>');
 }
 
 /*
