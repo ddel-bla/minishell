@@ -55,12 +55,14 @@ int	get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
 int	validate_token(char *token);
+int	check_syntax(t_token **tokens);
 //parser
 void	parser(t_token **tokens, t_cmd **cmd);
 //lexer-utils
-int     ft_strcmp(char *str, char *c);
-char    *ft_substr(char *input, int start, int end);
-int	ft_isspace(char c);
-int	ft_isquote(char c);
+int		ft_strcmp(char *str, char *c);
+char	*ft_substr(char *input, int start, int end);
+int		ft_isspace(char c);
+int		ft_isquote(char c);
+int		ft_isspecial(char c);
 char	*ft_trim_spaces(char *str);
 #endif
