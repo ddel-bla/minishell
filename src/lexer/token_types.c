@@ -38,7 +38,7 @@ void	get_definitive_type(t_token **token_list)
 	t_token	*aux;
 
 	aux = *token_list;
-	if (aux->type == T_OTHER)
+	if (aux && aux->type == T_OTHER)
 		aux->type = T_COMMAND;
 	while (aux->next)
 	{
