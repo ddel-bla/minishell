@@ -38,6 +38,7 @@
 // .......... HEADERS ...........
 # include "./lexer.h"
 # include "./parser.h"
+# include "../lib/libft/libft.h"
 // .......... STRUCTS ...........
 
 typedef struct s_lexer
