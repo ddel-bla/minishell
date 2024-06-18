@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/18 17:01:10 by claferna          #+#    #+#             */
+/*   Updated: 2024/06/18 17:09:18 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static int	extract_tokens(t_token **tokens, char *input);
@@ -37,7 +49,7 @@ static	int	extract_tokens(t_token **tokens, char *in)
 		{
 			if (process_quotes(tokens, in, &i))
 				return (1);
-			continue;
+			continue ;
 		}
 		j = i;
 		while (in[i] && !ft_isspace(in[i]) && !ft_isquote(in[i]))
@@ -45,33 +57,34 @@ static	int	extract_tokens(t_token **tokens, char *in)
 		if (process(tokens, in, j, i - 1))
 			return (1);
 		if (i == j)
-			break;
+			break ;
 	}
 	return (0);
 }
+
 /*
  * Process tokens with quotations (simple or double)
  */
-static int    process_quotes(t_token **tokens, char *input, int *i)
+static int	process_quotes(t_token **tokens, char *input, int *i)
 {
-        char    quote;
-        char    *token;
-        int     index;
-        int     j;
+	char	quote;
+	char	*token;
+	int		index;
+	int		j;
 
-        quote = input[*i];
-        j = (*i) + 1;
-        while (input[j] && input[j] != quote)
-                j++;
-        if (input[j] == quote)
-        {
-                token = ft_substr(input, (*i), j);
-                index = tokens_size(*tokens);
-                add_token(tokens, create_token(token, T_OTHER, index));
-                (*i) = j + 1;
-        }
-        else
-                return (1);
+	quote = input[*i];
+	j = (*i) + 1;
+	while (input[j] && input[j] != quote)
+		j++;
+	if (input[j] == quote)
+	{
+		token = ft_substr(input, (*i), j);
+		index = tokens_size(*tokens);
+		add_token(tokens, create_token(token, T_OTHER, index));
+		(*i) = j + 1;
+	}
+	else
+		return (1);
 	return (0);
 }
 
@@ -81,8 +94,8 @@ static int    process_quotes(t_token **tokens, char *input, int *i)
 static int	process(t_token **tokens, char *input, int start, int end)
 {
 	char	*aux;
-	int	type;
-	int	index;
+	int		type;
+	int		index;
 
 	if (start > end)
 		return (1);
@@ -100,54 +113,29 @@ static int	process(t_token **tokens, char *input, int start, int end)
  */
 static int	check_syntax(t_token **tokens)
 {
-	t_token *aux;
+	t_token	*t;
 
-	aux = *tokens;
-	if (aux->type == T_PIPE)
+	t = *tokens;
+	if (t->type == T_PIPE)
 		return (1);
-	while (aux)
+	while (t)
 	{
-		if (aux->type == T_PIPE && !aux->next)
+		if (t->type == T_PIPE && !t->next)
 			return (1);
-		if ((aux->type == T_RED_IN || aux->type == T_RED_HER) && \
-                                !aux->next)
-                        return (1);
-                if ((aux->type == T_RED_OUT || aux->type == T_RED_APP) && \
-                                !aux->next)
+		if ((t->type == T_RED_IN || t->type == T_RED_HER) && !t->next)
 			return (1);
-		if (aux->type == T_PIPE && aux->next->type == T_PIPE)
+		if ((t->type == T_RED_OUT || t->type == T_RED_APP) && !t->next)
 			return (1);
-		if (aux->type == T_RED_IN && aux->next->type != T_INFILE)
+		if (t->type == T_PIPE && t->next->type == T_PIPE)
 			return (1);
-		if (aux->type == T_RED_HER && aux->next->type != T_LIMIT)
+		if (t->type == T_RED_IN && t->next->type != T_INFILE)
 			return (1);
-		if ((aux->type == T_RED_OUT || aux->type == T_RED_APP) && \
-				aux->next->type != T_OUTFILE)
+		if (t->type == T_RED_HER && t->next->type != T_LIMIT)
 			return (1);
-		aux = aux->next;
+		if ((t->type == T_RED_OUT || t->type == T_RED_APP) && \
+				t->next->type != T_OUTFILE)
+			return (1);
+		t = t->next;
 	}
 	return (0);
 }
-/*
-int main(void)
-{
-	t_token *token_list;
-
-	token_list = NULL;
-	//En error
-	//char *command = "echo \"Hello\" >";
-	//char *command = "ls -l |";
-	//char *command = "cat <";
-	char *command = "grep \"pattern";
-//	char *command = "gcc source.c -o program >";
-	//char *command = "| echo \"This is a test";
-	//Buenos comandos
-	//char *command = "echo \"Hello world!\" > outfile.txt && cat < infile.txt | grep -i \"pattern\"";
-	//char *command = "ls -l $HOME.txt | grep \"file\"";
-	//char *command = "gcc source.c -o program > errors.log > output.log";
-	//char *command = "echo \"Current directory: $(pwd), '$USER'\"";
-	//char *command = "command1 < input.txt | command2 | command3 > output.txt";
-	//char *command = "cat Makefile >> 1 | > outfile.txt | echo \"HOLA '$PATH'\"";
-       	lexer(command, &token_list);
-	print_tokens(token_list);	
-}*/

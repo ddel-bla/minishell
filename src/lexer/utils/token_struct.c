@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_struct.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/18 17:17:35 by claferna          #+#    #+#             */
+/*   Updated: 2024/06/18 17:19:17 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 /*
@@ -5,7 +17,7 @@
  */
 t_token	*create_token(char *value, int type, int index)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
@@ -68,7 +80,7 @@ void	print_tokens(t_token *list)
 	{
 		printf("%d token = ", aux->index + 1);
 		printf("value:\033[0;31m %s \033[0m", aux->value);
-                printf("type:\033[0;35m %s \033[0m\n", get_str_types(aux->type));
+		printf("type:\033[0;35m %s \033[0m\n", get_str_types(aux->type));
 		aux = aux->next;
 	}
 }
@@ -96,7 +108,7 @@ void	free_tokens(t_token *list)
  */
 t_token	*get_token_by_index(t_token *list, int index)
 {
-	int	i;
+	int		i;
 	t_token	*current;
 
 	i = 0;
@@ -104,7 +116,7 @@ t_token	*get_token_by_index(t_token *list, int index)
 	while (current != NULL)
 	{
 		if (index == i)
-			return current;
+			return (current);
 		current = current->next;
 		i++;
 	}

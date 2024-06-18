@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_types.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/18 17:11:15 by claferna          #+#    #+#             */
+/*   Updated: 2024/06/18 17:16:16 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /*
@@ -6,16 +18,16 @@
 int	get_basic_type(char *token)
 {
 	if (!ft_strcmp(token, "|"))
-		return T_PIPE;
+		return (T_PIPE);
 	else if (!ft_strcmp(token, ">"))
-		return T_RED_OUT;
+		return (T_RED_OUT);
 	else if (!ft_strcmp(token, ">>"))
-		return T_RED_APP;
+		return (T_RED_APP);
 	else if (!ft_strcmp(token, "<"))
-		return T_RED_IN;
+		return (T_RED_IN);
 	else if (!ft_strcmp(token, "<<"))
-		return T_RED_HER;
-	return T_OTHER;
+		return (T_RED_HER);
+	return (T_OTHER);
 }
 
 /*
@@ -23,8 +35,8 @@ int	get_basic_type(char *token)
  */
 void	get_definitive_type(t_token **token_list)
 {
-	t_token *aux;
-	
+	t_token	*aux;
+
 	aux = *token_list;
 	if (aux->type == T_OTHER)
 		aux->type = T_COMMAND;
@@ -32,9 +44,8 @@ void	get_definitive_type(t_token **token_list)
 	{
 		if (aux->type == T_RED_IN && aux->next->type == T_OTHER)
 			aux->next->type = T_INFILE;
-		else if (aux->type == T_RED_OUT && aux->next->type == T_OTHER)
-			aux->next->type = T_OUTFILE;
-		else if (aux->type == T_RED_APP && aux->next->type == T_OTHER)
+		else if ((aux->type == T_RED_OUT || aux->type == T_RED_APP) \
+			&& aux->next->type == T_OTHER)
 			aux->next->type = T_OUTFILE;
 		else if (aux->type == T_RED_HER && aux->next->type == T_OTHER)
 			aux->next->type = T_LIMIT;
@@ -44,9 +55,8 @@ void	get_definitive_type(t_token **token_list)
 			aux->next->type = T_COMMAND;
 		else if (aux->type == T_INFILE && aux->next->type == T_OTHER)
 			aux->next->type = T_COMMAND;
-		else if (aux->type == T_OUTFILE && aux->next->type == T_OTHER)
-			aux->next->type = T_COMMAND;
-		else if (aux->type == T_COMMAND && aux->next->type == T_OTHER)
+		else if ((aux->type == T_OUTFILE || aux->type == T_COMMAND) \
+			&& aux->next->type == T_OTHER)
 			aux->next->type = T_COMMAND;
 		aux = aux->next;
 	}
@@ -58,24 +68,24 @@ void	get_definitive_type(t_token **token_list)
 char	*get_str_types(int type)
 {
 	if (type == T_PIPE)
-		return "PIPE";
+		return ("PIPE");
 	else if (type == T_RED_OUT)
-		return "OUT REDIRECTION";
+		return ("OUT REDIRECTION");
 	else if (type == T_RED_IN)
-		return "IN_REDIRECTION";
+		return ("IN_REDIRECTION");
 	else if (type == T_RED_HER)
-		return "HEREDOC REDIRECTION";
+		return ("HEREDOC REDIRECTION");
 	else if (type == T_LIMIT)
-		return "HEREDOC LIMITER";
+		return ("HEREDOC LIMITER");
 	else if (type == T_RED_APP)
-		return "APPEND REDIRECTION";
+		return ("APPEND REDIRECTION");
 	else if (type == T_OUTFILE)
-		return "OUTFILE";
+		return ("OUTFILE");
 	else if (type == T_INFILE)
-		return "INFILE";
+		return ("INFILE");
 	else if (type == T_COMMAND)
-		return "COMMAND";
+		return ("COMMAND");
 	else if (type == T_END)
-		return "END";
-	return "OTHER";
+		return ("END");
+	return ("OTHER");
 }
