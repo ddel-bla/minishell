@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 16:57:15 by claferna         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:40:34 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	parser(t_token **tokens, t_cmd **cmd);
 int		ft_strcmp(char *str, char *c);
 char	*ft_substr(char *input, int start, int end);
 int		ft_isspace(char c);
+int		ft_isspecial(char c);
 int		ft_isquote(char c);
 char	*ft_trim_spaces(char *str);
 #endif
