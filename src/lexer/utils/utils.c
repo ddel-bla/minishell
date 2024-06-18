@@ -15,6 +15,7 @@
 /*
  * Compares two strings.
  */
+/*
 int	ft_strcmp(char *str, char *c)
 {
 	int	i;
@@ -24,10 +25,10 @@ int	ft_strcmp(char *str, char *c)
 		i++;
 	return (str[i] - c[i]);
 }
-
+*/
 /*
  * Calculates the length of a given string.
- */
+ *//*
 int	ft_strlen(char *str)
 {
 	int	len;
@@ -37,7 +38,7 @@ int	ft_strlen(char *str)
 		len++;
 	return (len);
 }
-
+*/
 /*
  * Substract part of a given string
  */
