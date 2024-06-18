@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_struct.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/18 17:23:05 by claferna          #+#    #+#             */
+/*   Updated: 2024/06/18 17:25:42 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 /*
  * Creates a new commmand node.
  */
-t_cmd *create_cmd(char **arg, int operator_type, t_redir *redir)
+t_cmd	*create_cmd(char **arg, int operator_type, t_redir *redir)
 {
 	t_cmd	*cmd;
 
@@ -62,7 +74,7 @@ void	add_cmd(t_cmd **list, t_cmd *cmd)
 void	print_cmd(t_cmd *list)
 {
 	t_cmd	*aux;
-	int	i;
+	int		i;
 
 	aux = list;
 	while (aux != NULL)
@@ -71,10 +83,12 @@ void	print_cmd(t_cmd *list)
 		i = 0;
 		while (aux->cmd[i])
 		{
-			printf("%d argument: \033[0;31m %s \033[0m\n",i, aux->cmd[i]);
+			printf("%d argument: \033[0;31m %s \033[0m\n", \
+					i, aux->cmd[i]);
 			i++;
 		}
-		printf("Operator type: \033[0;35m%s \033[0m\n", get_str_types(aux->operator_type));
+		printf("Operator type: \033[0;35m%s \033[0m\n", \
+				get_str_types(aux->operator_type));
 		print_redirs(aux->redirection);
 		aux = aux->next;
 	}
@@ -87,7 +101,7 @@ void	free_cmd(t_cmd *list)
 {
 	t_cmd	*aux;
 	t_cmd	*next;
-	
+
 	aux = list;
 	while (aux != NULL)
 	{
@@ -103,7 +117,7 @@ void	free_cmd(t_cmd *list)
  */
 t_cmd	*get_cmd_by_index(t_cmd *cmd, int index)
 {
-	int	i;
+	int		i;
 	t_cmd	*current;
 
 	i = 0;
@@ -111,7 +125,7 @@ t_cmd	*get_cmd_by_index(t_cmd *cmd, int index)
 	while (current != NULL)
 	{
 		if (index == i)
-			return current;
+			return (current);
 		current = current->next;
 		i++;
 	}
