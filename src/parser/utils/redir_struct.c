@@ -6,7 +6,7 @@
 /*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:25:54 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 17:28:39 by claferna         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:34:02 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  */
 t_redir	*create_redir(int type, char *file)
 {
-	t_redir	*red;
+	t_redir	*redir;
 
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
