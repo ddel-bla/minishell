@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:18:35 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/12 09:31:04 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:43:19 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	start_minishell(void)
 {
 	char	*input;
 	t_token	*tokens;
-	t_cmd	*cmd;
+//	t_cmd	*cmd;
 
 	tokens = NULL;
-	cmd = NULL;
+//	cmd = NULL;
 	while (1)
 	{
 		input = readline("minishell>$");
@@ -42,29 +42,14 @@ void	start_minishell(void)
 		{
 			if (lexer(input, &tokens))
 				printf("Error sintáctico\n");
-<<<<<<< Updated upstream
-			print_tokens(tokens);
-		}
-		parser(&tokens, &cmd);
-		print_cmd(cmd);
-		free_cmd(cmd);
-		cmd = NULL;
-		free_tokens(tokens);
-		tokens =  NULL;
-=======
 			else
 				print_tokens(tokens);
 		}
-		parser(&tokens, &cmd);
-		printf(" AD %s", cmd->cmd[0]);
-		print_cmd(cmd);
-		printf("asd");
-		print_cmd(cmd);
-		free_cmd(cmd);
+	//	parser(&tokens, &cmd);
+	//	print_cmd(cmd);
+	//	free_cmd(cmd);
 		free_tokens(tokens);
 		tokens =  NULL;
-		//parseer
->>>>>>> Stashed changes
 		//expander
 		//executor
 		//free

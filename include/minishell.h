@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 16:57:15 by claferna         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:36:57 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ int		lexer(char *input, t_token **token_list);
 int		get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
-<<<<<<< Updated upstream
 int	validate_token(char *token);
-=======
->>>>>>> Stashed changes
 //parser
 void	parser(t_token **tokens, t_cmd **cmd);
 //lexer-utils
