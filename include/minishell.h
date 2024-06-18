@@ -6,11 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/12 15:37:44 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:57:15 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	MINISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 // ........... MACROS ...........
@@ -28,7 +28,7 @@
 # define T_OUTFILE	7
 # define T_INFILE	8
 # define T_COMMAND	9
-	
+
 // ............ LIBS ............
 # include <stdio.h>
 # include <stdlib.h>
@@ -42,16 +42,15 @@
 
 typedef struct s_lexer
 {
-	char		*input;  //Entrada recibida
-	size_t		index;   //Posición actual de la cadena
-	struct s_token	*token_list;//Puntero a lista de tokens
-}		t_lexer;
+	char			*input;
+	size_t			index;
+	struct s_token	*token_list;
+}					t_lexer;
 
 // ......... FUNCTIONS ..........
 //lexer
-char	*ft_quotes(char *string);
-int	lexer(char *input, t_token **token_list);
-int	get_basic_type(char *token);
+int		lexer(char *input, t_token **token_list);
+int		get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
 <<<<<<< Updated upstream
@@ -61,9 +60,9 @@ int	validate_token(char *token);
 //parser
 void	parser(t_token **tokens, t_cmd **cmd);
 //lexer-utils
-int     ft_strcmp(char *str, char *c);
-char    *ft_substr(char *input, int start, int end);
-int	ft_isspace(char c);
-int	ft_isquote(char c);
+int		ft_strcmp(char *str, char *c);
+char	*ft_substr(char *input, int start, int end);
+int		ft_isspace(char c);
+int		ft_isquote(char c);
 char	*ft_trim_spaces(char *str);
 #endif
