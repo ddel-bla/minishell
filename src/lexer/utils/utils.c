@@ -47,7 +47,7 @@ char	*ft_substr(char *str, int start, int end)
 	int	i;
 	char	*aux;
 
-	if (start > end || start < 0 || end >= ft_strlen(str))
+	if (start > end || start < 0 || end > ft_strlen(str))
 		return (NULL);
 	len = end - start + 1;
 	aux = (char *)malloc(sizeof(char) * len + 1);
@@ -82,7 +82,7 @@ int	ft_isquote(char c)
  */
 int	ft_isspecial(char c)
 {
-	return (c == '|' || c == '>' || c == '>');
+	return (c == '|' || c == '>' || c == '<');
 }
 
 /*

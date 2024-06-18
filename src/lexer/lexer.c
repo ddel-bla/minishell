@@ -15,7 +15,7 @@
 static int	extract_tokens(t_token **tokens, char *input);
 static int	process_quotes(t_token **tokens, char *input, int *i);
 static int	process(t_token **tokens, char *input, int start, int end);
-static int	check_syntax(t_token **tokens);
+//static int	add_indv_token(t_token **tokens, char *aux, int start, int end);
 
 /*
  * Main function of the lexer process
@@ -94,51 +94,56 @@ static int	process_quotes(t_token **tokens, char *input, int *i)
 static int	process(t_token **tokens, char *input, int start, int end)
 {
 	char	*aux;
-	int		type;
-	int		i;
-	int		k;
-	int		index;
+	int	type;
+	int 	index;
+	int	i;
+	int	k;
 
 	if (start > end)
 		return (1);
-	i = 0;
 	aux = ft_substr(input, start, end);
-	if (!validate_token(aux))
-		return (1);
-	type = get_basic_type(aux);
-	index = tokens_size(*tokens);
-	add_token(tokens, create_token(aux, type, index));
-	return (0);
-}
-
-/*
- * Checks sintax based on token order.
- */
-static int	check_syntax(t_token **tokens)
-{
-	t_token	*t;
-
-	t = *tokens;
-	if (t->type == T_PIPE)
-		return (1);
-	while (t)
+	i = 0;
+	while (aux[i])
 	{
-		if (t->type == T_PIPE && !t->next)
-			return (1);
-		if ((t->type == T_RED_IN || t->type == T_RED_HER) && !t->next)
-			return (1);
-		if ((t->type == T_RED_OUT || t->type == T_RED_APP) && !t->next)
-			return (1);
-		if (t->type == T_PIPE && t->next->type == T_PIPE)
-			return (1);
-		if (t->type == T_RED_IN && t->next->type != T_INFILE)
-			return (1);
-		if (t->type == T_RED_HER && t->next->type != T_LIMIT)
-			return (1);
-		if ((t->type == T_RED_OUT || t->type == T_RED_APP) && \
-				t->next->type != T_OUTFILE)
-			return (1);
-		t = t->next;
+		k = i;
+		while (aux[i] && !ft_isspecial(aux[i]))
+			i++;
+		if (i > k)
+		{
+			char *a = ft_substr(aux, k, i - 1);
+			if (validate_token(a))
+				return (1);
+			type = get_basic_type(a);
+			index = tokens_size(*tokens);
+			add_token(tokens, create_token(a, type, index));
+		}
+		k = i;
+		while (aux[i] && ft_isspecial(aux[i]))
+			i++;
+		if (i > k)
+		{
+			char *a2 = ft_substr(aux, k, i -1);
+			if (validate_token(a2))
+				return (1);
+			type = get_basic_type(a2);
+			index = tokens_size(*tokens);
+			add_token(tokens, create_token(a2, type, index));
+		}
 	}
-	return (0);
+	return 0;
 }
+/*
+static	int	add_indv_token(t_token **tokens, char *aux, int start, int end)
+{
+	int	type;
+	int	index;
+	char	*token;
+
+	token = ft_substr(aux, start, end);
+	if (validate_token(token))
+		return (1);
+	type = get_basic_type(token);
+	index = tokens_size(*tokens);
+	add_token(tokens, create_token(token, type, index));
+	return (0);
+}*/
