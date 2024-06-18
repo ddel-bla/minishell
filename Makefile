@@ -16,7 +16,7 @@ RM	=	rm -f
 
 SRC		=	./src/main.c \
 			./src/lexer/lexer.c ./src/lexer/token_types.c ./src/lexer/validation.c\
-			./src/lexer/utils/token_struct.c ./src/lexer/utils/utils.c \
+			./src/lexer/utils/token_struct.c ./src/lexer/utils/token_struct2.c ./src/lexer/utils/utils.c \
 			./src/parser/parser.c ./src/parser/utils/command_struct.c \
 			./src/parser/utils/redir_struct.c \
 
@@ -44,7 +44,7 @@ CLEAN_DONE = "$(PINK)Clean $(TURQUOISE)complete!$(RESET)"
 # ---------------------------------
 all		:	$(OBJS)
 			@echo $(START)
-			@$(CC) $(CFLAGS) $(SRC) -o $(NAME) -lreadline
+			@$(CC) $(CFLAGS) -g $(SRC) -o $(NAME) -lreadline
 			@echo $(DONE)
 
 clean	:
