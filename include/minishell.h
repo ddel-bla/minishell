@@ -54,7 +54,10 @@ int	lexer(char *input, t_token **token_list);
 int	get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
+<<<<<<< Updated upstream
 int	validate_token(char *token);
+=======
+>>>>>>> Stashed changes
 //parser
 void	parser(t_token **tokens, t_cmd **cmd);
 //lexer-utils

@@ -42,6 +42,7 @@ void	start_minishell(void)
 		{
 			if (lexer(input, &tokens))
 				printf("Error sintáctico\n");
+<<<<<<< Updated upstream
 			print_tokens(tokens);
 		}
 		parser(&tokens, &cmd);
@@ -50,6 +51,20 @@ void	start_minishell(void)
 		cmd = NULL;
 		free_tokens(tokens);
 		tokens =  NULL;
+=======
+			else
+				print_tokens(tokens);
+		}
+		parser(&tokens, &cmd);
+		printf(" AD %s", cmd->cmd[0]);
+		print_cmd(cmd);
+		printf("asd");
+		print_cmd(cmd);
+		free_cmd(cmd);
+		free_tokens(tokens);
+		tokens =  NULL;
+		//parseer
+>>>>>>> Stashed changes
 		//expander
 		//executor
 		//free

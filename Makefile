@@ -15,7 +15,11 @@ RM	=	rm -f
 # ---------------------------------
 
 SRC		=	./src/main.c \
+<<<<<<< Updated upstream
 			./src/lexer/lexer.c ./src/lexer/token_types.c ./src/lexer/validation.c\
+=======
+			./src/lexer/lexer.c ./src/lexer/token_types.c \
+>>>>>>> Stashed changes
 			./src/lexer/utils/token_struct.c ./src/lexer/utils/utils.c \
 			./src/parser/parser.c ./src/parser/utils/command_struct.c \
 			./src/parser/utils/redir_struct.c \
