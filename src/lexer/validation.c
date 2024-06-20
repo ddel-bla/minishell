@@ -99,20 +99,13 @@ static int	validate_inner_quotes(char *token)
 	int	count;
 
 	i = 0;
-	int len = strlen(token) - 1;
-	while (i < len && token[i])
+	while (token[i])
 	{
-		count = 0;
-		(void) count;
-		while (i < len && token[i] && (token[i] == '\"' || token[i] == '\''))
-		{
+		if (token[i] == '\"' || token[i] == '\'')
 			count++;	
-			i++;
-		}
-		if (count % 2 != 0)
-				return (1);
-		
 		i++;
 	}
+	if (count % 2 != 0)
+		return (1);
 	return (0);
 }
