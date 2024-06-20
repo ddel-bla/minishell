@@ -12,7 +12,8 @@
 
 #include "../include/minishell.h"
 
-void	start_minishell(void);
+void	start_minishell(char **envp);
+t_shell	*init(char **envp);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -20,39 +21,56 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	(void)argv;
 	(void)envp;
-	start_minishell();
+	start_minishell(envp);
 	return (0);
 }
 
-void	start_minishell(void)
+t_shell	*init(char **envp)
+{
+	t_shell	*shell;
+	t_env	*env;
+
+	shell = (t_shell *)malloc(sizeof(t_shell));
+	if (!shell)
+		return (NULL);
+	env = NULL;
+	shell->token = NULL;
+	shell->cmd = NULL;
+	save_env(&env, envp);
+	shell->env = env;
+	return (shell);
+}
+
+void	start_minishell(char **envp)
 {
 	char	*input;
-	t_token	*tokens;
-	t_cmd	*cmd;
+	t_shell	*shell;
 
-	tokens = NULL;
-	cmd = NULL;
+	shell = init(envp);
+	ft_env(shell->env);
 	while (1)
 	{
 		input = readline("minishell>$");
-		// clean input start and end spaces(\t\s\v...)
 		//if (*input)
 			//TODO history
 		if (*input)
 		{
-			if (lexer(input, &tokens))
+			if (lexer(input, &shell->token))
 				printf("Error sintáctico\n");
-			print_tokens(tokens);
+			else
+				print_tokens(shell->token);
 		}
-		parser(&tokens, &cmd);
-		print_cmd(cmd);
-		free_cmd(cmd);
-		cmd = NULL;
-		free_tokens(tokens);
-		tokens =  NULL;
+		parser(&shell->token, &shell->cmd);
+		print_cmd(shell->cmd);
+		free_cmd(shell->cmd);
+		free_tokens(shell->token);
+		shell->token = NULL;
+		shell->cmd = NULL;
 		//expander
 		//executor
 		//free
 		free(input);
 	}
+	free_env(shell->env);
+	free(shell);
 }
