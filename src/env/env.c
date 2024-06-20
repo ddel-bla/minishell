@@ -1,31 +1,5 @@
 #include "../../include/minishell.h"
 
-int ft_strlen(char *str)
-{
-	int i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-char    *ft_substr(char *str, int start, int end)
-{
-        int     len;
-        int     i;
-        char    *aux;
-
-        if (start > end || start < 0 || end >= ft_strlen(str))
-                return (NULL);
-        len = end - start + 1;
-        aux = (char *)malloc(sizeof(char) * len + 1);
-        if (!aux)
-                return (NULL);
-        i = 0;
-        while (start <= end)
-                aux[i++] = str[start++];
-        aux[i] = '\0';
-        return (aux);
-}
-
 /*
  * Initializes all the environment variables
  */
