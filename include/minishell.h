@@ -42,12 +42,13 @@
 # include "../lib/libft/libft.h"
 // .......... STRUCTS ...........
 
-typedef struct s_lexer
+typedef struct s_shell
 {
-	char			*input;
-	size_t			index;
-	struct s_token	*token_list;
-}					t_lexer;
+	t_token	*token;
+	t_cmd	*cmd;
+	t_env	*env;
+	int		exit_status;
+}			t_shell;
 
 // ......... FUNCTIONS ..........
 //lexer
