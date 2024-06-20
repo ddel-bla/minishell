@@ -14,8 +14,7 @@
 
 static int	extract_tokens(t_token **tokens, char *input);
 static int	process_quotes(t_token **tokens, char *input, int *i);
-static int	process(t_token **tokens, char *input, int start, int end);
-//static int	add_indv_token(t_token **tokens, char *aux, int start, int end);
+static int	process_special(t_token **tokens, char *input, int *i);
 
 /*
  * Main function of the lexer process
@@ -36,7 +35,6 @@ int	lexer(char *input, t_token **tokens)
 static	int	extract_tokens(t_token **tokens, char *in)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (in[i])
@@ -45,19 +43,14 @@ static	int	extract_tokens(t_token **tokens, char *in)
 			i++;
 		if (!in[i])
 			return (1);
-		if (in[i] && ft_isquote(in[i]))
+		if (in[i] && !ft_isspecial(in[i]))
 		{
 			if (process_quotes(tokens, in, &i))
 				return (1);
-			continue ;
 		}
-		j = i;
-		while (in[i] && !ft_isspace(in[i]))
-			i++;
-		if (process(tokens, in, j, i - 1))
-			return (1);
-		if (i == j)
-			break ;
+		else if (in[i] && ft_isspecial(in[i]))
+			if (process_special(tokens, in, &i))
+				return (1);
 	}
 	return (0);
 }
@@ -67,83 +60,51 @@ static	int	extract_tokens(t_token **tokens, char *in)
  */
 static int	process_quotes(t_token **tokens, char *input, int *i)
 {
+	int	j;
 	char	quote;
 	char	*token;
-	int		index;
-	int		j;
 
-	quote = input[*i];
-	j = (*i) + 1;
-	while (input[j] && input[j] != quote)
-		j++;
-	if (input[j] == quote)
+	j = (*i);
+	while (input[j] && !ft_isspace(input[j]) && !ft_isspecial(input[j]))
 	{
-		token = ft_substr(input, (*i), j);
-		index = tokens_size(*tokens);
-		add_token(tokens, create_token(token, T_OTHER, index));
-		(*i) = j + 1;
+		if (input[j] == '\'' || input[j] == '\"')
+		{
+			quote = input[j];
+			j++;
+			while (input[j] && input[j] != quote)
+				j++;
+			if (input[j] != quote)
+				return (1);
+		}
+		j++;
 	}
-	else
+	if (j == *i)
 		return (1);
+	token = ft_substr(input, (*i), j - 1);
+	add_token(tokens, create_token(token, T_OTHER, tokens_size(*tokens)));
+	(*i) = j;
 	return (0);
 }
 
 /*
  * Process normal tokens (no quotes)
  */
-static int	process(t_token **tokens, char *input, int start, int end)
+static int	process_special(t_token **tokens, char *input, int *i)
 {
-	char	*aux;
-	int	type;
-	int 	index;
-	int	i;
-	int	k;
-
-	if (start > end)
-		return (1);
-	aux = ft_substr(input, start, end);
-	i = 0;
-	while (aux[i])
-	{
-		k = i;
-		while (aux[i] && !ft_isspecial(aux[i]))
-			i++;
-		if (i > k)
-		{
-			char *a = ft_substr(aux, k, i - 1);
-			if (validate_token(a))
-				return (1);
-			type = get_basic_type(a);
-			index = tokens_size(*tokens);
-			add_token(tokens, create_token(a, type, index));
-		}
-		k = i;
-		while (aux[i] && ft_isspecial(aux[i]))
-			i++;
-		if (i > k)
-		{
-			char *a2 = ft_substr(aux, k, i -1);
-			if (validate_token(a2))
-				return (1);
-			type = get_basic_type(a2);
-			index = tokens_size(*tokens);
-			add_token(tokens, create_token(a2, type, index));
-		}
-	}
-	return 0;
-}
-/*
-static	int	add_indv_token(t_token **tokens, char *aux, int start, int end)
-{
-	int	type;
-	int	index;
 	char	*token;
+	int	index;
+	int	type;
+	int	j;
 
-	token = ft_substr(aux, start, end);
+	j = (*i);
+	while (input[j] && ft_isspecial(input[j]))
+		j++;
+	token = ft_substr(input, (*i), j - 1);
+	(*i) = j;
 	if (validate_token(token))
 		return (1);
 	type = get_basic_type(token);
 	index = tokens_size(*tokens);
 	add_token(tokens, create_token(token, type, index));
 	return (0);
-}*/
+}
