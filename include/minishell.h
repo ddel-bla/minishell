@@ -38,6 +38,7 @@
 // .......... HEADERS ...........
 # include "./lexer.h"
 # include "./parser.h"
+# include "./env.h"
 # include "../lib/libft/libft.h"
 // .......... STRUCTS ...........
 
