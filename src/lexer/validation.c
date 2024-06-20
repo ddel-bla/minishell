@@ -14,6 +14,7 @@
 
 static int	validate_special_chars(char *token);
 static int	validate_inner_quotes(char *token);
+static int	validate_redirections(char *token);
 
 /*
  * All validations of the token char in one.
@@ -21,9 +22,11 @@ static int	validate_inner_quotes(char *token);
 int	validate_token(char *token)
 {
 	if (validate_special_chars(token))
-		return (1);
+		return (printf("1"), 1);
+	if (validate_redirections(token))
+		return (printf("2"), 1);
 	if (validate_inner_quotes(token))
-		return (1);
+		return (printf("3"), 1);
 	return (0);
 }
 
@@ -91,6 +94,24 @@ static int	validate_special_chars(char *token)
 }
 
 /*
+ * Validates special cases for the redirection characters.
+ */
+static int	validate_redirections(char *token)
+{
+	int	i;
+
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] && token[i] == '>' && token[i + 1] \
+				&& token[i + 1] == '<')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+/*
  * Checks wheter inner quotes are closed.
 */
 static int	validate_inner_quotes(char *token)
@@ -99,10 +120,11 @@ static int	validate_inner_quotes(char *token)
 	int	count;
 
 	i = 0;
+	count = 0;
 	while (token[i])
 	{
 		if (token[i] == '\"' || token[i] == '\'')
-			count++;	
+			count++;
 		i++;
 	}
 	if (count % 2 != 0)

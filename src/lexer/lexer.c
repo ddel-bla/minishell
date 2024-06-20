@@ -60,10 +60,9 @@ static	int	extract_tokens(t_token **tokens, char *in)
  */
 static int	process_quotes(t_token **tokens, char *input, int *i)
 {
+	int	j;
 	char	quote;
 	char	*token;
-	int		index;
-	int		j;
 
 	j = (*i);
 	while (input[j] && !ft_isspace(input[j]) && !ft_isspecial(input[j]))
@@ -82,8 +81,7 @@ static int	process_quotes(t_token **tokens, char *input, int *i)
 	if (j == *i)
 		return (1);
 	token = ft_substr(input, (*i), j - 1);
-	index = tokens_size(*tokens);
-	add_token(tokens, create_token(token, T_OTHER, index));
+	add_token(tokens, create_token(token, T_OTHER, tokens_size(*tokens)));
 	(*i) = j;
 	return (0);
 }
@@ -103,9 +101,10 @@ static int	process_special(t_token **tokens, char *input, int *i)
 		j++;
 	token = ft_substr(input, (*i), j - 1);
 	(*i) = j;
+	if (validate_token(token))
+		return (1);
 	type = get_basic_type(token);
 	index = tokens_size(*tokens);
 	add_token(tokens, create_token(token, type, index));
 	return (0);
 }
-
