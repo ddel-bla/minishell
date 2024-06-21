@@ -57,7 +57,7 @@ static char	**get_cmds(t_token **token)
 	i = 0;
 	while ((*token) && (*token)->type == T_COMMAND)
 	{
-		args[i] = (*token)->value;
+		args[i] = ft_strdup((*token)->value);
 		(*token) = (*token)->next;
 		i++;
 	}

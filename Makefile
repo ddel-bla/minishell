@@ -6,7 +6,7 @@ NAME	=	minishell
 
 CC	=	gcc
 
-CFLAGS	=	# -Wall -Wextra -Werror
+CFLAGS	=	-g # -Wall -Wextra -Werror
 
 RM	=	rm -f
 
@@ -19,8 +19,11 @@ SRC		=	./src/main.c \
 			./src/lexer/utils/token_struct.c ./src/lexer/utils/token_struct2.c ./src/lexer/utils/utils.c\
 			./src/parser/parser.c ./src/parser/utils/command_struct.c ./src/parser/utils/command_struct2.c\
 			./src/parser/utils/redir_struct.c ./src/parser/utils/redir_struct2.c\
-#			./src/env/env.c ./src/env/utils/env_struct.c ./src/env/utils/env_struct2.c \
-			./src/builtins/env/ft_env.c
+			#./src/env/env.c ./src/env/utils/env_struct.c ./src/env/utils/env_struct2.c \
+			#./src/env/utils/env_struct3.c\
+			#./src/builtins/builtins.c ./src/builtins/utils.c\
+			#./src/builtins/env/ft_env.c ./src/builtins/unset/ft_unset.c\
+			#./src/builtins/export/ft_export.c\
 
 OBJS	=	$(SRC:.c=.o)
 
@@ -73,7 +76,7 @@ fclean	:	clean
 leaks	: 	$(OBJS_PHILO)
 			@echo $(VALGRIND)
 			@echo $(LEAKS)
-			valgrind --leak-check=full ./$(NAME)
+			valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
 races	: 	$(OBJS_PHILO)
 			@echo $(VALGRIND)

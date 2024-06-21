@@ -38,6 +38,7 @@ t_shell	*init(char **envp)
 	shell->cmd = NULL;
 	//save_env(&env, envp);
 	//shell->env = env;
+	shell->exit_status = 0;
 	return (shell);
 }
 
@@ -47,7 +48,6 @@ void	start_minishell(char **envp)
 	t_shell	*shell;
 
 	shell = init(envp);
-	//ft_env(shell->env);
 	while (1)
 	{
 		input = readline("minishell>$");
@@ -62,6 +62,7 @@ void	start_minishell(char **envp)
 		}
 		parser(&shell->token, &shell->cmd);
 		print_cmd(shell->cmd);
+	//	exec_builtin(shell);
 		free_cmd(shell->cmd);
 		free_tokens(shell->token);
 		shell->token = NULL;
@@ -71,6 +72,6 @@ void	start_minishell(char **envp)
 		//free
 		free(input);
 	}
-	free_env(shell->env);
-	free(shell);
+	//free_env(shell->env);
+	//free(shell);
 }
