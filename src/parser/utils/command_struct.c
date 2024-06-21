@@ -75,11 +75,15 @@ void	free_cmd(t_cmd *list)
 {
 	t_cmd	*aux;
 	t_cmd	*next;
+	int	i;
 
 	aux = list;
+	i = 0;
 	while (aux != NULL)
 	{
 		next = aux->next;
+		while (aux->cmd[i])
+			free(aux->cmd[i++]);
 		free(aux->cmd);
 		free(aux);
 		aux = next;
