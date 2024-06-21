@@ -12,7 +12,7 @@ void	exec_builtin(t_shell *shell)
 	if (!ft_strcmp(cmd->cmd[0], "env"))
 		ft_env(shell);
 	else if (!ft_strcmp(cmd->cmd[0], "export"))
-		return ;//ft_export(shell);
+		ft_export(shell);
 	else if (!ft_strcmp(cmd->cmd[0], "unset"))
 		ft_unset(shell);
 }

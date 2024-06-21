@@ -58,3 +58,47 @@ char	**env_list_to_char(t_env **list)
 	array[i] = NULL;
 	return (array);
 }
+
+/*
+ * Modifies an existing variable
+ */
+int	modify_env(t_env **list, char *name, char *value)
+{
+	t_env	*env;
+
+	env = *list;
+	while (env)
+	{
+		if (!ft_strcmp(env->name, name))
+		{
+			free(env->name);
+			free(env->value);
+			env->name = name;
+			env->value = value;
+			return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
+
+/*
+ * Adds a new variable.
+ */
+void	add_exported_env(t_env **list, char *env)
+{
+	int	i;
+	char	*name;
+	char	*value;
+
+	i = 0;
+	while (env[i])
+		if (env[i++] == '=')
+			break ;
+	name = ft_substr(env, 0, i - 2);
+	value = ft_substr(env, i, ft_strlen(env) - 1);
+	if (!env_exists(*list, name))
+		add_env(list, create_env(name, value));
+	else
+		modify_env(list, name, value);
+}

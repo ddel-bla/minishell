@@ -38,6 +38,23 @@ t_env	*get_env_by_index(t_env *list, int index)
 }
 
 /*
+ * Checks whether a variable already exists.
+ */
+int	env_exists(t_env *list, char *name)
+{
+	t_env	*aux;
+
+	aux = list;
+	while (aux != NULL)
+	{
+		if (ft_strcmp(aux->name, name) == 0)
+			return (1);
+		aux = aux->next;
+	}
+	return (0);
+}
+
+/*
  * Gets an element of a env list by its name.
  */
 t_env	*get_env_by_name(t_env *list, char *name)

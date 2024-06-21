@@ -1,7 +1,5 @@
 #include "../../../include/minishell.h"
 
-static int	count_arg(t_shell *shell);
-
 /*
  * Prints all the environment variables.
  */
@@ -13,7 +11,7 @@ void	ft_env(t_shell	*shell)
 
 	cmd = shell->cmd;
 	env = shell->env;
-	if (count_arg(shell) > 1)
+	if (count_args(shell) > 1)
 	{
 		printf("env: <%s>: No such file or directory\n", cmd->cmd[1]);
 		shell->exit_status = 127;
@@ -28,14 +26,4 @@ void	ft_env(t_shell	*shell)
 		printf("%s=%s\n", env->name, value);
 		env = env->next;
 	}
-}
-
-static int	count_arg(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (shell->cmd->cmd[i])
-		i++;
-	return (i);
 }
