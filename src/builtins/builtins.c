@@ -20,7 +20,7 @@ void	exec_builtin(t_shell *shell)
 	else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
 		ft_echo(shell);
 	else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
-		return ;//ft_exit(shell);
+		ft_exit(shell);
 	else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
 		return ;//ft_cd(shell);
 }
