@@ -72,6 +72,9 @@ void	exec_builtin(t_shell *shell);
 void	ft_env(t_shell	*shell);
 void	ft_unset(t_shell *shell);
 void	ft_export(t_shell *shell);
+void	ft_pwd(t_shell *shell);
+void	ft_echo(t_shell *shell);
+void	ft_exit(t_shell *shell);
 int		count_args(t_shell *shell);
 char	**env_list_to_char(t_env **list);
 #endif

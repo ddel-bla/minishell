@@ -51,18 +51,18 @@ void	start_minishell(char **envp)
 	while (1)
 	{
 		input = readline("minishell>$");
-		//if (*input)
-			//TODO history
+		if (*input)
+			add_history(input);
 		if (*input)
 		{
 			if (lexer(input, &shell->token))
 				printf("Error sintáctico\n");
 			else
 				print_tokens(shell->token);
-		}
+		
 		parser(&shell->token, &shell->cmd);
 		print_cmd(shell->cmd);
-	//	exec_builtin(shell);
+		//exec_builtin(shell);
 		free_cmd(shell->cmd);
 		free_tokens(shell->token);
 		shell->token = NULL;
@@ -70,6 +70,7 @@ void	start_minishell(char **envp)
 		//expander
 		//executor
 		//free
+		}
 		free(input);
 	}
 	//free_env(shell->env);

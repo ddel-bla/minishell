@@ -24,6 +24,9 @@ SRC		=	./src/main.c \
 			#./src/builtins/builtins.c ./src/builtins/utils.c\
 			#./src/builtins/env/ft_env.c ./src/builtins/unset/ft_unset.c\
 			#./src/builtins/export/ft_export.c\
+			#./src/builtins/pwd/ft_pwd.c\
+			#./src/builtins/echo/ft_echo.c\
+			#./src/builtins/exit/ft_exit.c\
 
 OBJS	=	$(SRC:.c=.o)
 
