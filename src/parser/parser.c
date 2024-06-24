@@ -6,7 +6,7 @@
 /*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:20:53 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 17:31:52 by claferna         ###   ########.fr       */
+/*   Updated: 2024/06/23 12:16:54 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	**get_cmds(t_token **token)
 	char	**args;
 
 	len = tokens_size(*token);
-	args = (char **)malloc(sizeof(char *) * len + 1);
+	args = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!args)
 		return (NULL);
 	i = 0;

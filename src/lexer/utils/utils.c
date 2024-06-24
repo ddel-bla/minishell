@@ -51,7 +51,7 @@ char	*ft_substr(char *str, int start, int end)
 	if (start > end || start < 0 || end > ft_strlen(str))
 		return (NULL);
 	len = end - start + 1;
-	aux = (char *)malloc(sizeof(char) * len + 1);
+	aux = (char *)malloc(sizeof(char) * (len + 1));
 	if (!aux)
 		return (NULL);
 	i = 0;
