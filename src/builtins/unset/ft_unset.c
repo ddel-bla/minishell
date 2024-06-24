@@ -3,13 +3,11 @@
 /*
  * Deletes an environment variable.
  */
-void	ft_unset(t_shell *shell)
+void	ft_unset(t_shell *shell,t_cmd	*cmd)
 {
-	t_cmd	*cmd;
 	char	*arg;
 	int	i;
-	
-	cmd = shell->cmd;
+
 	i = 1;
 	while (cmd->cmd[i])
 	{

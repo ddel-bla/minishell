@@ -1,11 +1,9 @@
 #include "../../../include/minishell.h"
 
-void	ft_echo(t_shell *shell)
+void	ft_echo(t_shell *shell, t_cmd *cmd)
 {
-	t_cmd	*cmd;
 	int	i;
 
-	cmd = shell->cmd;
 	i = 1;
 	if (cmd->cmd[1] && ft_strcmp(cmd->cmd[1], "-n") == 0)
 		i++;
@@ -16,7 +14,7 @@ void	ft_echo(t_shell *shell)
 			ft_putchar_fd(' ',  1);	//cambiar a fd redirección
 	}
 	if (cmd->cmd[1] && !ft_strcmp(cmd->cmd[1], "-n") == 0 \
-			|| count_args(shell) == 1)
+			|| count_args(cmd) == 1)
 		ft_putchar_fd('\n', 1);	//cambair redirección
 	shell->exit_status = 0;
 }

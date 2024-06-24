@@ -1,25 +1,23 @@
 #include "../../../include/minishell.h"
 
-static int	validate_exit(t_shell *shell);
+static int	validate_exit(t_shell *shell, t_cmd	*cmd);
 
 /*
  * Replicates the behaviour of the exit command.
  */
-void	ft_exit(t_shell *shell)
+void	ft_exit(t_shell *shell, t_cmd	*cmd)
 {
-	shell->exit_status = validate_exit(shell);
-	if (shell->exit_status != 1 || shell->exit_status != 2)
+	shell->exit_status = validate_exit(shell, cmd);
+	if (shell->exit_status != 1 && shell->exit_status != 2)
 		exit(shell->exit_status);
 }
 
-static int	validate_exit(t_shell *shell)
+static int	validate_exit(t_shell *shell, t_cmd	*cmd)
 {
 	int	i;
-	t_cmd	*cmd;
 
 	i = 0;
-	cmd = shell->cmd;
-	if (count_args(shell) > 2)
+	if (count_args(cmd) > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 2);
 		return (1);
