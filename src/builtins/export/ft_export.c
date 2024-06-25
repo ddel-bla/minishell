@@ -60,7 +60,7 @@ static int	validate_syntax(char *arg)
 	int		i;
 
 	i = 0;
-	while (ft_isalnum(arg[i] || arg[i] == '_'))
+	while (ft_isalnum(arg[i]) || arg[i] == '_')
 		i++;
 	if (!arg[i])
 		return (0);
