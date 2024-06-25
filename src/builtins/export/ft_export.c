@@ -63,7 +63,7 @@ static int	validate_syntax(char *arg)
 		i++;
 	if (!arg[i])
 		return (0);
-	if (arg[i] != '=')
+	if (arg[i] != '=' || arg[0] == '=')
 		return (print_stderror(arg), 0);
 	if (ft_strchr(arg, '='))
 	{
