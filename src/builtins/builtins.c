@@ -1,4 +1,4 @@
-# include "../../include/minishell.h"
+#include "../../include/minishell.h"
 
 /*
  * Checks whether the executed command is one of the built-ins

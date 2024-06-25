@@ -1,18 +1,21 @@
 #include "../../../include/minishell.h"
 
 static int	validate_syntax(char *arg);
-static int  without_args(t_env *env);
+static int	without_args(t_env *env);
 
+/*
+ * Reproduces the behaviour of the 'export' function.
+ */
 void	ft_export(t_shell *shell, t_cmd	*cmd)
 {
 	int	i;
 
 	i = 0;
 	if (count_args(cmd) == 1)
-		without_args(shell->env); //cambiar
+		without_args(shell->env);
 	else
 	{
-		while(cmd->cmd[++i])
+		while (cmd->cmd[++i])
 		{
 			if (validate_syntax(cmd->cmd[i]))
 				add_exported_env(&shell->env, cmd->cmd[i]);
@@ -23,7 +26,10 @@ void	ft_export(t_shell *shell, t_cmd	*cmd)
 	shell->exit_status = 0;
 }
 
-static int  without_args(t_env *env)
+/*
+ * Executes 'export' with no commands (sorts and prints env variables)
+ */
+static int	without_args(t_env *env)
 {
 	t_env	*sorted;
 
@@ -33,7 +39,7 @@ static int  without_args(t_env *env)
 	{
 		if (sorted->value == NULL)
 			printf("declare -x %s\n", sorted->name);
-		else if(ft_strcmp(sorted->name, "_") == 0)
+		else if (ft_strcmp(sorted->name, "_") == 0)
 			printf("declare -x\n");
 		else
 			printf("declare -x %s=%s\n", sorted->name, sorted->value);
@@ -42,6 +48,9 @@ static int  without_args(t_env *env)
 	free_env(sorted);
 }
 
+/*
+ * Validate the syntax of the given command.
+ */
 static int	validate_syntax(char *arg)
 {
 	char	*name;
@@ -49,13 +58,23 @@ static int	validate_syntax(char *arg)
 	int		i;
 
 	i = 0;
+	while ((ft_isalnum(arg[i]) || arg[i] == '_'))
+		i++;
+	if (!arg[i])
+		return (0);
+	if (arg[i] != '=')
+		return (printf("export: %s invalid identifier\n", arg), 0);
 	if (ft_strchr(arg, '='))
 	{
+		i = 0;
 		while (arg[i])
 			if (arg[i++] == '=')
-				break ;	
+				break ;
 		name = ft_substr(arg, 0, i - 2);
-		value = ft_substr(arg, i, ft_strlen(arg) - 1);
+		if (ft_isdigit(name[0]))
+			return (printf("export: %s invalid identifier\n", \
+					arg), free(name), 0);
+		return (free(name), 1);
 	}
 	return (0);
 }
