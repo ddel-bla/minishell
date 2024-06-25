@@ -6,7 +6,7 @@ NAME	=	minishell
 
 CC	=	gcc
 
-CFLAGS	=	-g # -Wall -Wextra -Werror
+CFLAGS	=	-g -Wall -Wextra -Werror
 
 RM	=	rm -f
 
@@ -16,17 +16,18 @@ RM	=	rm -f
 
 SRC		=	./src/main.c \
 			./src/lexer/lexer.c ./src/lexer/token_types.c ./src/lexer/validation.c\
-			./src/lexer/utils/token_struct.c ./src/lexer/utils/token_struct2.c ./src/lexer/utils/utils.c\
+			./src/lexer/utils/token_struct.c ./src/lexer/utils/token_struct2.c ./src/lexer/utils/utils.c ./src/lexer/utils/utils2.c\
 			./src/parser/parser.c ./src/parser/utils/command_struct.c ./src/parser/utils/command_struct2.c\
 			./src/parser/utils/redir_struct.c ./src/parser/utils/redir_struct2.c\
-		#	./src/env/env.c ./src/env/utils/env_struct.c ./src/env/utils/env_struct2.c \
-		#	./src/env/utils/env_struct3.c\
-		#	./src/builtins/builtins.c ./src/builtins/utils.c\
-		#	./src/builtins/env/ft_env.c ./src/builtins/unset/ft_unset.c\
-		#	./src/builtins/export/ft_export.c\
-		#	./src/builtins/pwd/ft_pwd.c\
-		#	./src/builtins/echo/ft_echo.c\
-		#	./src/builtins/exit/ft_exit.c\
+			./src/env/env.c ./src/env/utils/env_struct.c ./src/env/utils/env_struct2.c \
+			./src/env/utils/env_struct3.c\
+			./src/builtins/builtins.c ./src/builtins/utils.c\
+			./src/builtins/env/ft_env.c ./src/builtins/unset/ft_unset.c\
+			./src/builtins/export/ft_export.c\
+			./src/builtins/pwd/ft_pwd.c\
+			./src/builtins/echo/ft_echo.c\
+			./src/builtins/exit/ft_exit.c\
+			./src/builtins/cd/ft_cd.c\
 
 OBJS	=	$(SRC:.c=.o)
 

@@ -60,7 +60,7 @@ static	int	extract_tokens(t_token **tokens, char *in)
  */
 static int	process_quotes(t_token **tokens, char *input, int *i)
 {
-	int	j;
+	int		j;
 	char	quote;
 	char	*token;
 
@@ -92,9 +92,9 @@ static int	process_quotes(t_token **tokens, char *input, int *i)
 static int	process_special(t_token **tokens, char *input, int *i)
 {
 	char	*token;
-	int	index;
-	int	type;
-	int	j;
+	int		index;
+	int		type;
+	int		j;
 
 	j = (*i);
 	while (input[j] && ft_isspecial(input[j]))

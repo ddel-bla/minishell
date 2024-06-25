@@ -13,39 +13,12 @@
 #include "../../../include/minishell.h"
 
 /*
- * Compares two strings.
- */
-/*
-int	ft_strcmp(char *str, char *c)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] == c[i] && c[i] && str[i])
-		i++;
-	return (str[i] - c[i]);
-}
-*/
-/*
- * Calculates the length of a given string.
- *//*
-int	ft_strlen(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
-*/
-/*
  * Substract part of a given string
  */
-char	*ft_substr(char *str, int start, int end)
+/*char	*ft_substr(char *str, int start, int end)
 {
-	int	len;
-	int	i;
+	int		len;
+	int		i;
 	char	*aux;
 
 	if (start > end || start < 0 || end > ft_strlen(str))
@@ -59,16 +32,16 @@ char	*ft_substr(char *str, int start, int end)
 		aux[i++] = str[start++];
 	aux[i] = '\0';
 	return (aux);
-}
+}*/
 
 /*
  * Checks wether a character is a space.
  */
-int	ft_isspace(char c)
+/*int	ft_isspace(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' \
 			|| c == '\f');
-}
+}*/
 
 /*
  * Checks whether a character is a quote (double/simple)
@@ -93,7 +66,7 @@ char	*ft_trim_leading_spaces(char *str)
 {
 	while (ft_isspace((unsigned char)*str))
 		str++;
-	return str;
+	return (str);
 }
 
 /*
@@ -101,10 +74,10 @@ char	*ft_trim_leading_spaces(char *str)
  */
 void	ft_trim_trailing_spaces(char *str)
 {
-	char *end;
-       
+	char	*end;
+
 	end = str + ft_strlen(str) - 1;
-	while(end > str && ft_isspace((unsigned char)*end))
+	while (end > str && ft_isspace((unsigned char)*end))
 		end--;
 	*(end + 1) = '\0';
 }
@@ -114,8 +87,8 @@ void	ft_trim_trailing_spaces(char *str)
  */
 char	*ft_trim_spaces(char *str)
 {
-	char *trimmed_str;
-	
+	char	*trimmed_str;
+
 	trimmed_str = ft_trim_leading_spaces(str);
 	ft_trim_trailing_spaces(trimmed_str);
 	return (trimmed_str);
