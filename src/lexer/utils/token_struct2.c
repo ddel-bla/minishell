@@ -5,7 +5,7 @@
  */
 t_token	*get_token_by_index(t_token *list, int index)
 {
-	int	i;
+	int		i;
 	t_token	*current;
 
 	i = 0;

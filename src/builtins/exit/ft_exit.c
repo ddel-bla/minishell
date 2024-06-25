@@ -1,13 +1,13 @@
 #include "../../../include/minishell.h"
 
-static int	validate_exit(t_shell *shell, t_cmd	*cmd);
+static int	validate_exit(t_cmd *cmd);
 
 /*
  * Replicates the behaviour of the exit command.
  */
 void	ft_exit(t_shell *shell, t_cmd	*cmd)
 {
-	shell->exit_status = validate_exit(shell, cmd);
+	shell->exit_status = validate_exit(cmd);
 	if (shell->exit_status != 1 && shell->exit_status != 2)
 	{
 		if (cmd->cmd[1])
@@ -19,7 +19,7 @@ void	ft_exit(t_shell *shell, t_cmd	*cmd)
 /*
  * Validates the input of the exit command.
  */
-static int	validate_exit(t_shell *shell, t_cmd	*cmd)
+static int	validate_exit(t_cmd *cmd)
 {
 	int	i;
 

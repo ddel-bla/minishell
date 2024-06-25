@@ -9,7 +9,7 @@ void	ft_pwd(t_shell *shell, t_cmd *cmd)
 
 	(void)cmd;
 	pwd = getcwd(NULL, 0);
-	printf("%s", pwd);
+	printf("%s\n", pwd);
 	free(pwd);
 	shell->exit_status = 0;
 }

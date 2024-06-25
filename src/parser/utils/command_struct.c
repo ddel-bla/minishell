@@ -75,7 +75,7 @@ void	free_cmd(t_cmd *list)
 {
 	t_cmd	*aux;
 	t_cmd	*next;
-	int	i;
+	int		i;
 
 	aux = list;
 	i = 0;

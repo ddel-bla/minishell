@@ -22,7 +22,7 @@ void	print_env(t_env *list)
  */
 t_env	*get_env_by_index(t_env *list, int index)
 {
-	int	i;
+	int		i;
 	t_env	*current;
 
 	i = 0;

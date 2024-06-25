@@ -68,13 +68,13 @@ int		ft_isquote(char c);
 int		ft_isspecial(char c);
 char	*ft_trim_spaces(char *str);
 // __________ BUILT-INS _________
-void	exec_builtin(t_shell *shell);
-void	ft_env(t_shell	*shell);
-void	ft_unset(t_shell *shell);
-void	ft_export(t_shell *shell);
-void	ft_pwd(t_shell *shell);
-void	ft_echo(t_shell *shell);
-void	ft_exit(t_shell *shell);
-int		count_args(t_shell *shell);
-char	**env_list_to_char(t_env **list);
+void	exec_builtin(t_shell *shell, t_cmd *cmd);
+void	ft_env(t_shell	*shell, t_cmd *cmd);
+void	ft_unset(t_shell *shell, t_cmd *cmd);
+void	ft_export(t_shell *shell, t_cmd *cmd);
+void	ft_pwd(t_shell *shell, t_cmd *cmd);
+void	ft_echo(t_shell *shell, t_cmd *cmd);
+void	ft_exit(t_shell *shell, t_cmd *cmd);
+void	ft_cd(t_shell *shell, t_cmd *cmd);
+int		count_args(t_cmd *cmd);
 #endif

@@ -36,8 +36,8 @@ t_shell	*init(char **envp)
 	env = NULL;
 	shell->token = NULL;
 	shell->cmd = NULL;
-	//save_env(&env, envp);
-	//shell->env = env;
+	save_env(&env, envp);
+	shell->env = env;
 	shell->exit_status = 0;
 	return (shell);
 }
@@ -56,23 +56,27 @@ void	start_minishell(char **envp)
 		if (*input)
 		{
 			if (lexer(input, &shell->token))
+			{
 				printf("Error sintáctico\n");
+				free_tokens(shell->token);
+				free(input);
+				continue ;
+			}
 			else
-				print_tokens(shell->token);
-		
-		parser(&shell->token, &shell->cmd);
-		print_cmd(shell->cmd);
-		//exec_builtin(shell);
-		free_cmd(shell->cmd);
-		free_tokens(shell->token);
-		shell->token = NULL;
-		shell->cmd = NULL;
-		//expander
-		//executor
-		//free
+				print_tokens(shell->token);	
+			parser(&shell->token, &shell->cmd);
+			print_cmd(shell->cmd);
+			exec_builtin(shell, shell->cmd);
+			free_cmd(shell->cmd);
+			free_tokens(shell->token);
+			shell->token = NULL;
+			shell->cmd = NULL;
+			//expander
+			//executor
+			//free
 		}
 		free(input);
 	}
-	//free_env(shell->env);
-	//free(shell);
+	free_env(shell->env);
+	free(shell);
 }

@@ -1,7 +1,7 @@
 #include "../../../include/minishell.h"
 
 static int	validate_syntax(char *arg);
-static int	without_args(t_env *env);
+static void	without_args(t_env *env);
 static void	print_stderror(char *str);
 
 /*
@@ -30,23 +30,25 @@ void	ft_export(t_shell *shell, t_cmd	*cmd)
 /*
  * Executes 'export' with no commands (sorts and prints env variables)
  */
-static int	without_args(t_env *env)
+static void	without_args(t_env *env)
 {
-	t_env	*sorted;
+	t_env	*sorted_env_list;
+	t_env	*aux;
 
-	sorted = copy_list(env);
-	sort_list(sorted);
-	while (sorted)
+	sorted_env_list = copy_list(env);
+	sort_env_list(&sorted_env_list);
+	aux = sorted_env_list;
+	while (aux)
 	{
-		if (sorted->value == NULL)
-			printf("declare -x %s\n", sorted->name);
-		else if (ft_strcmp(sorted->name, "_") == 0)
+		if (aux->value == NULL)
+			printf("declare -x %s\n", aux->name);
+		else if (ft_strcmp(aux->name, "_") == 0)
 			printf("declare -x=\n");
 		else
-			printf("declare -x %s=%s\n", sorted->name, sorted->value);
-		sorted = sorted->next;
+			printf("declare -x %s=%s\n", aux->name, aux->value);
+		aux = aux->next;
 	}
-	free_env(sorted);
+	free_env(sorted_env_list);
 }
 
 /*
@@ -55,11 +57,10 @@ static int	without_args(t_env *env)
 static int	validate_syntax(char *arg)
 {
 	char	*name;
-	char	*value;
 	int		i;
 
 	i = 0;
-	while ((ft_isalnum(arg[i]) || arg[i] == '_'))
+	while (ft_isalnum(arg[i] || arg[i] == '_'))
 		i++;
 	if (!arg[i])
 		return (0);

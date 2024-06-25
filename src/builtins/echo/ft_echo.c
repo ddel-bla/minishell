@@ -13,7 +13,7 @@ void	ft_echo(t_shell *shell, t_cmd *cmd)
 		if (cmd->cmd[i])
 			ft_putchar_fd(' ', 1);
 	}
-	if (cmd->cmd[1] && !ft_strcmp(cmd->cmd[1], "-n") == 0 \
+	if ((cmd->cmd[1] && !ft_strcmp(cmd->cmd[1], "-n") == 0) \
 			|| count_args(cmd) == 1)
 		ft_putchar_fd('\n', 1);
 	shell->exit_status = 0;

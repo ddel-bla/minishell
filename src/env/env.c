@@ -5,8 +5,8 @@
  */
 void	save_env(t_env **list, char **envp)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*env;
 	char	*name;
 	char	*value;
@@ -18,7 +18,7 @@ void	save_env(t_env **list, char **envp)
 		j = 0;
 		while (env[j])
 			if (env[j++] == '=')
-				break ;	
+				break ;
 		name = ft_substr(env, 0, j - 2);
 		value = ft_substr(env, j, ft_strlen(env) - 1);
 		add_env(list, create_env(name, value));
@@ -32,11 +32,11 @@ void	save_env(t_env **list, char **envp)
  */
 char	**env_list_to_char(t_env **list)
 {
-	int	i;
+	int		i;
 	char	**array;
 	t_env	*env;
 	char	*aux;
-       
+
 	env = *list;
 	array = (char **)malloc(sizeof(char *) * (env_size(*list) + 1));
 	if (!array)
@@ -87,7 +87,7 @@ int	modify_env(t_env **list, char *name, char *value)
  */
 void	add_exported_env(t_env **list, char *env)
 {
-	int	i;
+	int		i;
 	char	*name;
 	char	*value;
 
