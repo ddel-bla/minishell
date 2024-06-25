@@ -2,6 +2,7 @@
 
 static int	validate_syntax(char *arg);
 static int	without_args(t_env *env);
+static void	print_stderror(char *str);
 
 /*
  * Reproduces the behaviour of the 'export' function.
@@ -40,7 +41,7 @@ static int	without_args(t_env *env)
 		if (sorted->value == NULL)
 			printf("declare -x %s\n", sorted->name);
 		else if (ft_strcmp(sorted->name, "_") == 0)
-			printf("declare -x\n");
+			printf("declare -x=\n");
 		else
 			printf("declare -x %s=%s\n", sorted->name, sorted->value);
 		sorted = sorted->next;
@@ -63,7 +64,7 @@ static int	validate_syntax(char *arg)
 	if (!arg[i])
 		return (0);
 	if (arg[i] != '=')
-		return (printf("export: %s invalid identifier\n", arg), 0);
+		return (print_stderror(arg), 0);
 	if (ft_strchr(arg, '='))
 	{
 		i = 0;
@@ -72,9 +73,18 @@ static int	validate_syntax(char *arg)
 				break ;
 		name = ft_substr(arg, 0, i - 2);
 		if (ft_isdigit(name[0]))
-			return (printf("export: %s invalid identifier\n", \
-					arg), free(name), 0);
+			return (print_stderror(arg), free(name), 0);
 		return (free(name), 1);
 	}
 	return (0);
+}
+
+/*
+ * Print messages in stderror
+*/
+static void	print_stderror(char *str)
+{
+	ft_putstr_fd("export: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(" invalid identifier", 2);
 }

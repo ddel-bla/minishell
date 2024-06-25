@@ -11,7 +11,9 @@ void	ft_env(t_shell	*shell, t_cmd *cmd)
 	env = shell->env;
 	if (count_args(cmd) > 1)
 	{
-		printf("env: <%s>: No such file or directory\n", cmd->cmd[1]);
+		ft_putstr_fd("env: <", 2);
+		ft_putstr_fd(cmd->cmd[1], 2);
+		ft_putendl_fd(">: No such file or directory\n", 2);
 		shell->exit_status = 127;
 		return ;
 	}
