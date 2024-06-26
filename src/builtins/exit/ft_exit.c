@@ -26,7 +26,7 @@ static int	validate_exit(t_cmd *cmd)
 	i = 0;
 	if (count_args(cmd) > 2)
 	{
-		ft_putendl_fd("exit: too many arguments", 2);
+		print_error("exit: too many arguments");
 		return (1);
 	}
 	if (count_args(cmd) == 1)

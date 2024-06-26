@@ -13,35 +13,20 @@
 #include "../include/minishell.h"
 
 void	start_minishell(char **envp);
-t_shell	*init(char **envp);
+int		process(t_shell *shell, char *input);
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc != 1)
+	if (argc != 1 && argv[1])
 		return (1);
-	(void)argv;
-	(void)envp;
+	print_header();
 	start_minishell(envp);
 	return (0);
 }
 
-t_shell	*init(char **envp)
-{
-	t_shell	*shell;
-	t_env	*env;
-
-	shell = (t_shell *)malloc(sizeof(t_shell));
-	if (!shell)
-		return (NULL);
-	env = NULL;
-	shell->token = NULL;
-	shell->cmd = NULL;
-	save_env(&env, envp);
-	shell->env = env;
-	shell->exit_status = 0;
-	return (shell);
-}
-
+/*
+ * Starts the minishell: while loop reading commands
+ */
 void	start_minishell(char **envp)
 {
 	char	*input;
@@ -50,33 +35,32 @@ void	start_minishell(char **envp)
 	shell = init(envp);
 	while (1)
 	{
-		input = readline("minishell>$");
-		if (*input)
-			add_history(input);
+		input = readline(PROMPT);
 		if (*input)
 		{
-			if (lexer(input, &shell->token))
-			{
-				printf("Error sintáctico\n");
-				free_tokens(shell->token);
-				free(input);
-				continue ;
-			}
-			else
-				print_tokens(shell->token);	
-			parser(&shell->token, &shell->cmd);
-			print_cmd(shell->cmd);
-			exec_builtin(shell, shell->cmd);
-			free_cmd(shell->cmd);
-			free_tokens(shell->token);
-			shell->token = NULL;
-			shell->cmd = NULL;
-			//expander
-			//executor
-			//free
+			add_history(input);
+			process(shell, input);
 		}
-		free(input);
 	}
-	free_env(shell->env);
-	free(shell);
+	free_env_and_shell(shell);
+}
+
+/*
+ * Executes the process of processing a command (lexer, parser, executor).
+ */
+int	process(t_shell *shell, char *input)
+{
+	if (lexer(input, &shell->token))
+	{
+		print_error("minishell: syntax error");
+		free_lexer_err(shell, input);
+		return (1);
+	}
+	print_tokens(shell->token);//DEBUG
+	parser(&shell->token, &shell->cmd);
+	print_cmd(shell->cmd);//DEBUG
+	//expander-executer
+	exec_builtin(shell, shell->cmd);
+	free_loop(shell, input);
+	return (0);
 }

@@ -15,7 +15,7 @@
 
 // ........... MACROS ...........
 // __________ visuals ___________
-# define PROMPT "minishell>$"
+# define PROMPT "\033[1;36mminishell>$\033[1;37m"
 // _________ TOKEN_TYPE _________
 # define T_END		-1
 # define T_PIPE         0
@@ -51,23 +51,16 @@ typedef struct s_shell
 }			t_shell;
 
 // ......... FUNCTIONS ..........
-//lexer
+// ___________ lexer ____________
 int		lexer(char *input, t_token **token_list);
 int		get_basic_type(char *token);
 void	get_definitive_type(t_token **token_list);
 char	*get_str_types(int type);
 int		validate_token(char *token);
 int		check_syntax(t_token **tokens);
-//parser
+// ____________ parser __________
 void	parser(t_token **tokens, t_cmd **cmd);
-//lexer-utils
-int		ft_strcmp(char *str, char *c);
-char	*ft_substr(char *input, int start, int end);
-int		ft_isspace(char c);
-int		ft_isquote(char c);
-int		ft_isspecial(char c);
-char	*ft_trim_spaces(char *str);
-// __________ BUILT-INS _________
+// __________ built-ins _________
 void	exec_builtin(t_shell *shell, t_cmd *cmd);
 void	ft_env(t_shell	*shell, t_cmd *cmd);
 void	ft_unset(t_shell *shell, t_cmd *cmd);
@@ -77,4 +70,19 @@ void	ft_echo(t_shell *shell, t_cmd *cmd);
 void	ft_exit(t_shell *shell, t_cmd *cmd);
 void	ft_cd(t_shell *shell, t_cmd *cmd);
 int		count_args(t_cmd *cmd);
+// ____________ prints __________
+void	print_header(void);
+void	print_error(char *str);
+// __________ main-utils ________
+t_shell	*init(char **envp);
+void	free_env_and_shell(t_shell *shell);
+void	free_loop(t_shell *shell, char *input);
+void	free_lexer_err(t_shell *shell, char *input);
+// ____________ utils ___________
+int		ft_strcmp(char *str, char *c);
+char	*ft_substr(char *input, int start, int end);
+int		ft_isspace(char c);
+int		ft_isquote(char c);
+int		ft_isspecial(char c);
+char	*ft_trim_spaces(char *str);
 #endif

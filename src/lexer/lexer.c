@@ -102,7 +102,7 @@ static int	process_special(t_token **tokens, char *input, int *i)
 	token = ft_substr(input, (*i), j - 1);
 	(*i) = j;
 	if (validate_token(token))
-		return (1);
+		return (free(token), 1);
 	type = get_basic_type(token);
 	index = tokens_size(*tokens);
 	add_token(tokens, create_token(token, type, index));

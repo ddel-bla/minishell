@@ -1,5 +1,6 @@
 #ifndef ENV_H
 # define ENV_H
+
 // .......... STRUCTS ...........
 // -------- REDIRECTION ---------
 typedef struct s_env
@@ -8,13 +9,14 @@ typedef struct s_env
 	char		*value;
 	struct s_env	*next;
 }			t_env;
+
 // .......... FUNCTIONS ...........
 void	save_env(t_env **list, char **envp);
-int	modify_env(t_env **list, char *name, char *value);
-int	env_exists(t_env *list, char *name);
+int		modify_env(t_env **list, char *name, char *value);
+int		env_exists(t_env *list, char *name);
 void	add_exported_env(t_env **list, char *env);
 t_env	*create_env(char *name, char *value);
-int	env_size(t_env *list);
+int		env_size(t_env *list);
 void	add_env(t_env **list, t_env *env);
 void	print_env(t_env *list);
 void	free_env(t_env *list);

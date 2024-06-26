@@ -85,7 +85,7 @@ static int	validate_syntax(char *arg)
 */
 static void	print_stderror(char *str)
 {
-	ft_putstr_fd("export: ", 2);
+	ft_putstr_fd("\033[1;31mexport: ", 2);
 	ft_putstr_fd(str, 2);
-	ft_putendl_fd(" invalid identifier", 2);
+	ft_putendl_fd(" invalid identifier\033[0m", 2);
 }

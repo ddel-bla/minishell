@@ -12,7 +12,7 @@ void	ft_cd(t_shell *shell, t_cmd *cmd)
 
 	if (count_args(cmd) > 2)
 	{
-		ft_putendl_fd("cd: too many arguments", 2);
+		print_error("cd: too many arguments");
 		shell->exit_status = 1;
 		return ;
 	}
@@ -24,7 +24,7 @@ void	ft_cd(t_shell *shell, t_cmd *cmd)
 		change_env_path(shell, "OLDPWD=");
 	if (chdir(new_path))
 	{
-		perror("cd");
+		perror("\033[1;31mcd\033[0m");
 		shell->exit_status = 1;
 		free(new_path);
 		return ;
@@ -68,7 +68,7 @@ static char	*get_path(t_shell *shell, char *cmd)
 	}
 	else if (!getenv("HOME"))
 	{
-		ft_putendl_fd("cd: HOME is not set", 2);
+		print_error("cd: HOME is not set");
 		shell->exit_status = 1;
 		return (NULL);
 	}

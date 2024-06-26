@@ -11,9 +11,9 @@ void	ft_env(t_shell	*shell, t_cmd *cmd)
 	env = shell->env;
 	if (count_args(cmd) > 1)
 	{
-		ft_putstr_fd("env: <", 2);
+		ft_putstr_fd("\033[1;31mnv: <", 2);
 		ft_putstr_fd(cmd->cmd[1], 2);
-		ft_putendl_fd(">: No such file or directory", 2);
+		ft_putendl_fd(">: No such file or directory\033[0m", 2);
 		shell->exit_status = 127;
 		return ;
 	}

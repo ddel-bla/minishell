@@ -21,12 +21,15 @@ static int	validate_redirections(char *token);
  */
 int	validate_token(char *token)
 {
-	if (validate_special_chars(token))
-		return (printf("1"), 1);
+	if (ft_strlen(token) > 1)
+	{
+		if (validate_special_chars(token))
+			return (1);
+	}
 	if (validate_redirections(token))
-		return (printf("2"), 1);
+		return (1);
 	if (validate_inner_quotes(token))
-		return (printf("3"), 1);
+		return (1);
 	return (0);
 }
 
@@ -71,8 +74,8 @@ static int	validate_special_chars(char *token)
 	int	times_redir;
 	int	times_pipe;
 
-	i = 0;
-	while (token[i])
+	i = -1;
+	while (token[++i])
 	{
 		times_redir = 0;
 		while (token[i] && (token[i] == '<' || token[i] == '>'))
@@ -88,7 +91,8 @@ static int	validate_special_chars(char *token)
 		}
 		if (times_redir > 2 || times_pipe > 1)
 			return (1);
-		i++;
+		if (!token[i])
+			return (0);
 	}
 	return (0);
 }
@@ -105,6 +109,9 @@ static int	validate_redirections(char *token)
 	{
 		if (token[i] && token[i] == '>' && token[i + 1] \
 				&& token[i + 1] == '<')
+			return (1);
+		else if (token[i] && token[i] == '<' && token[i + 1] \
+				&& token[i + 1] == '>')
 			return (1);
 		i++;
 	}

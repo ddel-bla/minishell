@@ -14,13 +14,14 @@ RM	=	rm -f
 # ---------- SRC & OBJS -----------
 # ---------------------------------
 
-SRC		=	./src/main.c \
+SRC		=	./src/main.c\
 			./src/lexer/lexer.c ./src/lexer/token_types.c ./src/lexer/validation.c\
-			./src/lexer/utils/token_struct.c ./src/lexer/utils/token_struct2.c ./src/lexer/utils/utils.c ./src/lexer/utils/utils2.c\
-			./src/parser/parser.c ./src/parser/utils/command_struct.c ./src/parser/utils/command_struct2.c\
+			./src/lexer/utils/token_struct.c ./src/lexer/utils/token_struct2.c\
+			./src/parser/parser.c\
+			./src/parser/utils/command_struct.c ./src/parser/utils/command_struct2.c\
 			./src/parser/utils/redir_struct.c ./src/parser/utils/redir_struct2.c\
-			./src/env/env.c ./src/env/utils/env_struct.c ./src/env/utils/env_struct2.c \
-			./src/env/utils/env_struct3.c\
+			./src/env/env.c\
+			./src/env/utils/env_struct.c ./src/env/utils/env_struct2.c ./src/env/utils/env_struct3.c\
 			./src/builtins/builtins.c ./src/builtins/utils.c\
 			./src/builtins/env/ft_env.c ./src/builtins/unset/ft_unset.c\
 			./src/builtins/export/ft_export.c\
@@ -28,6 +29,10 @@ SRC		=	./src/main.c \
 			./src/builtins/echo/ft_echo.c\
 			./src/builtins/exit/ft_exit.c\
 			./src/builtins/cd/ft_cd.c\
+			./src/utils/design.c\
+			./src/utils/main_utils.c\
+			./src/utils/utils.c\
+			./src/utils/utils2.c\
 
 OBJS	=	$(SRC:.c=.o)
 
