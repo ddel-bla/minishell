@@ -14,6 +14,7 @@ t_shell	*init(char **envp)
 	env = NULL;
 	shell->token = NULL;
 	shell->cmd = NULL;
+	shell->exp = NULL;
 	save_env(&env, envp);
 	shell->env = env;
 	shell->exit_status = 0;

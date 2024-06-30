@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/06/30 20:08:06 by ddel-bla         ###   ########.fr       */
+/*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
+/*   Updated: 2024/06/30 20:08:42 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef EXPANDER_H
+# define EXPANDER_H
+
+// .......... STRUCTS ...........
+// -------- REDIRECTION ---------
 
 
+// ......... FUNCTIONS ..........
+// ___________ command __________
+void	expander(t_env *env, t_cmd *cmd, t_cmd **exp);
+t_cmd	*copy_cmd(t_cmd *original);
+char	*expand_quotes(t_env *list, char *cmd);
 
-void	expander(t_env *env, t_cmd *cmd, t_cmd **exp)
-{
-	int		i;
-	t_cmd	*current;
-
-	*exp = copy_cmd(cmd);
-	current = *exp;
-	while (current != NULL)
-	{
-		i = -1;
-		while (current->cmd[++i] != NULL)
-			current->cmd[i] = expand_quotes(env, current->cmd[i]);
-		current = current->next;
-	}
-}
+#endif

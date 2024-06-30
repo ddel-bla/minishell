@@ -33,6 +33,9 @@ SRC		=	./src/main.c\
 			./src/utils/main_utils.c\
 			./src/utils/utils.c\
 			./src/utils/utils2.c\
+			./src/expander/expander.c\
+			./src/expander/utils/exp_copycmd.c\
+			./src/expander/utils/exp_quotes.c\
 
 OBJS	=	$(SRC:.c=.o)
 

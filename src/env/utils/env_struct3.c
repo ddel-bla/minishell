@@ -11,6 +11,7 @@ void	sort_env_list(t_env **list)
 	t_env	*temp;
 
 	lptr = NULL;
+	swapped = 1;
 	while (swapped)
 	{
 		swapped = 0;

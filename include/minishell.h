@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 18:40:34 by claferna         ###   ########.fr       */
+/*   Updated: 2024/06/30 20:19:11 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # include "./lexer.h"
 # include "./parser.h"
 # include "./env.h"
+# include "./expander.h"
 # include "../lib/libft/libft.h"
 // .......... STRUCTS ...........
 
@@ -46,7 +47,8 @@ typedef struct s_shell
 {
 	t_token	*token;
 	t_cmd	*cmd;
-	t_env	*env;
+	t_cmd	*exp;
+	t_env	*env
 	int		exit_status;
 }			t_shell;
 
@@ -60,6 +62,8 @@ int		validate_token(char *token);
 int		check_syntax(t_token **tokens);
 // ____________ parser __________
 void	parser(t_token **tokens, t_cmd **cmd);
+// ____________ expander ________
+void	expander(t_env *env, t_cmd *cmd, t_cmd **exp);
 // __________ built-ins _________
 void	exec_builtin(t_shell *shell, t_cmd *cmd);
 void	ft_env(t_shell	*shell, t_cmd *cmd);
