@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:05 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/06/30 20:08:27 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/06/30 21:49:37 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,24 @@ static char	*dquote(char *cmd, t_env *list, char **new)
 	start = ++cmd;
 	if (*cmd == '\"')
 		return (cmd + 1);
-	cmd--;
-	while (*++cmd != '\"')
+	while (*cmd != '\"')
 	{
 		if (*cmd == '$')
 		{
-			start = quote(start, new);
-			cmd = dollar(cmd + 1, list, new);
+			cmd = quote(start, new);
+			cmd = dollar(cmd, list, new);
 			start = cmd;
 		}
+		else
+			cmd++;
 	}
 	if (*cmd == '\"')
 		return (cmd + 1);
 	add = ft_substr(start, 0, cmd - start - 1);
 	aux = ft_strjoin(*new, add);
 	free(*new);
-	free(add);
 	*new = aux;
-	return (cmd + 1);
+	return (free(add), cmd + 1);
 }
 
 static char	*squote(char *cmd, char **new)
