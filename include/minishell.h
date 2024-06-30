@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/30 20:19:11 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/06/30 21:51:50 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_shell
 	t_token	*token;
 	t_cmd	*cmd;
 	t_cmd	*exp;
-	t_env	*env
+	t_env	*env;
 	int		exit_status;
 }			t_shell;
 
