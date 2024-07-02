@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:38:59 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 15:42:23 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:24:16 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 void	ft_exec_proc(char **cmd, t_env *env, char **envp)
 {
 	char	*path;
-
+	
+    int i = 0;
+    while (cmd[i] != NULL) {
+        printf("%s\n", cmd[i]);
+        i++;
+    }
 	path = ft_find_path(cmd[0], env);
+	printf("path %s\n", path);
 	if (ft_strlen(path))
 		execve(path, cmd, envp);
 	else
