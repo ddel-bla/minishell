@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/02 18:29:37 by claferna          #+#    #+#             */
+/*   Updated: 2024/07/02 18:30:00 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ENV_H
 # define ENV_H
 
@@ -5,10 +17,10 @@
 // -------- REDIRECTION ---------
 typedef struct s_env
 {
-	char		*name;
-	char		*value;
+	char			*name;
+	char			*value;
 	struct s_env	*next;
-}			t_env;
+}					t_env;
 
 // .......... FUNCTIONS ...........
 void	save_env(t_env **list, char **envp);

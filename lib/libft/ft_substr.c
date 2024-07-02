@@ -6,7 +6,7 @@
 /*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:42:24 by claferna          #+#    #+#             */
-/*   Updated: 2024/03/17 20:53:11 by claferna         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:48:07 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static char	*ft_strncpy(char *dst, const char *src, size_t len)
 char	*ft_substr(char *s, int start, int len)
 {
 	char	*substr;
-	int	s_len;
-	int	new_len;
+	int		s_len;
+	int		new_len;
 
 	if (!s)
 		return (0);

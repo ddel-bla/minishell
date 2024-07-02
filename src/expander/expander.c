@@ -6,13 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/06/30 20:08:06 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:46:43 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
 
 void	expander(t_env *env, t_cmd *cmd, t_cmd **exp)
 {
