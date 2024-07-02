@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: claferna <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/13 18:31:20 by claferna          #+#    #+#              #
-#    Updated: 2024/04/25 19:01:07 by claferna         ###   ########.fr        #
+#    Updated: 2024/07/02 16:26:04 by ddel-bla         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,10 @@ SRCS 		= ft_atoi.c ft_isdigit.c ft_memset.c ft_strlcpy.c ft_tolower.c\
 	   		ft_memcmp.c ft_strnstr.c ft_isalpha.c ft_memcpy.c\
 	   		ft_strrchr.c ft_isascii.c ft_memmove.c ft_strlcat.c\
 	   		ft_substr.c ft_strdup.c ft_strjoin.c	ft_strtrim.c\
-	   		ft_itoa.c ft_strmapi.c ft_striteri.c\
+	   		ft_itoa.c ft_strmapi.c ft_striteri.c ft_split.c\
 	   		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
-			ft_strnlen.c ft_replace_char.c ft_strcmp.c
+			ft_strnlen.c ft_replace_char.c ft_strcmp.c\
+			gnl/get_next_line.c gnl/get_next_line_utils.c \
 
 OBJS		=	$(SRCS:.c=.o)
 

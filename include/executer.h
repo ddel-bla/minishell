@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 11:43:28 by ddel-bla         ###   ########.fr       */
+/*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
+/*   Updated: 2024/07/02 15:42:10 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef EXECUTER_H
+# define EXECUTER_H
 
-void	expander(t_env *env, t_cmd *cmd, t_cmd **exp)
-{
-	int		i;
-	t_cmd	*current;
+// .......... STRUCTS ...........
+// -------- REDIRECTION ---------
 
-	*exp = copy_cmd(cmd);
-	current = *exp;
-	while (current != NULL)
-	{
-		input_redirection(current);
-		i = -1;
-		while (current->cmd[++i] != NULL)
-			current->cmd[i] = expand_quotes(env, current->cmd[i]);
-		current = current->next;
-	}
-}
+
+// ......... FUNCTIONS ..........
+// ___________ command __________
+void	ft_exec_proc(char **cmd, t_env *env, char **envp);
+void	ft_exec_pipe(char **cmd, t_env *env, char **envp);
+char	*ft_find_path(char *cmd, t_env *env);
+
+#endif

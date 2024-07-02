@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:10:12 by claferna          #+#    #+#             */
-/*   Updated: 2024/05/18 16:27:31 by claferna         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:10:29 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 typedef struct s_list
 {
@@ -52,7 +56,7 @@ void	*ft_calloc(size_t count, size_t size);
 /* PART 2*/
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
-//char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -74,4 +78,12 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 size_t	ft_strnlen(const char *s, size_t n);
 char	*ft_replace_char(const char *str, char find, char replace);
 int		ft_strcmp(char *s1, char *s2);
+/*GNL*/
+char	*ft_gnl_strchr(char *s, int c);
+char	*ft_gnl_strjoin(char *s1, char *s2);
+int		ft_gnl_get_len(char *left_str);
+char	*ft_get_line(char *left_str);
+char	*ft_new_left_str(char *left_str);
+char	*get_next_line(int fd);
+char	*ft_read_str(int fd, char *left_str);
 #endif

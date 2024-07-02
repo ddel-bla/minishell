@@ -12,6 +12,7 @@ t_shell	*init(char **envp)
 	if (!shell)
 		return (NULL);
 	env = NULL;
+	shell->envp = envp;
 	shell->token = NULL;
 	shell->cmd = NULL;
 	shell->exp = NULL;

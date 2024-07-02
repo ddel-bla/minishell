@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   exec_exe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 11:43:28 by ddel-bla         ###   ########.fr       */
+/*   Created: 2024/07/01 17:38:59 by ddel-bla          #+#    #+#             */
+/*   Updated: 2024/07/02 15:42:23 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
-void	expander(t_env *env, t_cmd *cmd, t_cmd **exp)
+void	ft_exec_proc(char **cmd, t_env *env, char **envp)
 {
-	int		i;
-	t_cmd	*current;
+	char	*path;
 
-	*exp = copy_cmd(cmd);
-	current = *exp;
-	while (current != NULL)
-	{
-		input_redirection(current);
-		i = -1;
-		while (current->cmd[++i] != NULL)
-			current->cmd[i] = expand_quotes(env, current->cmd[i]);
-		current = current->next;
-	}
+	path = ft_find_path(cmd[0], env);
+	if (ft_strlen(path))
+		execve(path, cmd, envp);
+	else
+		execve(cmd[0], cmd, envp);
+	perror("Command failed ");
+	exit(127);
 }

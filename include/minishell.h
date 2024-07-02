@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/30 21:51:50 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:24:17 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
 // .......... HEADERS ...........
+# include "../lib/libft/libft.h"
 # include "./lexer.h"
 # include "./parser.h"
 # include "./env.h"
 # include "./expander.h"
-# include "../lib/libft/libft.h"
+# include "./executer.h"
 // .......... STRUCTS ...........
 
 typedef struct s_shell
@@ -50,6 +53,7 @@ typedef struct s_shell
 	t_cmd	*exp;
 	t_env	*env;
 	int		exit_status;
+	char	**envp;
 }			t_shell;
 
 // ......... FUNCTIONS ..........
@@ -64,6 +68,8 @@ int		check_syntax(t_token **tokens);
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
 void	expander(t_env *env, t_cmd *cmd, t_cmd **exp);
+// ____________ executer ________
+void	executer(t_cmd **cmd, t_env *env, char **envp);
 // __________ built-ins _________
 void	exec_builtin(t_shell *shell, t_cmd *cmd);
 void	ft_env(t_shell	*shell, t_cmd *cmd);
@@ -89,4 +95,7 @@ int		ft_isspace(char c);
 int		ft_isquote(char c);
 int		ft_isspecial(char c);
 char	*ft_trim_spaces(char *str);
+int		ft_fork(void);
+int		ft_open(char *file, int mode);
+void	ft_pipe(int *fds);
 #endif

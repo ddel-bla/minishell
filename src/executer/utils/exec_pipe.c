@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 11:43:28 by ddel-bla         ###   ########.fr       */
+/*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
+/*   Updated: 2024/07/02 16:23:07 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
-void	expander(t_env *env, t_cmd *cmd, t_cmd **exp)
+void	ft_exec_pipe(char **cmd, t_env *env, char **envp)
 {
-	int		i;
-	t_cmd	*current;
+	int		fds[2];
+	int		pid;
 
-	*exp = copy_cmd(cmd);
-	current = *exp;
-	while (current != NULL)
+	ft_pipe(fds);
+	pid = ft_fork();
+	if (pid == 0)
 	{
-		input_redirection(current);
-		i = -1;
-		while (current->cmd[++i] != NULL)
-			current->cmd[i] = expand_quotes(env, current->cmd[i]);
-		current = current->next;
+		close(fds[0]);
+		dup2(fds[1], STDOUT_FILENO);
+		close(fds[1]);
+		ft_exec_proc(cmd, env, envp);
+	}
+	else
+	{
+		close(fds[1]);
+		dup2(fds[0], STDIN_FILENO);
+		close(fds[0]);
 	}
 }
