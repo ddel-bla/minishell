@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:01:23 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 15:58:45 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:16:35 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static size_t	ft_strlenchr(const char *s, int c)
 		i++;
 	return (i);
 }
+
 static void	ft_free_it(char **tab, char *prog, char *sub)
 {
 	int	i;

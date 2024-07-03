@@ -41,6 +41,7 @@ void	free_loop(t_shell *shell, char *input)
 		free_tokens(shell->token);
 	shell->token = NULL;
 	free_cmd(shell->cmd);
+	free_cmd(shell->exp);
 	shell->cmd = NULL;
 	free(input);
 }

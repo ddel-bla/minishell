@@ -6,37 +6,30 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 15:41:32 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:15:26 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	executer(t_cmd **cmd, t_env *env, char **envp)
+void	executer(t_shell *shell)
 {
 	t_cmd	*current;
-	int		status;
-	pid_t	pid;
+	int		fds[2];
 
-	current = *cmd;
+	current = shell->cmd;
 	while (current)
 	{
-		if (current->operator_type == T_PIPE)
-			ft_exec_pipe(current->cmd, env, envp);
+		if (current->next && current->operator_type == T_PIPE)
+		{
+			fprintf(stderr, "Debug:  %d\n", 1);
+			ft_pipe(fds);
+			ft_exec_pipe(shell, fds);
+		}
 		else
 		{
-			pid = ft_fork();
-			if (pid == 0)
-				ft_exec_proc(current->cmd, env, envp);
-			else
-			{
-				waitpid(pid, &status, 0);
-				if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-				{
-					//TODO
-					exit (EXIT_FAILURE);
-				}
-			}
+			fprintf(stderr, "Debug:  %d\n", 2);
+			ft_exec_last(shell);
 		}
 		current = current->next;
 	}

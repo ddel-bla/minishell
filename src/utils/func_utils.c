@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:18:10 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 16:22:58 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:04:13 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_fork(void)
 	}
 	return (pid);
 }
-int	ft_open(char *file, int mode)
+int	ft_open_in(char *file, int mode)
 {
 	int	fd;
 
@@ -35,6 +35,21 @@ int	ft_open(char *file, int mode)
 	}
 	return (fd);
 }
+
+int	ft_open_out(char *file, int mode, int flag)
+{
+	int	fd;
+
+	fd = open(file, mode, flag);
+	if (fd < 0)
+	{
+		perror("open");
+		exit(EXIT_FAILURE);
+	}
+	return (fd);
+}
+
+
 
 void	ft_pipe(int *fds)
 {

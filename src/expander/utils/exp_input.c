@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 10:37:10 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 12:31:44 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/02 23:22:20 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	red_in(int fd, char *file)
 {
-	fd = ft_open(file, O_RDONLY);
+	fd = ft_open_in(file, O_RDONLY);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }

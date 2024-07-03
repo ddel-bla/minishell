@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/02 16:24:17 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:28:06 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@
 
 // .......... HEADERS ...........
 # include "../lib/libft/libft.h"
+# include "./env.h"
 # include "./lexer.h"
 # include "./parser.h"
-# include "./env.h"
 # include "./expander.h"
 # include "./executer.h"
-// .......... STRUCTS ...........
 
+// .......... STRUCTS ...........
 typedef struct s_shell
 {
 	t_token	*token;
@@ -69,7 +69,7 @@ void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
 void	expander(t_env *env, t_cmd *cmd, t_cmd **exp);
 // ____________ executer ________
-void	executer(t_cmd **cmd, t_env *env, char **envp);
+void	executer(t_shell *shell);
 // __________ built-ins _________
 void	exec_builtin(t_shell *shell, t_cmd *cmd);
 void	ft_env(t_shell	*shell, t_cmd *cmd);
@@ -96,6 +96,7 @@ int		ft_isquote(char c);
 int		ft_isspecial(char c);
 char	*ft_trim_spaces(char *str);
 int		ft_fork(void);
-int		ft_open(char *file, int mode);
+int		ft_open_in(char *file, int mode);
+int		ft_open_out(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
 #endif
