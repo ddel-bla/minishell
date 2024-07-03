@@ -6,22 +6,22 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:38:59 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/03 16:50:39 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/04 00:41:36 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	ft_exec_proc(t_shell *shell)
+void	ft_exec_proc(t_shell *shell, t_cmd *cmd)
 {
 	char	*path;
 
 	// TODO include Builtins
-	path = ft_find_path(shell->cmd->cmd[0], shell->env);
+	path = ft_find_path(cmd->cmd[0], shell->env);
 	if (ft_strlen(path))
-		execve(path, shell->cmd->cmd, shell->envp);
+		execve(path, cmd->cmd, shell->envp);
 	else
-		execve(shell->cmd->cmd[0], shell->cmd->cmd, shell->envp);
+		execve(cmd->cmd[0], shell->cmd->cmd, shell->envp);
 	perror("Command failed ");
 	exit(127);
 }

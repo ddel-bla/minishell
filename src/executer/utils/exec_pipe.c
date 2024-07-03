@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/03 17:25:22 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/04 00:39:55 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	handle_redirection(t_redir *redir)
 	}
 }
 
-void	ft_exec_last(t_shell *shell)
+void	ft_exec_last(t_shell *shell, t_cmd *cmd)
 {
 	int	pid;
 	int	status;
@@ -42,7 +42,7 @@ void	ft_exec_last(t_shell *shell)
 	if (pid == 0)
 	{
 		// handle_redirection(cmd->redirection);
-		ft_exec_proc(shell);
+		ft_exec_proc(shell, cmd);
 	}
 	else
 	{
@@ -56,7 +56,7 @@ void	ft_exec_last(t_shell *shell)
 	}
 }
 
-void	ft_exec_pipe(t_shell *shell, int *fds)
+void	ft_exec_pipe(t_shell *shell, t_cmd *cmd, int *fds)
 {
 	pid_t	pid;
 
@@ -66,7 +66,7 @@ void	ft_exec_pipe(t_shell *shell, int *fds)
 		close(fds[0]);
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[1]);
-		ft_exec_proc(shell);
+		ft_exec_proc(shell, cmd);
 		// handle_redirection(cmd->redirection);
 	}
 	else
