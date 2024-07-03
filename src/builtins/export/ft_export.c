@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/28 16:06:49 by claferna          #+#    #+#             */
+/*   Updated: 2024/07/02 18:47:33 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
-static int	validate_syntax(char *arg);
+int			validate_syntax(char *arg);
 static void	without_args(t_env *env);
 static void	print_stderror(char *str);
 
@@ -54,7 +66,7 @@ static void	without_args(t_env *env)
 /*
  * Validate the syntax of the given command.
  */
-static int	validate_syntax(char *arg)
+int	validate_syntax(char *arg)
 {
 	char	*name;
 	int		i;
@@ -77,6 +89,7 @@ static int	validate_syntax(char *arg)
 			return (print_stderror(arg), free(name), 0);
 		return (free(name), 1);
 	}
+	printf("Ha entrado");
 	return (0);
 }
 

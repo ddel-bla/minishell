@@ -6,18 +6,12 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/03 15:24:14 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:29:42 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
-
-// .......... STRUCTS ...........
-// -------- REDIRECTION ---------
-
-
-
 
 // ......... FUNCTIONS ..........
 // ___________ command __________

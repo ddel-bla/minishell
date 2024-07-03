@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:18:10 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/02 22:04:13 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:35:04 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int	ft_open_out(char *file, int mode, int flag)
 	}
 	return (fd);
 }
-
-
 
 void	ft_pipe(int *fds)
 {

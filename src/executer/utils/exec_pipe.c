@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/03 15:00:24 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:25:22 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ void	ft_exec_last(t_shell *shell)
 	else
 	{
 		waitpid(pid, &status, 0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-		{
-			perror("Execution failed");
-			exit(EXIT_FAILURE);
-		}
+		return ;
+		//if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+		//{
+		//	perror("Execution failed");
+		//	exit(EXIT_FAILURE);
+		//}
 	}
 }
 
@@ -65,8 +66,8 @@ void	ft_exec_pipe(t_shell *shell, int *fds)
 		close(fds[0]);
 		dup2(fds[1], STDOUT_FILENO);
 		close(fds[1]);
-		// handle_redirection(cmd->redirection);
 		ft_exec_proc(shell);
+		// handle_redirection(cmd->redirection);
 	}
 	else
 	{

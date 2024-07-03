@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/03 13:28:06 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:29:16 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_echo(t_shell *shell, t_cmd *cmd);
 void	ft_exit(t_shell *shell, t_cmd *cmd);
 void	ft_cd(t_shell *shell, t_cmd *cmd);
 int		count_args(t_cmd *cmd);
+int		validate_syntax(char *argv);
 // ____________ prints __________
 void	print_header(void);
 void	print_error(char *str);
