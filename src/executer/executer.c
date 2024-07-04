@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/04 00:50:13 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:05:02 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,24 @@ void	executer(t_shell *shell)
 {
 	t_cmd	*current;
 	int		fds[2];
-
+	int		prev_fd;
+	int		pid;
+	
 	current = shell->cmd;
-	while (current)
+	prev_fd = 0;
+	while (current->next)
 	{
-		if (current->next && current->operator_type == T_PIPE)
-		{
-			fprintf(stderr, "Debug:  %d\n", 1);
-			ft_pipe(fds);
-			ft_exec_pipe(shell, current, fds);
-		}
+		ft_pipe(fds);
+		pid = ft_fork();
+		if (pid == 0)
+			ft_handle_child(fds, prev_fd, shell, current);
 		else
-		{
-			fprintf(stderr, "Debug:  %d\n", 2);
-			ft_exec_last(shell, current);
-		}
+			ft_handle_parent(fds, &prev_fd);
 		current = current->next;
 	}
+	pid = ft_fork();
+	if (pid == 0)
+		ft_handle_last(prev_fd, shell, current);
+	else
+		waitpid(pid, NULL, 0);
 }

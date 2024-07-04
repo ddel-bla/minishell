@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/04 00:39:55 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:00:05 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,47 +33,30 @@ void	handle_redirection(t_redir *redir)
 	}
 }
 
-void	ft_exec_last(t_shell *shell, t_cmd *cmd)
+void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *cmd)
 {
-	int	pid;
-	int	status;
-
-	pid = ft_fork();
-	if (pid == 0)
+	close(fds[0]);
+	if (prev_fd != 0)
 	{
-		// handle_redirection(cmd->redirection);
-		ft_exec_proc(shell, cmd);
+		dup2(prev_fd, STDIN_FILENO);
+		close(prev_fd);
 	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		return ;
-		//if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-		//{
-		//	perror("Execution failed");
-		//	exit(EXIT_FAILURE);
-		//}
-	}
+	dup2(fds[1], STDOUT_FILENO);
+	close(fds[1]);
+	ft_exec_proc(shell, cmd);
 }
 
-void	ft_exec_pipe(t_shell *shell, t_cmd *cmd, int *fds)
+void	ft_handle_parent(int *fds, int *prev_fd)
 {
-	pid_t	pid;
+	close(fds[1]);
+	if (*prev_fd != 0)
+		close(*prev_fd);
+	*prev_fd = fds[0];
+}
 
-	pid = ft_fork();
-	if (pid == 0)
-	{
-		close(fds[0]);
-		dup2(fds[1], STDOUT_FILENO);
-		close(fds[1]);
-		ft_exec_proc(shell, cmd);
-		// handle_redirection(cmd->redirection);
-	}
-	else
-	{
-		close(fds[1]);
-		dup2(fds[0], STDIN_FILENO);
-		close(fds[0]);
-		//waitpid(pid, NULL, 0);
-	}
+void	ft_handle_last(int prev_fd, t_shell *shell, t_cmd *cmd)
+{
+	dup2(prev_fd, STDIN_FILENO);
+	close(prev_fd);
+	ft_exec_proc(shell, cmd);
 }
