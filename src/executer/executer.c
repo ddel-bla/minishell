@@ -6,11 +6,24 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/04 17:15:06 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:59:51 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	ft_exitstatus(t_shell *shell, int pid)
+{
+	int	wstatus;
+
+	waitpid(pid, &wstatus, 0);
+	if (WIFEXITED(wstatus))
+		shell->exit_status = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+		shell->exit_status = WTERMSIG(wstatus);
+	else
+		shell->exit_status = EXIT_FAILURE;
+}
 
 void	executer(t_shell *shell)
 {
@@ -35,5 +48,5 @@ void	executer(t_shell *shell)
 	if (pid == 0)
 		ft_handle_last(prev_fd, shell, current);
 	else
-		waitpid(pid, NULL, 0);
+		ft_exitstatus(shell, pid);
 }
