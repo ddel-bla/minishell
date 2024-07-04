@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:18:35 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/03 13:02:19 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:14:25 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,11 @@ int	process(t_shell *shell, char *input)
 		free_lexer_err(shell, input);
 		return (1);
 	}
-	print_tokens(shell->token);//DEBUG
+	//print_tokens(shell->token);//DEBUG
 	parser(&shell->token, &shell->cmd);
-	print_cmd(shell->cmd);//DEBUG
-	printf("exp\n\n");
+	//print_cmd(shell->cmd);//DEBUG
 	expander(shell->env, shell->cmd, &shell->exp);
-	print_cmd(shell->exp);//DEBUG
-	printf("exec\n\n");
+	//print_cmd(shell->exp);//DEBUG
 	executer(shell);
 	free_loop(shell, input);
 	return (0);
