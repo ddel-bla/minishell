@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:05 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/03 15:46:37 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:02:17 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static char	*dollar(char *cmd, t_env *list, char **new)
 	char	*aux;
 
 	start = ++cmd;
+	if (*cmd != ' ' && *cmd != '$' && *cmd != '\''
+		&& *cmd != '\"' && *cmd != '\0')
+		return (cmd + 1);
 	while (*cmd != ' ' && *cmd != '$' && *cmd != '\''
 		&& *cmd != '\"' && *cmd != '\0')
 		cmd++;

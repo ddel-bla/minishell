@@ -93,12 +93,12 @@ fclean	:	clean
 			@make -C $(LIBFT) fclean
 			@$(RM) philo
 
-leaks	: 	$(OBJS_PHILO)
+leaks	: 	re
 			@echo $(VALGRIND)
 			@echo $(LEAKS)
 			valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
-races	: 	$(OBJS_PHILO)
+races	: 	re
 			@echo $(VALGRIND)
 			@echo $(DATA_RACES)
 			valgrind --tool=helgrind ./$(NAME)
