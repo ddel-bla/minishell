@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:18:10 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/03 15:35:04 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:13:09 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_fork(void)
 {
 	int	pid;
+
 	pid = fork();
 	if (pid == -1)
 	{
@@ -23,6 +24,7 @@ int	ft_fork(void)
 	}
 	return (pid);
 }
+
 int	ft_open_in(char *file, int mode)
 {
 	int	fd;
@@ -56,4 +58,26 @@ void	ft_pipe(int *fds)
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
+}
+
+int	is_builtin(char *cmd)
+{
+	if (cmd)
+	{
+		if (ft_strcmp(cmd, "env") == 0)
+			return (1);
+		else if (ft_strcmp(cmd, "export") == 0)
+			return (1);
+		else if (ft_strcmp(cmd, "unset") == 0)
+			return (1);
+		else if (ft_strcmp(cmd, "pwd") == 0)
+			return (1);
+		else if (ft_strcmp(cmd, "echo") == 0)
+			return (1);
+		else if (ft_strcmp(cmd, "exit") == 0)
+			return (1);
+		else if (ft_strcmp(cmd, "cd") == 0)
+			return (1);
+	}
+	return (0);
 }

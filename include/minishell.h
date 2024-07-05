@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/03 15:29:16 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:12:30 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ int		ft_fork(void);
 int		ft_open_in(char *file, int mode);
 int		ft_open_out(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
+int		is_builtin(char *cmd);
 #endif
