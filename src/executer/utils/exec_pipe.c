@@ -6,11 +6,24 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/04 17:00:05 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:09:11 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+static void	ft_exitstatus(t_shell *shell, int pid)
+{
+	int	wstatus;
+
+	waitpid(pid, &wstatus, 0);
+	if (WIFEXITED(wstatus))
+		shell->exit_status = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+		shell->exit_status = WTERMSIG(wstatus);
+	else
+		shell->exit_status = EXIT_FAILURE;
+}
 
 void	handle_redirection(t_redir *redir)
 {
@@ -33,7 +46,7 @@ void	handle_redirection(t_redir *redir)
 	}
 }
 
-void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *cmd)
+void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 {
 	close(fds[0]);
 	if (prev_fd != 0)
@@ -43,7 +56,7 @@ void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *cmd)
 	}
 	dup2(fds[1], STDOUT_FILENO);
 	close(fds[1]);
-	ft_exec_proc(shell, cmd);
+	ft_exec_proc(shell, exp);
 }
 
 void	ft_handle_parent(int *fds, int *prev_fd)
@@ -54,9 +67,23 @@ void	ft_handle_parent(int *fds, int *prev_fd)
 	*prev_fd = fds[0];
 }
 
-void	ft_handle_last(int prev_fd, t_shell *shell, t_cmd *cmd)
+void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 {
-	dup2(prev_fd, STDIN_FILENO);
-	close(prev_fd);
-	ft_exec_proc(shell, cmd);
+	int	pid;
+
+	if (is_builtin(exp->cmd[0]))
+		exec_builtin(shell, exp);
+	else
+	{
+		pid = ft_fork();
+		if (pid == 0)
+		{
+			dup2(prev_fd, STDIN_FILENO);
+			close(prev_fd);
+			ft_exec_proc(shell, exp);
+		}
+		else
+			ft_handle_parent(fds, &prev_fd);
+		ft_exitstatus(shell, pid);
+	}
 }
