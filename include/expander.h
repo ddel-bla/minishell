@@ -13,14 +13,24 @@
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+// .......... STRUCTS ...........
+// _________ s_aux_exp _________
+typedef struct s_aux_exp
+{
+	int	out_index;
+	int	s_quotes;
+	int	i;
+}		t_aux_exp;
+
 // ......... FUNCTIONS ..........
-// ___________ command __________
-t_cmd	*copy_cmd(t_cmd *original);
-char	*expand_quotes(t_env *list, char *cmd);
-void	input_redirection(t_cmd *cmd);
-
-
-void	red_in(int fd, char *file);
-void	red_her(int fds[2], char *limiter);
-
+// ___________ main __________
+int		calculate_expanded_size(char *input, t_env *env);
+void	expand(char *input, char *output, t_env *env);
+// ___________ utils __________
+void	variable_expansion(char *input, char *output, t_aux_exp *aux, \
+	t_env *env);
+void	count_env_var(char *input, int *index, int *length, t_env *env);
+void	insert_dollar(char *output, int *out_index, int *index);
+void	count_vars(int *i, int *size);
+void	init_aux(t_aux_exp *aux);
 #endif

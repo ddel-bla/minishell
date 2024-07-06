@@ -59,9 +59,10 @@ int	process(t_shell *shell, char *input)
 	//print_tokens(shell->token);//DEBUG
 	parser(&shell->token, &shell->cmd);
 	//print_cmd(shell->cmd);//DEBUG
-	expander(shell->env, shell->cmd, &shell->exp);
+	expander(&shell->env, shell->cmd);
 	//print_cmd(shell->exp);//DEBUG
-	executer(shell);
+	exec_builtin(shell, shell->cmd);
+	//executer(shell);
 	free_loop(shell, input);
 	return (0);
 }

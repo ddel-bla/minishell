@@ -15,6 +15,7 @@
 int	ft_fork(void)
 {
 	int	pid;
+
 	pid = fork();
 	if (pid == -1)
 	{
@@ -23,6 +24,7 @@ int	ft_fork(void)
 	}
 	return (pid);
 }
+
 int	ft_open_in(char *file, int mode)
 {
 	int	fd;

@@ -67,7 +67,7 @@ int		check_syntax(t_token **tokens);
 // ____________ parser __________
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
-void	expander(t_env *env, t_cmd *cmd, t_cmd **exp);
+void	expander(t_env **env, t_cmd *cmd);
 // ____________ executer ________
 void	executer(t_shell *shell);
 // __________ built-ins _________
@@ -101,3 +101,4 @@ int		ft_open_in(char *file, int mode);
 int		ft_open_out(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
 #endif
+// echo "as$PATH 'PATH' '$PATH'"A$

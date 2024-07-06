@@ -77,6 +77,8 @@ void	free_redirs(t_redir *list)
 	while (list != NULL)
 	{
 		aux = list;
+		if (aux->type != T_RED_HER)
+			free(aux->file);
 		list = list->next;
 		free(aux);
 	}
