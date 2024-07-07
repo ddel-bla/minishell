@@ -14,6 +14,7 @@
 
 static void	expand_cmd_args(t_cmd *cmd, t_env *env);
 static void	expand_redir_file(t_cmd *cmd, t_env *env);
+static void	post_process(t_cmd *cmd);
 
 /*
  * Process of expanding all commands and redirections, excluding here_doc 
@@ -30,6 +31,7 @@ void	expander(t_env **env, t_cmd *cmd)
 	{
 		expand_cmd_args(current, en_vars);
 		expand_redir_file(current, en_vars);
+		post_process(current);
 		current = current->next;
 	}
 }
@@ -82,5 +84,41 @@ static void	expand_redir_file(t_cmd *cmd, t_env *env)
 			redir->file = expanded;
 		}
 		redir = redir->next;
+	}
+}
+
+/*
+ * Deleting all quotes from the commands 
+ */
+static void	post_process(t_cmd *cmd)
+{
+	t_cmd	*c_aux;
+	t_redir	*re_aux;
+	char	*processed;
+	int		i;
+
+	c_aux = cmd;
+	re_aux = cmd->redirection;
+	while (c_aux != NULL)
+	{
+		i = 0;
+		while (c_aux->cmd[i])
+		{
+			//Contemplar si esta vacío
+			processed = ft_trim_quotes(c_aux->cmd[i]);
+			free(c_aux->cmd[i]);
+			c_aux->cmd[i] = NULL;
+			c_aux->cmd[i++] = processed;
+		}
+		while (re_aux != NULL)
+		{
+			processed = ft_trim_quotes(re_aux->file);
+			if (re_aux->type != T_RED_HER)
+				free(re_aux->file);
+			re_aux->file = NULL;
+			re_aux->file = processed;
+			re_aux = re_aux->next;
+		}
+		c_aux = c_aux->next;
 	}
 }

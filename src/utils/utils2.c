@@ -42,3 +42,53 @@ int	ft_isspace(char c)
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\v' \
 			|| c == '\f');
 }
+
+/*
+ * Trims quotes, removes quoes (simple/double) from beginning and end 
+ * of a string.
+ */
+char	*ft_trim_quotes(char *str)
+{
+	char	*result;
+	int		j;
+	int		i;
+	char	quote;
+	int		start;
+
+	result = (char *)ft_calloc(ft_strlen(str) + 1, 1);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (ft_isquote(str[i]))
+		{
+			quote = str[i++];
+			start = i;
+			while (str[i] && str[i++] != quote)
+				i++;	
+			if (str[i] == quote)
+				i++;
+			while (start < i - 1)
+				result[j++] = str[start++];
+		}
+		else
+			result[j++] = str[i++];
+	}
+	return (result);
+}
+
+/*
+ * Copies n length of a string into another.
+ */
+void	ft_strncpy(char *dest, const char *src, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[n] = '\0';
+}

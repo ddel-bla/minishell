@@ -30,13 +30,13 @@ void	variable_expansion(char *input, char *output, t_aux_exp *a, t_env *env)
 	var_name = (char *)malloc(var_len + 1);
 	if (!var_name)
 		exit(EXIT_FAILURE);
-	strncpy(var_name, &input[var_start], var_len);
+	ft_strncpy(var_name, &input[var_start], var_len);
 	var_name[var_len] = '\0';
 	var = get_env_by_name(env, var_name);
 	free(var_name);
 	if (var && var->value)
 	{
-		strncpy(&output[a->out_index], var->value, strlen(var->value));
+		ft_strncpy(&output[a->out_index], var->value, strlen(var->value));
 		a->out_index += strlen(var->value);
 	}
 	a->i--;
@@ -60,7 +60,7 @@ void	count_env_var(char *input, int *index, int *length, t_env *env)
 	var_name = (char *)malloc(var_len + 1);
 	if (!var_name)
 		exit(EXIT_FAILURE);
-	strncpy(var_name, &input[var_start], var_len);
+	ft_strncpy(var_name, &input[var_start], var_len);
 	var_name[var_len] = '\0';
 	var = get_env_by_name(env, var_name);
 	free(var_name);
