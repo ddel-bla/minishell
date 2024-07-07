@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/06 02:12:36 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/08 00:51:36 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@
 // .......... STRUCTS ...........
 typedef struct s_shell
 {
-	t_token	*token;
-	t_cmd	*cmd;
-	t_cmd	*exp;
-	t_env	*env;
-	int		exit_status;
-	char	**envp;
+	t_token		*token;
+	t_cmd		*cmd;
+	t_cmd		*exp;
+	t_env		*env;
+	int			exit_status;
+	char		**envp;
+	t_pid_node 	*pid_list;
 }			t_shell;
 
 // ......... FUNCTIONS ..........

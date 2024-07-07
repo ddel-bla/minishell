@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/06 02:13:25 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/08 01:22:52 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	executer(t_shell *shell)
 	t_cmd	*current;
 	int		fds[2];
 	int		prev_fd;
-	int		pid;
+	pid_t	pid;
 
 	current = shell->exp;
 	prev_fd = 0;
@@ -33,6 +33,8 @@ void	executer(t_shell *shell)
 				ft_handle_child(fds, prev_fd, shell, current);
 			else
 				ft_handle_parent(fds, &prev_fd);
+
+			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
 			current = current->next;
 		}
 	}
