@@ -36,6 +36,7 @@ SRC		=	./src/main.c\
 			./src/expander/expander.c\
 			./src/expander/expand_cases.c\
 			./src/expander/utils/utils.c\
+			./src/expander/utils/utils2.c\
 			./src/utils/func_utils.c\
 			./src/executer/executer.c\
 			./src/executer/utils/exec_exe.c\

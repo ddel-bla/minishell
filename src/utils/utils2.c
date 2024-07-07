@@ -49,30 +49,28 @@ int	ft_isspace(char c)
  */
 char	*ft_trim_quotes(char *str)
 {
-	char	*result;
-	int		j;
-	int		i;
-	char	quote;
-	int		start;
+	t_aux_exp	aux;
+	char		*result;
+	char		quote;
+	int			start;
 
-	result = (char *)ft_calloc(ft_strlen(str) + 1, 1);
-	i = 0;
-	j = 0;
-	while (str[i])
+	init_aux2(&aux);
+	result = (char *)ft_calloc(strlen(str) + 1, 1);
+	while (str[aux.i])
 	{
-		if (ft_isquote(str[i]))
+		if (ft_isquote(str[aux.i]))
 		{
-			quote = str[i++];
-			start = i;
-			while (str[i] && str[i++] != quote)
-				i++;	
-			if (str[i] == quote)
-				i++;
-			while (start < i - 1)
-				result[j++] = str[start++];
+			quote = str[aux.i++];
+			start = aux.i;
+			while (str[aux.i] && str[aux.i] != quote)
+				aux.i++;
+			if (str[aux.i] == quote)
+				aux.i++;
+			while (start < aux.i - 1)
+				result[aux.out_index++] = str[start++];
 		}
 		else
-			result[j++] = str[i++];
+			result[aux.out_index++] = str[aux.i++];
 	}
 	return (result);
 }
@@ -80,7 +78,7 @@ char	*ft_trim_quotes(char *str)
 /*
  * Copies n length of a string into another.
  */
-void	ft_strncpy(char *dest, const char *src, int n)
+void	ft_strncpy(char *dest, char *src, int n)
 {
 	int	i;
 

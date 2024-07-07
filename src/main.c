@@ -60,7 +60,7 @@ int	process(t_shell *shell, char *input)
 	parser(&shell->token, &shell->cmd);
 	//print_cmd(shell->cmd);//DEBUG
 	expander(&shell->env, shell->cmd);
-	//print_cmd(shell->exp);//DEBUG
+	print_cmd(shell->cmd);//DEBUG
 	exec_builtin(shell, shell->cmd);
 	//executer(shell);
 	free_loop(shell, input);

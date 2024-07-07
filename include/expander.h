@@ -33,4 +33,8 @@ void	count_env_var(char *input, int *index, int *length, t_env *env);
 void	insert_dollar(char *output, int *out_index, int *index);
 void	count_vars(int *i, int *size);
 void	init_aux(t_aux_exp *aux);
+void	init_aux2(t_aux_exp *aux);
+void	process_cmd_arg(t_cmd *cmd);
+void	process_cmd_redir(t_redir *redir);
+int		ft_contains_space(char *str);
 #endif

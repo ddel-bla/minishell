@@ -94,31 +94,13 @@ static void	post_process(t_cmd *cmd)
 {
 	t_cmd	*c_aux;
 	t_redir	*re_aux;
-	char	*processed;
-	int		i;
 
 	c_aux = cmd;
 	re_aux = cmd->redirection;
 	while (c_aux != NULL)
 	{
-		i = 0;
-		while (c_aux->cmd[i])
-		{
-			//Contemplar si esta vacío
-			processed = ft_trim_quotes(c_aux->cmd[i]);
-			free(c_aux->cmd[i]);
-			c_aux->cmd[i] = NULL;
-			c_aux->cmd[i++] = processed;
-		}
-		while (re_aux != NULL)
-		{
-			processed = ft_trim_quotes(re_aux->file);
-			if (re_aux->type != T_RED_HER)
-				free(re_aux->file);
-			re_aux->file = NULL;
-			re_aux->file = processed;
-			re_aux = re_aux->next;
-		}
+		process_cmd_arg(c_aux);
+		process_cmd_redir(re_aux);
 		c_aux = c_aux->next;
 	}
 }
