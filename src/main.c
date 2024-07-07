@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:18:35 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/04 17:14:25 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/05 22:45:27 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	if (argc != 1 && argv[1])
 		return (1);
-	print_header();
+	//print_header();
 	start_minishell(envp);
 	return (0);
 }
