@@ -95,5 +95,6 @@ void	init_aux(t_aux_exp *aux)
 {
 	aux->out_index = 0;
 	aux->s_quotes = 0;
+	aux->d_quotes = 0;
 	aux->i = -1;
 }
