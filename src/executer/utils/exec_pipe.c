@@ -6,23 +6,33 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/06 17:09:11 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/08 01:22:35 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-static void	ft_exitstatus(t_shell *shell, int pid)
+static void ft_exitstatus(t_shell *shell)
 {
-	int	wstatus;
+	t_pid_node	*current;
+	t_pid_node	*temp;
+	int			wstatus;
 
-	waitpid(pid, &wstatus, 0);
-	if (WIFEXITED(wstatus))
-		shell->exit_status = WEXITSTATUS(wstatus);
-	else if (WIFSIGNALED(wstatus))
-		shell->exit_status = WTERMSIG(wstatus);
-	else
-		shell->exit_status = EXIT_FAILURE;
+	current = shell->pid_list;
+	while (current)
+	{
+		waitpid(current->pid, &wstatus, 0);
+		if (WIFEXITED(wstatus))
+			shell->exit_status = WEXITSTATUS(wstatus);
+		else if (WIFSIGNALED(wstatus))
+			shell->exit_status = WTERMSIG(wstatus);
+		else
+			shell->exit_status = EXIT_FAILURE;
+		temp = current->next;
+		free(current);
+		current = temp;
+	}
+	shell->pid_list = NULL;
 }
 
 void	handle_redirection(t_redir *redir)
@@ -69,7 +79,7 @@ void	ft_handle_parent(int *fds, int *prev_fd)
 
 void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 {
-	int	pid;
+	pid_t	pid;
 
 	if (is_builtin(exp->cmd[0]))
 		exec_builtin(shell, exp);
@@ -84,6 +94,7 @@ void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 		}
 		else
 			ft_handle_parent(fds, &prev_fd);
-		ft_exitstatus(shell, pid);
+		ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
+		ft_exitstatus(shell);
 	}
 }

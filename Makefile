@@ -42,7 +42,8 @@ SRC		=	./src/main.c\
 			./src/executer/executer.c\
 			./src/executer/utils/exec_exe.c\
 			./src/executer/utils/exec_path.c\
-			./src/executer/utils/exec_pipe.c
+			./src/executer/utils/exec_pipe.c\
+			./src/executer/utils/exec_pid.c
 
 
 OBJS	=	$(SRC:.c=.o)
