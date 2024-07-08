@@ -51,10 +51,12 @@ void	process_cmd_redir(t_redir *redir)
 	re_aux = redir;
 	while (re_aux != NULL)
 	{
-		processed = ft_trim_quotes(re_aux->file);
+		if (contains_space(re_aux->file) && re_aux->type != T_RED_HER)
+			processed = strdup(re_aux->file);
+		else
+			processed = ft_trim_quotes(re_aux->file);
 		if (re_aux->type != T_RED_HER)
 			free(re_aux->file);
-		re_aux->file = NULL;
 		re_aux->file = processed;
 		re_aux = re_aux->next;
 	}

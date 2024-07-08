@@ -90,3 +90,17 @@ void	ft_strncpy(char *dest, char *src, int n)
 	}
 	dest[n] = '\0';
 }
+
+/*
+ * Checks whether a str contains a space
+ */
+int	contains_space(const char *str)
+{
+	while (*str)
+	{
+		if (ft_isspace((unsigned char)*str))
+			return (1);
+		str++;
+	}
+	return (0);
+}
