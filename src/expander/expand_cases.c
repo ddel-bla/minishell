@@ -16,7 +16,7 @@
  * Calculates the number of characters a expanded string will have in order
  * to be able to allcate it in the future.
  */
-int	calculate_expanded_size(char *input, t_env *env)
+int	calculate_expanded_size(char *input, t_shell *shell)
 {
 	t_aux_exp	aux;
 
@@ -36,7 +36,7 @@ int	calculate_expanded_size(char *input, t_env *env)
 		}
 		else if (input[aux.i] == '$' && !aux.s_quotes \
 				&& aux.i + 1 < ft_strlen(input))
-			count_expansion(input, &aux, env);
+			count_expansion(input, &aux, shell);
 		else
 			aux.out_index++;
 	}
@@ -46,7 +46,7 @@ int	calculate_expanded_size(char *input, t_env *env)
 /*
  * Expands the given string if applicable.
  */
-void	expand(char *input, char *output, t_env *env)
+void	expand(char *input, char *output, t_shell *shell)
 {
 	t_aux_exp	aux;
 
@@ -66,7 +66,7 @@ void	expand(char *input, char *output, t_env *env)
 		}
 		else if (input[aux.i] == '$' && !aux.s_quotes \
 				&& aux.i + 1 < ft_strlen(input))
-			treat_expansion(input, output, &aux, env);
+			treat_expansion(input, output, &aux, shell);
 		else
 			output[aux.out_index++] = input[aux.i];
 	}

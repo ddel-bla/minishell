@@ -67,7 +67,7 @@ int		check_syntax(t_token **tokens);
 // ____________ parser __________
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
-void	expander(t_env **env, t_cmd *cmd);
+void    expander(t_shell *shell, t_cmd *cmd);
 // ____________ executer ________
 void	executer(t_shell *shell);
 // __________ built-ins _________
