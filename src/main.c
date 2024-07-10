@@ -12,22 +12,25 @@
 
 #include "../include/minishell.h"
 
-void	start_minishell(char **envp);
+void	start_minishell(char **envp, int color);
 int		process(t_shell *shell, char *input);
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc != 1 && argv[1])
+	if (argc > 2 && argv[2])
 		return (1);
-	//print_header();
-	start_minishell(envp);
+	if (argv[1])
+		print_header();
+	else
+		print_header_nc();
+	start_minishell(envp, argc);
 	return (0);
 }
 
 /*
  * Starts the minishell: while loop reading commands
  */
-void	start_minishell(char **envp)
+void	start_minishell(char **envp, int color)
 {
 	char	*input;
 	t_shell	*shell;
@@ -35,7 +38,7 @@ void	start_minishell(char **envp)
 	shell = init(envp);
 	while (1)
 	{
-		input = readline(PROMPT);
+		input = readline(select_prompt(color));
 		if (*input)
 		{
 			add_history(input);
