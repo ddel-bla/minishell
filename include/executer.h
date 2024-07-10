@@ -6,14 +6,13 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/08 01:01:18 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:35:18 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTER_H
 # define EXECUTER_H
 
-// .......... STRUCTS ...........
 // .......... STRUCTS ...........
 typedef struct	s_shell t_shell;
 

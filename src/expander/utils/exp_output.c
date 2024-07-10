@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pid.c                                         :+:      :+:    :+:   */
+/*   exp_output.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 00:53:10 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/10 10:34:40 by ddel-bla         ###   ########.fr       */
+/*   Created: 2024/07/01 10:37:10 by ddel-bla          #+#    #+#             */
+/*   Updated: 2024/07/02 12:28:18 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	ft_add_pid(t_pid_node **list, t_pid_node *pid_node)
+int	ft_out_process(char *outfile, char *cmd, char **envp, int mode)
 {
-	if (*list == NULL)
-		*list = pid_node;
-	else if ((*list)->next == NULL)
-		(*list)->next = pid_node;
-	else
-		ft_add_pid(&(*list)->next, pid_node);
-}
+	int		fd;
+	int		pid;
 
-t_pid_node	*ft_create_pid_node(pid_t pid)
-{
-	t_pid_node	*new_node;
-
-	new_node = (t_pid_node *)malloc(sizeof(t_pid_node));
-	if (!new_node)
-		exit(EXIT_FAILURE);
-	new_node->pid = pid;
-	new_node->next = NULL;
-	return (new_node);
+	pid = ft_fork();
+	if (pid == 0)
+	{
+		if (mode)
+			fd = open(outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		else
+			fd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (fd == -1)
+		{
+			perror("open");
+			exit(EXIT_FAILURE);
+		}
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+		ft_exec_proc(cmd, envp);
+	}
+	return (pid);
 }

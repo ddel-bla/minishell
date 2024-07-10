@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/08 00:51:36 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/10 09:54:28 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		check_syntax(t_token **tokens);
 // ____________ parser __________
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
-void    expander(t_shell *shell, t_cmd *cmd);
+void	expander(t_shell *shell, t_cmd **exp);
 // ____________ executer ________
 void	executer(t_shell *shell);
 // __________ built-ins _________
@@ -97,13 +97,9 @@ int		ft_isspace(char c);
 int		ft_isquote(char c);
 int		ft_isspecial(char c);
 char	*ft_trim_spaces(char *str);
-char	*ft_trim_quotes(char *str);
-void	ft_strncpy(char *dest, char *src, int n);
-int		contains_space(const char *str);
 int		ft_fork(void);
 int		ft_open_in(char *file, int mode);
 int		ft_open_out(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
 int		is_builtin(char *cmd);
 #endif
-// echo "as$PATH 'PATH' '$PATH'"A$

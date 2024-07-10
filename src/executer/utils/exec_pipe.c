@@ -6,34 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/08 01:22:35 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:43:35 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-static void ft_exitstatus(t_shell *shell)
-{
-	t_pid_node	*current;
-	t_pid_node	*temp;
-	int			wstatus;
-
-	current = shell->pid_list;
-	while (current)
-	{
-		waitpid(current->pid, &wstatus, 0);
-		if (WIFEXITED(wstatus))
-			shell->exit_status = WEXITSTATUS(wstatus);
-		else if (WIFSIGNALED(wstatus))
-			shell->exit_status = WTERMSIG(wstatus);
-		else
-			shell->exit_status = EXIT_FAILURE;
-		temp = current->next;
-		free(current);
-		current = temp;
-	}
-	shell->pid_list = NULL;
-}
 
 void	handle_redirection(t_redir *redir)
 {
@@ -54,6 +31,29 @@ void	handle_redirection(t_redir *redir)
 		close(fd);
 		redir = redir->next;
 	}
+}
+
+static void	ft_exitstatus(t_shell *shell)
+{
+	t_pid_node	*current;
+	t_pid_node	*temp;
+	int			wstatus;
+
+	current = shell->pid_list;
+	while (current)
+	{
+		waitpid(current->pid, &wstatus, 0);
+		if (WIFEXITED(wstatus))
+			shell->exit_status = WEXITSTATUS(wstatus);
+		else if (WIFSIGNALED(wstatus))
+			shell->exit_status = WTERMSIG(wstatus);
+		else
+			shell->exit_status = EXIT_FAILURE;
+		temp = current->next;
+		free(current);
+		current = temp;
+	}
+	shell->pid_list = NULL;
 }
 
 void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)

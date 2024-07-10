@@ -88,7 +88,7 @@ void	free_cmd(t_cmd *list)
 			i++;
 		}
 		free(aux->cmd);
-		free_redirs(aux->redirection);
+		free(aux->redirection);
 		free(aux);
 		aux = next;
 	}
