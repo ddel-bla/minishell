@@ -13,6 +13,20 @@
 #ifndef LEXER_H
 # define LEXER_H
 
+// _________ TOKEN_TYPE _________
+# define T_END		-1
+# define T_PIPE         0
+# define T_RED_IN       1
+# define T_RED_OUT      2
+# define T_RED_APP      3
+# define T_RED_HER      4
+# define T_RED_HER_EX	5
+# define T_OTHER        6
+# define T_LIMIT	7
+# define T_OUTFILE	8
+# define T_INFILE	9
+# define T_COMMAND	10
+
 // .......... STRUCTS ...........
 typedef struct s_token
 {
