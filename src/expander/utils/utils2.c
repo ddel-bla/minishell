@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+static char	*process_here_doc(t_redir *hd_redir);
+
 /*
  * Initiliaze aux structure.
  */
@@ -52,12 +54,31 @@ void	process_cmd_redir(t_redir *redir)
 	while (re_aux != NULL)
 	{
 		if (contains_space(re_aux->file) && re_aux->type != T_RED_HER)
-			processed = strdup(re_aux->file);
+			processed = ft_strdup(re_aux->file);
+		else if (re_aux->type == T_RED_HER)
+			processed = process_here_doc(re_aux);
 		else
 			processed = ft_trim_quotes(re_aux->file);
-		if (re_aux->type != T_RED_HER)
-			free(re_aux->file);
+		free(re_aux->file);
 		re_aux->file = processed;
 		re_aux = re_aux->next;
 	}
+}
+
+static char	*process_here_doc(t_redir *hd_redir)
+{
+	char	*processed;
+
+	if (hd_redir->file[0] && ft_isquote(hd_redir->file[0]))
+	{
+		processed = ft_trim_quotes(hd_redir->file);
+		return (processed);
+	}
+	else
+	{
+		processed = ft_trim_quotes(hd_redir->file);
+		return (processed);
+		hd_redir->type = T_RED_HER_EX;
+	}
+	return (ft_strdup(hd_redir->file));
 }

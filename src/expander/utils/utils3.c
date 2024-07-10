@@ -15,24 +15,26 @@
 /*
  * Treats cases of expansion in the expansion process.
  */
-void	treat_expansion(char *input, char *output, t_aux_exp *aux, t_shell *shell)
+void	treat_expansion(char *input, char *output, t_aux_exp *aux, \
+		t_shell *shell)
 {
 	char	*status_str;
 
 	if (input[aux->i + 1] == '$')
 		insert_dollar(output, &aux->out_index, &aux->i);
-	else if (input[aux->i + 1] == '"' && input[aux->i + 2] && input[aux->i + 2] == '"')
+	else if (input[aux->i + 1] == '"' && input[aux->i + 2] && \
+			input[aux->i + 2] == '"')
 		(void)status_str;
 	else if (input[aux->i + 1] == '"')
 		output[aux->out_index++] = '$';
 	else if (input[aux->i + 1] == '?')
 	{
 		status_str = ft_itoa(shell->exit_status);
-        strncpy(&output[aux->out_index], status_str, ft_strlen(status_str));
-        aux->out_index += ft_strlen(status_str);
-        free(status_str);
-		(void) status_str;
-        aux->i++;
+		ft_strncpy(&output[aux->out_index], status_str, \
+				ft_strlen(status_str));
+		aux->out_index += ft_strlen(status_str);
+		free(status_str);
+		aux->i++;
 	}
 	else
 		variable_expansion(input, output, aux, shell->env);
@@ -50,7 +52,8 @@ void	count_expansion(char *input, t_aux_exp *aux, t_shell *shell)
 		count_vars(&aux->i, &aux->out_index);
 	else if (input[aux->i + 1] == '"')
 		aux->out_index++;
-	else if (input[aux->i + 1] == '"' && input[aux->i + 2] && input[aux->i + 2] == '"')
+	else if (input[aux->i + 1] == '"' && input[aux->i + 2] && \
+			input[aux->i + 2] == '"')
 		(void)status_str;
 	else if (input[aux->i + 1] == '?')
 	{

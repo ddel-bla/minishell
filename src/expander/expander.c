@@ -81,6 +81,8 @@ static void	expand_redir_file(t_cmd *cmd, t_shell *shell)
 			redir->file = NULL;
 			redir->file = expanded;
 		}
+		else
+			redir->file = ft_strdup(redir->file);
 		redir = redir->next;
 	}
 }
@@ -91,14 +93,8 @@ static void	expand_redir_file(t_cmd *cmd, t_shell *shell)
 static void	post_process(t_cmd *cmd)
 {
 	t_cmd	*c_aux;
-	t_redir	*re_aux;
 
 	c_aux = cmd;
-	re_aux = cmd->redirection;
-	while (c_aux != NULL)
-	{
-		process_cmd_arg(c_aux);
-		process_cmd_redir(re_aux);
-		c_aux = c_aux->next;
-	}
+	process_cmd_arg(c_aux);
+	process_cmd_redir(c_aux->redirection);
 }

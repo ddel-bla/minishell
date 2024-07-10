@@ -75,11 +75,10 @@ char	*select_prompt(int is_colored)
 	return (PROMPT);
 }
 
-
 /*
  * Prints a format error message in stderr.
  */
 void	print_error(char *str)
 {
-		ft_putendl_fd(str, 2);
+	ft_putendl_fd(str, 2);
 }
