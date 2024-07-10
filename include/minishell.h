@@ -90,6 +90,7 @@ char	*ft_trim_spaces(char *str);
 char	*ft_trim_quotes(char *str);
 void	ft_strncpy(char *dest, char *src, int n);
 int		contains_space(const char *str);
+int		contains_quote(const char *str);
 int		ft_fork(void);
 int		ft_open_in(char *file, int mode);
 int		ft_open_out(char *file, int mode, int flag);

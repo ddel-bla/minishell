@@ -69,16 +69,12 @@ static char	*process_here_doc(t_redir *hd_redir)
 {
 	char	*processed;
 
-	if (hd_redir->file[0] && ft_isquote(hd_redir->file[0]))
+	if (contains_quote(hd_redir->file))
 	{
 		processed = ft_trim_quotes(hd_redir->file);
 		return (processed);
 	}
 	else
-	{
-		processed = ft_trim_quotes(hd_redir->file);
-		return (processed);
 		hd_redir->type = T_RED_HER_EX;
-	}
 	return (ft_strdup(hd_redir->file));
 }
