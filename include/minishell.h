@@ -42,7 +42,7 @@ typedef struct s_shell
 	t_env		*env;
 	int			exit_status;
 	char		**envp;
-	t_pid_node 	*pid_list;
+	t_pid_node	*pid_list;
 }			t_shell;
 
 // ......... FUNCTIONS ..........
@@ -56,7 +56,7 @@ int		check_syntax(t_token **tokens);
 // ____________ parser __________
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
-void    expander(t_shell *shell, t_cmd *cmd);
+void	expander(t_shell *shell, t_cmd *cmd);
 // ____________ executer ________
 void	executer(t_shell *shell);
 // __________ built-ins _________

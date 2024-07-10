@@ -14,7 +14,7 @@
 # define EXPANDER_H
 
 // .......... STRUCTS ...........
-typedef struct s_shell t_shell;
+typedef struct s_shell	t_shell;
 // _________ s_aux_exp _________
 typedef struct s_aux_exp
 {
@@ -39,6 +39,7 @@ void	init_aux2(t_aux_exp *aux);
 void	process_cmd_arg(t_cmd *cmd);
 void	process_cmd_redir(t_redir *redir);
 int		ft_contains_space(char *str);
-void	treat_expansion(char *input, char *output, t_aux_exp *aux, t_shell *shell);
+void	treat_expansion(char *input, char *output, t_aux_exp *aux, \
+	t_shell *shell);
 void	count_expansion(char *input, t_aux_exp *aux, t_shell *shell);
 #endif
