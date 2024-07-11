@@ -45,4 +45,6 @@ t_redir	*get_redir_by_index(t_redir *list, int index);
 int		redirs_size(t_redir *list);
 void	print_redirs(t_redir *list);
 void	free_redirs(t_redir *list);
+// ____________ utils ___________
+char	**add_to_args(char **args, t_token **tokens);
 #endif

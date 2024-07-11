@@ -32,6 +32,13 @@ void	parser(t_token **tokens, t_cmd **cmd)
 	{
 		args = get_cmds(&aux);
 		redir = get_redirections(&aux);
+		if (aux && aux->type == T_COMMAND)
+		{
+			if (args == NULL)
+				args = get_cmds(&aux);
+			else
+				args = add_to_args(args, &aux);
+		}
 		operator = get_operator(&aux);
 		add_cmd(cmd, create_cmd(args, operator, redir));
 		redir = NULL;
