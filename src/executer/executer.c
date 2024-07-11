@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/10 10:33:59 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:11:11 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,14 @@ void	executer(t_shell *shell)
 	prev_fd = 0;
 	while (current->next)
 	{
-		if (is_builtin(current->cmd[0]))
-			exec_builtin(shell, current);
+		ft_pipe(fds);
+		pid = ft_fork();
+		if (pid == 0)
+			ft_handle_child(fds, prev_fd, shell, current);
 		else
-		{
-			ft_pipe(fds);
-			pid = ft_fork();
-			if (pid == 0)
-				ft_handle_child(fds, prev_fd, shell, current);
-			else
-				ft_handle_parent(fds, &prev_fd);
-			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
-			current = current->next;
-		}
+			ft_handle_parent(fds, &prev_fd);
+		ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
+		current = current->next;
 	}
 	ft_handle_last(fds, prev_fd, shell, current);
 }

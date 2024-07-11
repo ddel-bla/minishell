@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/10 10:43:35 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:10:41 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,15 @@ void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 {
 	pid_t	pid;
 
-	if (is_builtin(exp->cmd[0]))
-		exec_builtin(shell, exp);
-	else
+	pid = ft_fork();
+	if (pid == 0)
 	{
-		pid = ft_fork();
-		if (pid == 0)
-		{
-			dup2(prev_fd, STDIN_FILENO);
-			close(prev_fd);
-			ft_exec_proc(shell, exp);
-		}
-		else
-			ft_handle_parent(fds, &prev_fd);
-		ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
-		ft_exitstatus(shell);
+		dup2(prev_fd, STDIN_FILENO);
+		close(prev_fd);
+		ft_exec_proc(shell, exp);
 	}
+	else
+		ft_handle_parent(fds, &prev_fd);
+	ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
+	ft_exitstatus(shell);
 }
