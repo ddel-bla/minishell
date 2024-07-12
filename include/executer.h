@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/12 18:00:51 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:12:52 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void		ft_add_pid(t_pid_node **list, t_pid_node *pid_node);
 t_pid_node	*ft_create_pid_node(pid_t pid);
 
 void		handle_redir(int *fds, int *prev_fd, t_cmd *shell);
-void         check_out(int *fds, int *prev_fd, t_cmd *exp);
+int         check_out(int *fds, int *prev_fd, t_cmd *exp);
 void	    check_in(int *fds, int *prev_fd, t_cmd *exp);
 #endif
