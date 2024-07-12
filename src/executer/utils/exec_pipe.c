@@ -6,32 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/11 17:10:41 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:52:37 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-void	handle_redirection(t_redir *redir)
-{
-	int	fd;
-
-	while (redir)
-	{
-		if (redir->type == T_RED_IN)
-			fd = ft_open_in(redir->file, O_RDONLY);
-		else if (redir->type == T_RED_OUT)
-			fd = ft_open_out(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (redir->type == T_RED_APP)
-			fd = ft_open_out(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (redir->type == T_RED_IN)
-			dup2(fd, STDIN_FILENO);
-		else
-			dup2(fd, STDOUT_FILENO);
-		close(fd);
-		redir = redir->next;
-	}
-}
 
 static void	ft_exitstatus(t_shell *shell)
 {
@@ -61,6 +40,7 @@ void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 	close(fds[0]);
 	if (prev_fd != 0)
 	{
+		check_out(fds, &prev_fd, exp);
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
@@ -84,6 +64,7 @@ void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 	pid = ft_fork();
 	if (pid == 0)
 	{
+		check_out(fds, &prev_fd, exp);
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 		ft_exec_proc(shell, exp);

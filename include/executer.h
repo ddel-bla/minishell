@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/10 09:35:18 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:12:52 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ typedef struct	s_pid_node
 // ......... FUNCTIONS ..........
 // ___________ command __________
 void		ft_exec_proc(t_shell *shell, t_cmd *exp);
+
 void		ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *exp);
 void		ft_handle_parent(int *fds, int *prev_fd);
 void		ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp);
+
 int			ft_find_path(char *exp, t_env *env, char **cmd_path);
+
 void		ft_add_pid(t_pid_node **list, t_pid_node *pid_node);
 t_pid_node	*ft_create_pid_node(pid_t pid);
+
+void		handle_redir(int *fds, int *prev_fd, t_cmd *shell);
+int         check_out(int *fds, int *prev_fd, t_cmd *exp);
+void	    check_in(int *fds, int *prev_fd, t_cmd *exp);
 #endif
