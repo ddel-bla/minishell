@@ -6,13 +6,14 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/10 10:33:42 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:36:16 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
 // .......... STRUCTS ...........
+
 typedef struct	s_shell t_shell;
 
 // ......... FUNCTIONS ..........

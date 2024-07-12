@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/10 09:54:28 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:41:25 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,8 @@
 
 // ........... MACROS ...........
 // __________ visuals ___________
-# define PROMPT "\033[1;36mminishell>$\033[1;37m"
-// _________ TOKEN_TYPE _________
-# define T_END		-1
-# define T_PIPE         0
-# define T_RED_IN       1
-# define T_RED_OUT      2
-# define T_RED_APP      3
-# define T_RED_HER      4
-# define T_OTHER        5
-# define T_LIMIT	6
-# define T_OUTFILE	7
-# define T_INFILE	8
-# define T_COMMAND	9
-
+# define PROMPT "minishell>$"
+# define COLORED_PROMPT "\033[1;36mminishell>$\033[1;37m"
 // ............ LIBS ............
 # include <stdio.h>
 # include <stdlib.h>
@@ -54,7 +42,7 @@ typedef struct s_shell
 	t_env		*env;
 	int			exit_status;
 	char		**envp;
-	t_pid_node 	*pid_list;
+	t_pid_node	*pid_list;
 }			t_shell;
 
 // ......... FUNCTIONS ..........
@@ -69,6 +57,7 @@ int		check_syntax(t_token **tokens);
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
 void	expander(t_shell *shell, t_cmd **exp);
+
 // ____________ executer ________
 void	executer(t_shell *shell);
 // __________ built-ins _________
@@ -84,7 +73,9 @@ int		count_args(t_cmd *cmd);
 int		validate_syntax(char *argv);
 // ____________ prints __________
 void	print_header(void);
+void	print_header_nc(void);
 void	print_error(char *str);
+char	*select_prompt(int is_colored);
 // __________ main-utils ________
 t_shell	*init(char **envp);
 void	free_env_and_shell(t_shell *shell);

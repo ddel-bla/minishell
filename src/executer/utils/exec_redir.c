@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:17:26 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/12 19:10:58 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:42:48 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	check_in(int *prev_fd, t_cmd *exp)
 	act = exp->redirection;
 	while (act)
 	{
-		fprintf(stderr, "entra %i\n", act->type);
+		//fprintf(stderr, "entra %i\n", act->type);
 		if (act->type == T_RED_IN)
 		{
 			fd = ft_open_in(act->file, O_RDONLY);

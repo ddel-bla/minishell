@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/10 10:30:33 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:42:21 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	expander(t_shell *shell, t_cmd **exp)
 	current = *exp;
 	while (current != NULL)
 	{
-		// input_redirection(current);
 		i = -1;
 		while (current->cmd[++i] != NULL)
 			current->cmd[i] = expand_quotes(shell, current->cmd[i]);

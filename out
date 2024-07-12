@@ -1,0 +1,8 @@
+build
+include
+lib
+Makefile
+minishell
+out
+src
+tests

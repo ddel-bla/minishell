@@ -87,5 +87,7 @@ char	*get_str_types(int type)
 		return ("COMMAND");
 	else if (type == T_END)
 		return ("END");
+	else if (type == T_RED_HER_EX)
+		return ("HEREDOC REDIRECTION (EXPANSION)");
 	return ("OTHER");
 }

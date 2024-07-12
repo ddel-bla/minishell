@@ -44,13 +44,41 @@ void	print_header(void)
 }
 
 /*
+ * Prints a sad header.
+ */
+void	print_header_nc(void)
+{
+	printf("\n");
+	printf("\t\t      .--.    \n");
+	printf("\t\t     |o_o |                   _        _      _");
+	printf("          _  _\n");
+	printf("\t\t     |:_/ |           ");
+	printf(" _ __  (_) _ _  (_) ___| |_   ___ | || | \n");
+	printf("\t\t    //   \\ \\          | '  \\ |");
+	printf(" || ' \\ | |(_-<| ' \\ / -_)| || |\n");
+	printf("\t\t   (|     | )         |_|_|_||");
+	printf("_||_||_||_|/__/|_||_|\\___||_||_|\n");
+	printf("\t\t  /'\\_   _/`\\       \n");
+	printf("\t\t  \\___)=(___/\t \t   ");
+	printf("   Welcome to our mini shell. \n");
+	printf("\t\t                                @ddel-bla");
+	printf(" & @claferna\n");
+}
+
+/*
+ * Selects the appropiatte prompt.
+ */
+char	*select_prompt(int is_colored)
+{
+	if (is_colored == 2)
+		return (COLORED_PROMPT);
+	return (PROMPT);
+}
+
+/*
  * Prints a format error message in stderr.
  */
 void	print_error(char *str)
 {
-	char	*join;
-
-	join = ft_strjoin(RED, str);
-	ft_putendl_fd(join, 2);
-	free(join);
+	ft_putendl_fd(str, 2);
 }
