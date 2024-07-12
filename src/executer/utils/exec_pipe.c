@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/12 17:52:37 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:56:45 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 	if (prev_fd != 0)
 	{
 		check_out(fds, &prev_fd, exp);
+		check_in(&prev_fd, exp);
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
@@ -65,6 +66,7 @@ void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 	if (pid == 0)
 	{
 		check_out(fds, &prev_fd, exp);
+		check_in(&prev_fd, exp);
 		dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 		ft_exec_proc(shell, exp);
