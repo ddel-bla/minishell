@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 16:10:21 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/28 16:10:22 by claferna         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:04:19 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	free_loop(t_shell *shell, char *input)
 	free_cmd(shell->cmd);
 	free_cmd(shell->exp);
 	shell->cmd = NULL;
+	shell->exp = NULL;
 	free(input);
 }
 
