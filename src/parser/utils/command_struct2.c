@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_struct.c                                   :+:      :+:    :+:   */
+/*   command_struct2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:23:05 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 17:25:42 by claferna         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:48:29 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 void	print_cmd(t_cmd *list)
 {
 	t_cmd	*aux;
+	t_redir	*tmp;
 	int		i;
 
 	aux = list;
 	while (aux != NULL)
 	{
-		printf("Command\n");
 		i = 0;
+		printf("Command\n");
 		while (aux->cmd[i])
 		{
 			printf("%d argument: \033[0;31m %s \033[0m\n", \
@@ -33,7 +34,12 @@ void	print_cmd(t_cmd *list)
 		}
 		printf("Operator type: \033[0;35m%s \033[0m\n", \
 				get_str_types(aux->operator_type));
-		print_redirs(aux->redirection);
+		tmp = aux->redirection;
+		while(tmp != NULL)
+		{
+			print_redirs(tmp);
+			tmp = tmp->next;
+		}
 		aux = aux->next;
 	}
 }
