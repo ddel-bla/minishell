@@ -112,7 +112,7 @@ fclean		: clean
 leaks		: re
 	@echo $(VALGRIND)
 	@echo $(LEAKS)
-	valgrind --leak-check=full --track-origins=yes ./$(NAME)
+	valgrind --leak-check=full --track-origins=yes -s ./$(NAME)
 
 races		: re
 	@echo $(VALGRIND)
