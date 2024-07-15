@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/13 11:35:06 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:31:52 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 {
 	pid_t	pid;
 
+	ft_pipe(fds);
 	pid = ft_fork();
 	if (pid == 0)
 	{
