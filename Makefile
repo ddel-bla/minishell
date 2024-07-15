@@ -43,8 +43,8 @@ SRC		=	./src/main.c \
 		./src/utils/utils.c \
 		./src/utils/utils2.c \
 		./src/expander/expander.c \
+		./src/expander/utils/exp_redir.c \
 		./src/expander/utils/exp_copycmd.c \
-		./src/expander/utils/exp_input.c \
 		./src/expander/utils/exp_quotes.c \
 		./src/utils/func_utils.c \
 		./src/executer/executer.c \
