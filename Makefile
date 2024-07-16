@@ -25,6 +25,7 @@ SRC		=	./src/main.c \
 		./src/parser/utils/command_struct2.c \
 		./src/parser/utils/redir_struct.c \
 		./src/parser/utils/redir_struct2.c \
+		./src/parser/utils/utils.c \
 		./src/env/env.c \
 		./src/env/utils/env_struct.c \
 		./src/env/utils/env_struct2.c \
@@ -42,6 +43,7 @@ SRC		=	./src/main.c \
 		./src/utils/main_utils.c \
 		./src/utils/utils.c \
 		./src/utils/utils2.c \
+		./src/utils/utils3.c \
 		./src/expander/expander.c \
 		./src/expander/utils/exp_copycmd.c \
 		./src/expander/utils/exp_input.c \

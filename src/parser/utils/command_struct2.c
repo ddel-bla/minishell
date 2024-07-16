@@ -18,7 +18,6 @@
 void	print_cmd(t_cmd *list)
 {
 	t_cmd	*aux;
-	t_redir	*tmp;
 	int		i;
 
 	aux = list;
@@ -34,12 +33,7 @@ void	print_cmd(t_cmd *list)
 		}
 		printf("Operator type: \033[0;35m%s \033[0m\n", \
 				get_str_types(aux->operator_type));
-		tmp = aux->redirection;
-		while(tmp != NULL)
-		{
-			print_redirs(tmp);
-			tmp = tmp->next;
-		}
+		print_redirs(aux->redirection);
 		aux = aux->next;
 	}
 }

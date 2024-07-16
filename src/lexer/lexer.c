@@ -25,6 +25,7 @@ int	lexer(char *input, t_token **tokens)
 	if (extract_tokens(tokens, input))
 		return (1);
 	get_definitive_type(tokens);
+	post_process_redirs(tokens);
 	return (check_syntax(tokens));
 }
 
@@ -98,7 +99,14 @@ static int	process_special(t_token **tokens, char *input, int *i)
 
 	j = (*i);
 	while (input[j] && ft_isspecial(input[j]))
+	{
+		if (input[j] == '|' && input[j + 1] && (input[j + 1] == '<' || input[j + 1] == '>'))
+		{
+			j++;
+			break;
+		}
 		j++;
+	}
 	token = ft_substr(input, (*i), j - 1);
 	(*i) = j;
 	if (validate_token(token))

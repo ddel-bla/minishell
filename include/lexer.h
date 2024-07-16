@@ -37,10 +37,18 @@ typedef struct s_token
 }					t_token;
 
 // ......... FUNCTIONS ..........
+// ________ token struct ________
 t_token	*create_token(char *value, int type, int index);
 void	add_token(t_token **list, t_token *token);
 t_token	*get_token_by_index(t_token *list, int index);
 int		tokens_size(t_token *list);
 void	print_tokens(t_token *list);
 void	free_tokens(t_token *list);
+// ___________ utils ____________
+int		get_basic_type(char *token);
+void	get_definitive_type(t_token **token_list);
+char	*get_str_types(int type);
+int		validate_token(char *token);
+int		check_syntax(t_token **tokens);
+void	post_process_redirs(t_token **tokens);
 #endif

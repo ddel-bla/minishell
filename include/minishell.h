@@ -88,6 +88,7 @@ int		ft_isspace(char c);
 int		ft_isquote(char c);
 int		ft_isspecial(char c);
 char	*ft_trim_spaces(char *str);
+int		contains_quote(const char *str);
 int		ft_fork(void);
 int		ft_open_in(char *file, int mode);
 int		ft_open_out(char *file, int mode, int flag);

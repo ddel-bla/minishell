@@ -91,3 +91,26 @@ char	*get_str_types(int type)
 		return ("HEREDOC REDIRECTION (EXPANSION)");
 	return ("OTHER");
 }
+
+/*
+ * Set if a here_doc redirection must or must not expand.
+ */
+void	post_process_redirs(t_token **tokens)
+{
+	t_token	*aux;
+	char	*eol;
+
+	aux = *tokens;
+	while (aux->next)
+	{
+		if (aux->type == T_RED_HER)
+		{
+			eol = ft_strjoin(aux->next->value, "\n");
+			free(aux->next->value);
+			aux->next->value = eol;
+			if (!contains_quote(aux->next->value))
+				aux->type = T_RED_HER_EX;
+		}
+		aux = aux->next;
+	}
+}
