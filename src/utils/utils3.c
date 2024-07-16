@@ -25,3 +25,32 @@ int	contains_quote(const char *str)
 	}
 	return (0);
 }
+
+/*
+ * Removes all the quotes (double/simple) in a string.
+ */
+char	*remove_quotes(const char *str)
+{
+	int		length;
+	char	*result;
+	int		j;
+	int		i;
+
+	length = ft_strlen(str);
+	result = (char *)malloc(length + 1);
+	if (!result)
+		return (NULL);
+	j = 0;
+	i = 0;
+	while (i < length)
+	{
+		if (str[i] != '\'' && str[i] != '"')
+		{
+			result[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	result[j] = '\0';
+	return (result);
+}

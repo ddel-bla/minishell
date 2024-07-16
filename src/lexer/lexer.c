@@ -100,10 +100,11 @@ static int	process_special(t_token **tokens, char *input, int *i)
 	j = (*i);
 	while (input[j] && ft_isspecial(input[j]))
 	{
-		if (input[j] == '|' && input[j + 1] && (input[j + 1] == '<' || input[j + 1] == '>'))
+		if (input[j] == '|' && input[j + 1] \
+			&& (input[j + 1] == '<' || input[j + 1] == '>'))
 		{
 			j++;
-			break;
+			break ;
 		}
 		j++;
 	}

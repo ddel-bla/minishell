@@ -99,17 +99,20 @@ void	post_process_redirs(t_token **tokens)
 {
 	t_token	*aux;
 	char	*eol;
+	char	*process;
 
 	aux = *tokens;
 	while (aux->next)
 	{
 		if (aux->type == T_RED_HER)
 		{
-			eol = ft_strjoin(aux->next->value, "\n");
-			free(aux->next->value);
-			aux->next->value = eol;
 			if (!contains_quote(aux->next->value))
 				aux->type = T_RED_HER_EX;
+			process = remove_quotes(aux->next->value);
+			free(aux->next->value);
+			eol = ft_strjoin(process, "\n");
+			free(process);
+			aux->next->value = eol;
 		}
 		aux = aux->next;
 	}
