@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 13:56:02 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/16 19:47:08 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:28:29 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*check_expand(char *line, t_shell *shell)
 			line = exp_dollar(++line, shell, &new);
 		else
 		{
-			while (line[i] != '\0' && line[i] && line[i] != '$')
+			while (line[i] != '\0' && line[i] != '\n' && line[i] != '$')
 				i++;
 			if (line[i] == '$')
 				i--;
@@ -105,7 +105,6 @@ void	red_her(t_shell *shell, char *limiter, int mode)
 	int		fd;
 
 	fd = ft_open("tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	//fprintf(stderr, "Print '%i'\n", mode);
 	while (1)
 	{
 		write(1, "heredoc> ", 9);
@@ -114,7 +113,6 @@ void	red_her(t_shell *shell, char *limiter, int mode)
 			break ;
 		if (mode)
 			line = check_expand(line, shell);
-		//fprintf(stderr, "line  '%s'", line);
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
