@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:17:26 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/12 19:42:48 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:24:07 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	check_out(int *fds, int *prev_fd, t_cmd *exp)
 	while (act)
 	{
 		if (act->type == T_RED_OUT)
-			fd = ft_open_out(act->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = ft_open(act->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (act->type == T_RED_APP)
-			fd = ft_open_out(act->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			fd = ft_open(act->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 		act = act->next;
@@ -44,7 +44,7 @@ void	check_in(int *prev_fd, t_cmd *exp)
 		//fprintf(stderr, "entra %i\n", act->type);
 		if (act->type == T_RED_IN)
 		{
-			fd = ft_open_in(act->file, O_RDONLY);
+			fd = ft_open(act->file, O_RDONLY, 0664);
 			dup2(fd, STDIN_FILENO);
 			close(fd);
 			*prev_fd = 0;

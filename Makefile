@@ -45,8 +45,8 @@ SRC		=	./src/main.c \
 		./src/utils/utils2.c \
 		./src/utils/utils3.c \
 		./src/expander/expander.c \
+		./src/expander/utils/exp_redir.c \
 		./src/expander/utils/exp_copycmd.c \
-		./src/expander/utils/exp_input.c \
 		./src/expander/utils/exp_quotes.c \
 		./src/utils/func_utils.c \
 		./src/executer/executer.c \
@@ -114,7 +114,7 @@ fclean		: clean
 leaks		: re
 	@echo $(VALGRIND)
 	@echo $(LEAKS)
-	valgrind --leak-check=full --track-origins=yes ./$(NAME)
+	valgrind --leak-check=full --track-origins=yes -s ./$(NAME)
 
 races		: re
 	@echo $(VALGRIND)

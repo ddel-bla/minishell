@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/12 19:36:16 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:24:48 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ typedef struct	s_shell t_shell;
 t_cmd	*copy_cmd(t_cmd *original);
 char	*expand_quotes(t_shell *shell, char *cmd);
 
+void	check_redir(t_shell *shell, t_cmd *exp);
 void	red_in(int fd, char *file);
-void	red_her(int fds[2], char *limiter);
+void	red_her(t_shell *shell, char *limiter, int mode);
 
 int		ft_out_process(char *outfile, char *cmd, char **envp, int mode);
 
@@ -30,7 +31,5 @@ char	*dollar(char *cmd, t_shell *shell, char **new);
 char	*quote(char *cmd, char **new);
 char	*dquote(char *cmd, t_shell *shell, char **new);
 char	*squote(char *cmd, char **new);
-
-void	input_redirection(t_cmd *cmd);
 
 #endif

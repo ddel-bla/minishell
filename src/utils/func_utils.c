@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:18:10 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/05 20:13:09 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:59:25 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,7 @@ int	ft_fork(void)
 	return (pid);
 }
 
-int	ft_open_in(char *file, int mode)
-{
-	int	fd;
-
-	fd = open(file, mode);
-	if (fd < 0)
-	{
-		perror("open");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
-}
-
-int	ft_open_out(char *file, int mode, int flag)
+int	ft_open(char *file, int mode, int flag)
 {
 	int	fd;
 

@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 16:10:21 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/13 11:04:19 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/13 20:37:00 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_shell	*init(char **envp)
 	save_env(&env, envp);
 	shell->env = env;
 	shell->exit_status = 0;
+	shell->pid_list = NULL;
 	return (shell);
 }
 
