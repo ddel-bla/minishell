@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exp_redir.c                                        :+:      :+:    :+:   */
+/*   exec_here.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 13:56:02 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/16 20:28:29 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:09:32 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+static char	*ft_add_var(char *line, char *var)
+{
+	char	*new;
+
+	new = ft_strjoin(line, var);
+	free(line);
+	return (new);
+}
 
 static char	*exp_dollar(char *cmd, t_shell *shell, char **new)
 {
@@ -36,21 +45,28 @@ static char	*exp_dollar(char *cmd, t_shell *shell, char **new)
 	myenv = get_env_by_name(shell->env, var_name);
 	free(var_name);
 	if (myenv)
-	{
-		aux = ft_strjoin(*new, myenv->value);
-		free(*new);
-		*new = aux;
-	}
+		*new = ft_add_var(*new, myenv->value);
 	return (cmd + i);
 }
 
-char	*check_expand(char *line, t_shell *shell)
+static char	*ft_add(char *line, int len, char **new)
 {
-	char	*new;
 	char	*add;
 	char	*aux;
+
+	add = ft_substr(line, 0, len);
+	aux = ft_strjoin(*new, add);
+	free(add);
+	free(*new);
+	*new = aux;
+	return (line + len + 1);
+}
+
+char	*here_expand(char *line, t_shell *shell)
+{
+	char	*new;
 	int		i;
-	
+
 	new = ft_strdup("");
 	if (new == NULL)
 		return (NULL);
@@ -65,17 +81,13 @@ char	*check_expand(char *line, t_shell *shell)
 				i++;
 			if (line[i] == '$')
 				i--;
-			add = ft_substr(line, 0, i);
-			aux = ft_strjoin(new, add);
-			free(new);
-			free(add);
-			new = aux;
-			line = line + i + 1;
+			line = ft_add(line, i, &new);
 		}
 		i = 0;
 	}
 	return (new);
 }
+
 /*
 void	red_her(int fds[2], t_shell *shell, char *limiter, int mode)
 {
@@ -98,39 +110,3 @@ void	red_her(int fds[2], t_shell *shell, char *limiter, int mode)
 	close(fds[0]);
 }
 */
-
-void	red_her(t_shell *shell, char *limiter, int mode)
-{
-	char	*line;
-	int		fd;
-
-	fd = ft_open("tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	while (1)
-	{
-		write(1, "heredoc> ", 9);
-		line = get_next_line(STDIN_FILENO);
-		if (!line || (!ft_strncmp(line, limiter, ft_strlen(line))))
-			break ;
-		if (mode)
-			line = check_expand(line, shell);
-		write(fd, line, ft_strlen(line));
-		free(line);
-	}
-	free(line);
-	close(fd);
-}
-
-void	check_redir(t_shell *shell, t_cmd *exp)
-{
-	t_redir	*act;
-
-	act = exp->redirection;
-	while (act)
-	{
-		if (act->type == T_RED_HER)
-			red_her(shell, act->file, 0);
-		else if (act->type == T_RED_HER_EX)
-			red_her(shell, act->file, 1);
-		act = act->next;
-	}
-}

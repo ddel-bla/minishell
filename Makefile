@@ -45,16 +45,17 @@ SRC		=	./src/main.c \
 		./src/utils/utils2.c \
 		./src/utils/utils3.c \
 		./src/expander/expander.c \
-		./src/expander/utils/exp_redir.c \
 		./src/expander/utils/exp_copycmd.c \
 		./src/expander/utils/exp_quotes.c \
 		./src/utils/func_utils.c \
 		./src/executer/executer.c \
 		./src/executer/utils/exec_exe.c \
+		./src/executer/utils/exec_here.c \
 		./src/executer/utils/exec_path.c \
-		./src/executer/utils/exec_pipe.c \
 		./src/executer/utils/exec_pid.c \
-		./src/executer/utils/exec_redir.c
+		./src/executer/utils/exec_pipe.c \
+		./src/executer/utils/exec_redir.c \
+		
 
 OBJS	=	$(patsubst ./src/%.c, ./build/%.o, $(SRC))
 

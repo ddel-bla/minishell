@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/15 18:24:48 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:06:09 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 # define EXPANDER_H
 // .......... STRUCTS ...........
 
-typedef struct	s_shell t_shell;
+typedef struct s_shell	t_shell;
 
 // ......... FUNCTIONS ..........
 t_cmd	*copy_cmd(t_cmd *original);
 char	*expand_quotes(t_shell *shell, char *cmd);
 
-void	check_redir(t_shell *shell, t_cmd *exp);
-void	red_in(int fd, char *file);
-void	red_her(t_shell *shell, char *limiter, int mode);
-
 int		ft_out_process(char *outfile, char *cmd, char **envp, int mode);
 
-char 	*ft_status(char *cmd, t_shell *shell, char **new);
+char	*ft_status(char *cmd, t_shell *shell, char **new);
 char	*dollar(char *cmd, t_shell *shell, char **new);
 char	*quote(char *cmd, char **new);
 char	*dquote(char *cmd, t_shell *shell, char **new);

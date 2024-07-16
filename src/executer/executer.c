@@ -6,13 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/16 08:10:23 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:08:20 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
 
 void	executer(t_shell *shell)
 {
