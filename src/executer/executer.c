@@ -6,11 +6,13 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/12 16:26:08 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/16 08:10:23 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+
 
 void	executer(t_shell *shell)
 {
@@ -21,16 +23,21 @@ void	executer(t_shell *shell)
 
 	current = shell->exp;
 	prev_fd = 0;
-	while (current->next)
+	if (current->next == NULL && is_builtin(current->cmd[0]))
+		exec_builtin(shell, current);
+	else
 	{
-		ft_pipe(fds);
-		pid = ft_fork();
-		if (pid == 0)
-			ft_handle_child(fds, prev_fd, shell, current);
-		else
-			ft_handle_parent(fds, &prev_fd);
-		ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
-		current = current->next;
+		while (current->next)
+		{
+			ft_pipe(fds);
+			pid = ft_fork();
+			if (pid == 0)
+				ft_handle_child(fds, prev_fd, shell, current);
+			else
+				ft_handle_parent(fds, &prev_fd);
+			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
+			current = current->next;
+		}
+		ft_handle_last(fds, prev_fd, shell, current);
 	}
-	ft_handle_last(fds, prev_fd, shell, current);
 }
