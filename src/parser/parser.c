@@ -14,7 +14,7 @@
 
 static char		**get_cmds(t_token **tokens);
 static int		get_operator(t_token **tokens);
-static t_redir	*get_redirections(t_token **tokens);
+static void		get_redirections(t_token **token, t_redir **redir);
 
 /*
  * Main function of the parser process
@@ -27,14 +27,20 @@ void	parser(t_token **tokens, t_cmd **cmd)
 	int		operator;
 
 	aux = *tokens;
-	redir = NULL;
 	while (aux)
 	{
-		args = get_cmds(&aux);
-		redir = get_redirections(&aux);
+		redir = NULL;
+		args = NULL;
+		while (aux && aux->type != T_PIPE)
+		{
+			if (args == NULL)
+				args = get_cmds(&aux);
+			else
+				args = add_to_args(args, &aux);
+			get_redirections(&aux, &redir);
+		}
 		operator = get_operator(&aux);
 		add_cmd(cmd, create_cmd(args, operator, redir));
-		redir = NULL;
 		if (aux)
 			aux = aux->next;
 	}
@@ -80,20 +86,17 @@ static	int	get_operator(t_token **token)
  * Extracts all the redirections atributes of the token list corresponding to
  * one command and returns it in a t_redir struct format.
  */
-static t_redir	*get_redirections(t_token **token)
+static void	get_redirections(t_token **token, t_redir **redir)
 {
-	t_redir	*redir;
-
-	redir = NULL;
 	while (*token && (*token)->type >= T_RED_IN \
-			&& (*token)->type <= T_RED_HER \
+			&& ((*token)->type <= T_RED_HER \
+			|| (*token)->type <= T_RED_HER_EX) \
 			&& (*token)->next \
 			&& ((*token)->next->type == T_OUTFILE \
 			|| (*token)->next->type == T_INFILE \
 			|| (*token)->next->type == T_LIMIT))
 	{
-		add_redir(&redir, create_redir((*token)->type, (*token)->next->value));
+		add_redir(redir, create_redir((*token)->type, (*token)->next->value));
 		*token = (*token)->next->next;
 	}
-	return (redir);
 }
