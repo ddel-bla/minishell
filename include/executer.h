@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/16 21:07:55 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:40:16 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void		ft_handle_parent(int *fds, int *prev_fd);
 void		ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp);
 
 void		check_out(int *fds, int *prev_fd, t_cmd *exp);
-void		check_in(int *prev_fd, t_cmd *exp);
-void		check_redir(t_shell *shell, t_cmd *exp);
+void		check_in(t_shell *shell, int *prev_fd, int *fds, t_cmd *exp);
 
 #endif

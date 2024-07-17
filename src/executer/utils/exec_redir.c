@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:17:26 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/16 21:09:54 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:52:13 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,46 +18,30 @@ void	check_out(int *fds, int *prev_fd, t_cmd *exp)
 	int		fd;
 
 	act = exp->redirection;
-	fd = 0;
 	while (act)
 	{
 		if (act->type == T_RED_OUT)
+		{
 			fd = ft_open(act->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
 		else if (act->type == T_RED_APP)
+		{
 			fd = ft_open(act->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+		}
 		act = act->next;
 	}
 	if (fds[1] == *prev_fd)
 		*prev_fd = 0;
 }
 
-void	check_in(int *prev_fd, t_cmd *exp)
-{
-	t_redir	*act;
-	int		fd;
-
-	act = exp->redirection;
-	while (act)
-	{
-		if (act->type == T_RED_IN)
-		{
-			fd = ft_open(act->file, O_RDONLY, 0664);
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-			*prev_fd = 0;
-		}
-		act = act->next;
-	}
-}
-
-static void	red_her(t_shell *shell, char *limiter, int mode)
+static void	red_her(t_shell *shell, char *limiter, int mode, int fd)
 {
 	char	*line;
-	int		fd;
 
-	fd = ft_open("tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
 		write(1, "heredoc> ", 9);
@@ -70,20 +54,30 @@ static void	red_her(t_shell *shell, char *limiter, int mode)
 		free(line);
 	}
 	free(line);
-	close(fd);
+	dup2(fd, STDIN_FILENO);
 }
 
-void	check_redir(t_shell *shell, t_cmd *exp)
+void	check_in(t_shell *shell, int *prev_fd, int *fds, t_cmd *exp)
 {
 	t_redir	*act;
+	int		fd;
 
 	act = exp->redirection;
 	while (act)
 	{
-		if (act->type == T_RED_HER)
-			red_her(shell, act->file, 0);
+		if (act->type == T_RED_IN)
+		{
+			fd = ft_open(act->file, O_RDONLY, 0664);
+			if (*prev_fd != 0)
+				close(*prev_fd);
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+			*prev_fd = 0;
+		}
+		else if (act->type == T_RED_HER)
+			red_her(shell, act->file, 0, fds[1]);
 		else if (act->type == T_RED_HER_EX)
-			red_her(shell, act->file, 1);
+			red_her(shell, act->file, 0, fds[1]);
 		act = act->next;
 	}
 }

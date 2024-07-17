@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/15 13:31:52 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:48:49 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 		close(prev_fd);
 	}
 	check_out(fds, &prev_fd, exp);
-	check_in(&prev_fd, exp);
+	check_in(shell, &prev_fd, fds, exp);
 	dup2(fds[1], STDOUT_FILENO);
 	close(fds[1]);
 	ft_exec_proc(shell, exp);
@@ -72,7 +72,7 @@ void	ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp)
 			close(prev_fd);
 		}
 		check_out(fds, &prev_fd, exp);
-		check_in(&prev_fd, exp);
+		check_in(shell, &prev_fd, fds, exp);
 		ft_exec_proc(shell, exp);
 	}
 	else
