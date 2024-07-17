@@ -55,6 +55,7 @@ SRC		=	./src/main.c \
 		./src/executer/utils/exec_pid.c \
 		./src/executer/utils/exec_pipe.c \
 		./src/executer/utils/exec_redir.c \
+		./src/signals/signals.c
 		
 
 OBJS	=	$(patsubst ./src/%.c, ./build/%.o, $(SRC))

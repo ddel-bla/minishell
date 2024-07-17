@@ -14,7 +14,14 @@
 
 void	start_minishell(char **envp, int color);
 int		process(t_shell *shell, char *input);
-
+void handle_ctrl_d(char *line)
+{
+    if (line == NULL)
+    {
+        printf("exit\n");
+        exit(0);
+    }
+}
 int	main(int argc, char **argv, char **envp)
 {
 	if (argc > 2 && argv[2])
@@ -23,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		print_header();
 	else
 		print_header_nc();
+	signal_init();
 	start_minishell(envp, argc);
 	return (0);
 }
@@ -38,7 +46,9 @@ void	start_minishell(char **envp, int color)
 	shell = init(envp);
 	while (1)
 	{
+		g_signal = S_INIT;
 		input = readline(select_prompt(color));
+		handle_ctrl_d(input);
 		if (*input)
 		{
 			add_history(input);

@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+extern int g_signal;
 // ........... MACROS ...........
 // __________ visuals ___________
 # define PROMPT "minishell>$"
@@ -32,6 +33,8 @@
 # include "./parser.h"
 # include "./expander.h"
 # include "./executer.h"
+# include "./signals.h"
+
 
 // .......... STRUCTS ...........
 typedef struct s_shell
@@ -71,6 +74,8 @@ void	ft_exit(t_shell *shell, t_cmd *cmd);
 void	ft_cd(t_shell *shell, t_cmd *cmd);
 int		count_args(t_cmd *cmd);
 int		validate_syntax(char *argv);
+// ____________ signals _________
+void signal_init(void);
 // ____________ prints __________
 void	print_header(void);
 void	print_header_nc(void);

@@ -25,6 +25,7 @@ void	executer(t_shell *shell)
 		exec_builtin(shell, current);
 	else
 	{
+		g_signal = S_CMD;
 		while (current->next)
 		{
 			ft_pipe(fds);
