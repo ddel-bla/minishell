@@ -6,13 +6,13 @@
 #    By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/13 18:31:20 by claferna          #+#    #+#              #
-#    Updated: 2024/07/02 16:26:04 by ddel-bla         ###   ########.fr        #
+#    Updated: 2024/07/17 16:08:38 by claferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libft.a
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -fPIC
 
 LIB			=	ar -rcs
 

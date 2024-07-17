@@ -22,7 +22,7 @@ void signal_init(void)
 static void receive_signals(int signal)
 {
     (void)signal;
-    if (g_signal == S_INIT || g_signal == S_SIGINT)
+    if (g_signal == S_INIT || g_signal == S_SIGINT || g_signal == S_HEREDOC)
     {
         ft_putstr_fd("\n", 1);
         rl_on_new_line();
@@ -34,5 +34,19 @@ static void receive_signals(int signal)
     {
         ft_putstr_fd("\n", 1);
         rl_on_new_line();
+    }
+    else if (g_signal == S_HEREDOC)
+    {
+        ft_putstr_fd("\n", 1);
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_done = 1;
+        g_signal = S_HEREDOC;
+    }
+
+     if (g_signal == S_END_HEREDOC)
+    {
+        ft_putstr_fd("\n", 1);
+        g_signal = S_SIGINT;
     }
 }
