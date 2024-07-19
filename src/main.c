@@ -14,14 +14,7 @@
 
 void	start_minishell(char **envp, int color);
 int		process(t_shell *shell, char *input);
-void handle_ctrl_d(char *line)
-{
-    if (line == NULL)
-    {
-        printf("exit\n");
-        exit(0);
-    }
-}
+
 int	main(int argc, char **argv, char **envp)
 {
 	if (argc > 2 && argv[2])

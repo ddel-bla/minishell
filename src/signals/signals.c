@@ -9,6 +9,7 @@
 #include <sys/ioctl.h>
 
 static void	sigint_handler(int sig);
+static void signquit_handler(int sig);
 
 int g_signal;
 
@@ -16,7 +17,16 @@ void signal_init(void)
 {
     g_signal = S_BASE;
     signal(SIGINT, sigint_handler);
-    signal(SIGQUIT, SIG_IGN);
+    signal(SIGQUIT, signquit_handler);
+}
+
+void handle_ctrl_d(char *line)
+{
+    if (line == NULL)
+    {
+        printf("exit\n");
+        exit(0);
+    }
 }
 
 static void	sigint_handler(int sig)
@@ -32,11 +42,10 @@ static void	sigint_handler(int sig)
 	else if (g_signal == S_CMD)
 	{
 		ft_putstr_fd("\n", 1);
-		rl_on_new_line();
+		
 	}
 	else if (g_signal == S_HEREDOC)
 	{
-		printf(" 3 ");
         ioctl(0, TIOCSTI, '\n');
 		exit(0);
 	}
@@ -45,11 +54,17 @@ static void	sigint_handler(int sig)
 		ft_putstr_fd("\n", 1);
 }
 
-void handle_ctrl_d(char *line)
+static void signquit_handler(int sig)
 {
-    if (line == NULL)
-    {
-        printf("exit\n");
-        exit(0);
-    }
+	(void)sig;
+	if (g_signal == S_CMD)
+	{
+		printf("Quit (core dump)\n");
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+	}
+	else
+	{
+		printf(PROMPT);
+	}
 }
