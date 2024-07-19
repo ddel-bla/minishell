@@ -46,7 +46,6 @@ void	start_minishell(char **envp, int color)
 	shell = init(envp);
 	while (1)
 	{
-		g_signal = S_INIT;
 		input = readline(select_prompt(color));
 		handle_ctrl_d(input);
 		if (*input)

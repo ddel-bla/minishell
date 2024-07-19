@@ -8,45 +8,48 @@
 #include <readline/history.h>
 #include <sys/ioctl.h>
 
-static void receive_signals(int signal);
+static void	sigint_handler(int sig);
 
 int g_signal;
 
 void signal_init(void)
 {
-    g_signal = S_INIT;
-    signal(SIGINT, receive_signals);
+    g_signal = S_BASE;
+    signal(SIGINT, sigint_handler);
     signal(SIGQUIT, SIG_IGN);
 }
 
-static void receive_signals(int signal)
+static void	sigint_handler(int sig)
 {
-    (void)signal;
-    if (g_signal == S_INIT || g_signal == S_SIGINT || g_signal == S_HEREDOC)
-    {
-        ft_putstr_fd("\n", 1);
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
-        g_signal = S_SIGINT;
-    }
-    else if (g_signal == S_CMD)
-    {
-        ft_putstr_fd("\n", 1);
-        rl_on_new_line();
-    }
-    else if (g_signal == S_HEREDOC)
-    {
-        ft_putstr_fd("\n", 1);
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_done = 1;
-        g_signal = S_HEREDOC;
-    }
+	(void)sig;
+	if (g_signal == S_BASE || g_signal == S_SIGINT)
+	{
+		rl_on_new_line();
+		ft_putstr_fd("\n", 1);
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else if (g_signal == S_CMD)
+	{
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+	}
+	else if (g_signal == S_HEREDOC)
+	{
+		printf(" 3 ");
+        ioctl(0, TIOCSTI, '\n');
+		exit(0);
+	}
 
-     if (g_signal == S_END_HEREDOC)
+	if (g_signal == S_HEREDOC_END)
+		ft_putstr_fd("\n", 1);
+}
+
+void handle_ctrl_d(char *line)
+{
+    if (line == NULL)
     {
-        ft_putstr_fd("\n", 1);
-        g_signal = S_SIGINT;
+        printf("exit\n");
+        exit(0);
     }
 }

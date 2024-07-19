@@ -20,12 +20,12 @@ void	executer(t_shell *shell)
 	pid_t	pid;
 
 	current = shell->exp;
+	g_signal = S_CMD;
 	prev_fd = 0;
 	if (current->next == NULL && is_builtin(current->cmd[0]))
 		exec_builtin(shell, current);
 	else
 	{
-		g_signal = S_CMD;
 		while (current->next)
 		{
 			ft_pipe(fds);

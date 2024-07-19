@@ -42,8 +42,9 @@ static void	red_her(t_shell *shell, char *limiter, int mode, int fd)
 {
 	char	*line;
 
+	g_signal = S_HEREDOC;
 	while (1)
-	{
+	{	
 		write(1, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
 		if (!line || (!ft_strncmp(line, limiter, ft_strlen(line))))
@@ -52,9 +53,12 @@ static void	red_her(t_shell *shell, char *limiter, int mode, int fd)
 			line = here_expand(line, shell);
 		write(fd, line, ft_strlen(line));
 		free(line);
+		line = NULL;
 	}
-	free(line);
+	if (line)
+		free(line);
 	dup2(fd, STDIN_FILENO);
+	g_signal = S_HEREDOC_END;
 }
 
 void	check_in(t_shell *shell, int *prev_fd, int *fds, t_cmd *exp)
