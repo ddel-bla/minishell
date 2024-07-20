@@ -13,11 +13,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-extern int g_signal;
 // ........... MACROS ...........
 // __________ visuals ___________
 # define PROMPT "minishell>$"
 # define COLORED_PROMPT "\033[1;36mminishell>$\033[1;37m"
+
 // ............ LIBS ............
 # include <stdio.h>
 # include <stdlib.h>
@@ -25,6 +25,9 @@ extern int g_signal;
 # include <readline/history.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include <unistd.h>
+# include <sys/ioctl.h>
 
 // .......... HEADERS ...........
 # include "../lib/libft/libft.h"
@@ -35,6 +38,8 @@ extern int g_signal;
 # include "./executer.h"
 # include "./signals.h"
 
+// ...... GLOBAL VARIBALE .......
+extern int	g_signal;
 
 // .......... STRUCTS ...........
 typedef struct s_shell
@@ -60,7 +65,6 @@ int		check_syntax(t_token **tokens);
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
 void	expander(t_shell *shell, t_cmd **exp);
-
 // ____________ executer ________
 void	executer(t_shell *shell);
 // __________ built-ins _________
@@ -76,7 +80,7 @@ int		count_args(t_cmd *cmd);
 int		validate_syntax(char *argv);
 // ____________ signals _________
 void	signal_init(void);
-void	handle_ctrl_d(char *line);
+void	handle_ctrl_d(char *input);
 // ____________ prints __________
 void	print_header(void);
 void	print_header_nc(void);

@@ -1,38 +1,51 @@
-// signals.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 17:01:10 by claferna          #+#    #+#             */
+/*   Updated: 2024/07/19 10:52:02 by claferna         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <sys/ioctl.h>
 
-static void	sigint_handler(int sig);
-static void signquit_handler(int sig);
+int	g_signal;
 
-int g_signal;
+static void	sigint_handler(int signal);
+static void	sigquit_handler(int signal);
 
-void signal_init(void)
+/*
+ * Signal (CTRL + D, CTRL + C, CTRL + /) initialization.
+ */
+void	signal_init(void)
 {
-    g_signal = S_BASE;
-    signal(SIGINT, sigint_handler);
-    signal(SIGQUIT, signquit_handler);
+	g_signal = S_INIT;
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 }
 
-void handle_ctrl_d(char *line)
+/* 
+ * Handling CTRL + D when NULL input.
+ */
+void	handle_ctrl_d(char *input)
 {
-    if (line == NULL)
-    {
-        printf("exit\n");
-        exit(0);
-    }
+	if (input == NULL)
+	{
+		printf("exit\n");
+		exit(0);
+	}
 }
 
-static void	sigint_handler(int sig)
+/* 
+ * Handling SIGINT signal.
+ */
+static void	sigint_handler(int signal)
 {
-	(void)sig;
-	if (g_signal == S_BASE || g_signal == S_SIGINT)
+	(void)signal;
+	if (g_signal == S_INIT)
 	{
 		rl_on_new_line();
 		ft_putstr_fd("\n", 1);
@@ -42,29 +55,31 @@ static void	sigint_handler(int sig)
 	else if (g_signal == S_CMD)
 	{
 		ft_putstr_fd("\n", 1);
-		
+		g_signal = S_INIT;
 	}
 	else if (g_signal == S_HEREDOC)
 	{
-        ioctl(0, TIOCSTI, '\n');
+		ioctl(0, TIOCSTI, '\n');
 		exit(0);
 	}
-
 	if (g_signal == S_HEREDOC_END)
 		ft_putstr_fd("\n", 1);
 }
 
-static void signquit_handler(int sig)
+/*
+ * Handling SIGQUIT signal.
+ */
+static void	sigquit_handler(int signal)
 {
-	(void)sig;
+	(void)signal;
 	if (g_signal == S_CMD)
 	{
 		printf("Quit (core dump)\n");
-		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 	}
 	else
 	{
+		rl_replace_line("", 0);
 		printf(PROMPT);
 	}
 }

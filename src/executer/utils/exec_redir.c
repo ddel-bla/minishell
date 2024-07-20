@@ -44,7 +44,7 @@ static void	red_her(t_shell *shell, char *limiter, int mode, int fd)
 
 	g_signal = S_HEREDOC;
 	while (1)
-	{	
+	{
 		write(1, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
 		if (!line || (!ft_strncmp(line, limiter, ft_strlen(line))))
