@@ -21,12 +21,16 @@ static int	process_special(t_token **tokens, char *input, int *i);
  */
 int	lexer(char *input, t_token **tokens)
 {
+	int	error;
+
 	ft_trim_spaces(input);
 	if (extract_tokens(tokens, input))
 		return (1);
 	get_definitive_type(tokens);
-	post_process_redirs(tokens);
-	return (check_syntax(tokens));
+	error = check_syntax(tokens);
+	if (!error)
+		post_process_redirs(tokens);
+	return (error);
 }
 
 /*

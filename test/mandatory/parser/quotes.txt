@@ -51,7 +51,7 @@ ECHO hi
 echo    \t  hi   \t    
 echo "   \t  hi   \t    "
 echo '   \t  hi   \t    '
-echo $"   \t  hi   \t    "
+echo $"   \t  hi   \t    " (SEG FAULT)
 echo $'   \t  hi   \t    '
 echo $'   \r  hi   \t    '
 

@@ -13,6 +13,7 @@
 #include "../../../include/minishell.h"
 
 static int	validate_exit(t_cmd *cmd);
+static int	check_number(char *cmd);
 
 /*
  * Replicates the behaviour of the exit command.
@@ -33,9 +34,6 @@ void	ft_exit(t_shell *shell, t_cmd	*cmd)
  */
 static int	validate_exit(t_cmd *cmd)
 {
-	int	i;
-
-	i = 0;
 	if (count_args(cmd) > 2)
 	{
 		print_error("exit: too many arguments");
@@ -43,19 +41,30 @@ static int	validate_exit(t_cmd *cmd)
 	}
 	if (count_args(cmd) == 1)
 		return (0);
-	if (cmd->cmd[1])
-	{
-		while (cmd->cmd[1][i])
-		{
-			if (!ft_isdigit(cmd->cmd[1][i]))
-			{
-				ft_putstr_fd("exit: a numeric argument", 2);
-				ft_putendl_fd("is required", 2);
-				return (2);
-			}
-			i++;
-		}
-		return (0);
-	}
+	if (cmd->cmd[1] && !check_number(cmd->cmd[1]))
+		return (2);
 	return (0);
+}
+
+/*
+ * Checks if the argument is a valid number (including sign)
+ */
+static int	check_number(char *cmd)
+{
+	int		i;
+
+	i = 0;
+	if (cmd[i] == '+' || cmd[i] == '-')
+		i++;
+	while (cmd[i])
+	{
+		if (!ft_isdigit(cmd[i]))
+		{
+			ft_putstr_fd("exit: a numeric argument", 2);
+			ft_putendl_fd("is required", 2);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }

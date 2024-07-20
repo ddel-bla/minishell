@@ -89,7 +89,6 @@ int	validate_syntax(char *arg)
 			return (print_stderror(arg), free(name), 0);
 		return (free(name), 1);
 	}
-	printf("Ha entrado");
 	return (0);
 }
 
