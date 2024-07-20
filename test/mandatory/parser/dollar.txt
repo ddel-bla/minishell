@@ -7,9 +7,9 @@ echo '$ '
 echo $/
 echo "'$'"
 
-echo $'\\n' | cat -e@echo \$'\\n'
-echo $'\\r' | cat -e@echo \$'\\r'
-echo $'\\t' | cat -e@echo \$'\\t'
+echo $'\\n' | cat -e@echo \$'\\n' (SEG FAULT)
+echo $'\\r' | cat -e@echo \$'\\r' (SEG FAULT)
+echo $'\\t' | cat -e@echo \$'\\t' (SEG FAULT)
 
 echo $USER
 echo $NONEXIST
