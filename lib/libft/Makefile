@@ -12,7 +12,7 @@
 
 NAME		=	libft.a
 
-CFLAGS		=	-Wall -Wextra -Werror -fPIC
+CFLAGS		=	-Wall -Wextra -Werror -fPIE
 
 LIB			=	ar -rcs
 
