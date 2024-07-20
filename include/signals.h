@@ -16,6 +16,6 @@
 # define S_INIT         20  // Signal init
 # define S_HEREDOC      21  // Signal heredoc
 # define S_HEREDOC_END  22  // Signal end heredoc
-# define S_CMD          23  // Heredoc
+# define S_CMD          23  // Signal cmd
 
 #endif
