@@ -8,7 +8,6 @@ CC		=	gcc
 
 CFLAGS	=	-g -Wall -Wextra -Werror #-fsanitize=address
 
-
 RM		=	rm -f
 
 # ---------------------------------

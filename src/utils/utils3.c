@@ -54,3 +54,22 @@ char	*remove_quotes(const char *str)
 	result[j] = '\0';
 	return (result);
 }
+
+/* 
+ * Checks whether a string is all spaces.
+ */
+int	ft_only_spaces(char *input)
+{
+	int		i;
+	char	*aux;
+
+	i = 0;
+	aux = input;
+	while (aux[i])
+	{
+		if (!ft_isspace(aux[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}

@@ -29,10 +29,11 @@ static char	**ft_get_path(t_env *env)
 	t_env	*myenv;
 
 	myenv = get_env_by_name(env, "PATH");
+	if (!myenv || !myenv->value)
+		return (NULL);
 	tab = ft_split(myenv->value, ':');
 	return (tab);
 }
-
 int	ft_find_path(char *cmd, t_env *env, char **cmd_path)
 {
 	char	**paths;
@@ -41,14 +42,16 @@ int	ft_find_path(char *cmd, t_env *env, char **cmd_path)
 
 	paths = ft_get_path(env);
 	if (!paths)
-		return (0);
+		return (1);
 	sub = ft_strjoin("/", cmd);
+	if (!sub)
+		return (1);
 	i = 0;
 	while (paths[i])
 	{
 		*cmd_path = ft_strjoin(paths[i], sub);
 		if (!*cmd_path)
-			return (0);
+			return (ft_free_it(paths, sub), 1);
 		if (!access(*cmd_path, F_OK))
 			return (ft_free_it(paths, sub), 0);
 		free(*cmd_path);

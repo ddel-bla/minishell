@@ -21,10 +21,13 @@ void	ft_exec_proc(t_shell *shell, t_cmd *exp)
 		exec_builtin(shell, exp);
 		exit(shell->exit_status);
 	}
-	if (!ft_find_path(exp->cmd[0], shell->env, &path))
-		execve(path, exp->cmd, shell->envp);
-	else
-		execve(exp->cmd[0], exp->cmd, shell->envp);
-	perror("Command failed ");
+	if (exp->cmd[0])
+	{
+		if (!ft_find_path(exp->cmd[0], shell->env, &path))
+			execve(path, exp->cmd, shell->envp);
+		else
+			execve(exp->cmd[0], exp->cmd, shell->envp);
+		perror("Command failed");
+	}
 	exit(127);
 }
