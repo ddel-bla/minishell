@@ -25,15 +25,15 @@ static void	ft_free_it(char **tab, char *sub)
 
 static char	**ft_get_path(t_env *env)
 {
-	char **tab;
-	t_env *myenv;
+	char	**tab;
+	t_env	*myenv;
 
-    tab = NULL;
-    myenv = get_env_by_name(env, "PATH");
-    if (!myenv || !myenv->value)
-        return NULL;
-    tab = ft_split(myenv->value, ':');
-    return (tab);
+	tab = NULL;
+	myenv = get_env_by_name(env, "PATH");
+	if (!myenv || !myenv->value)
+		return (NULL);
+	tab = ft_split(myenv->value, ':');
+	return (tab);
 }
 
 int	ft_find_path(char *cmd, t_env *env, char **cmd_path)

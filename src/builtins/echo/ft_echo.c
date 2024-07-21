@@ -35,11 +35,13 @@ void	ft_echo(t_shell *shell, t_cmd *cmd)
 
 static int	valid_flag(char *flag)
 {
+	int	i;
+
 	if (ft_strcmp(flag, "-n") == 0)
-		return 1;
+		return (1);
 	else if (ft_strncmp(flag, "-n", 2) == 0)
 	{
-		int i = 2;
+		i = 2;
 		while (flag[i])
 			if (flag[i++] != 'n')
 				return (0);
