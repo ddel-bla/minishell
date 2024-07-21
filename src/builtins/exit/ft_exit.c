@@ -56,6 +56,12 @@ static int	check_number(char *cmd)
 	i = 0;
 	if (cmd[i] == '+' || cmd[i] == '-')
 		i++;
+	if (!cmd[i])
+	{
+		ft_putstr_fd("exit: a numeric argument", 2);
+		ft_putendl_fd("is required", 2);
+		return (0);
+	}
 	while (cmd[i])
 	{
 		if (!ft_isdigit(cmd[i]))
