@@ -12,14 +12,12 @@
 
 #include "../../../include/minishell.h"
 
-static int	valid_flag(char *flag);
-
 void	ft_echo(t_shell *shell, t_cmd *cmd)
 {
 	int	i;
 
 	i = 1;
-	while (cmd->cmd[i] && valid_flag(cmd->cmd[i]))
+	if (cmd->cmd[1] && ft_strcmp(cmd->cmd[1], "-n") == 0)
 		i++;
 	while (cmd->cmd[i])
 	{
@@ -27,25 +25,8 @@ void	ft_echo(t_shell *shell, t_cmd *cmd)
 		if (cmd->cmd[i])
 			ft_putchar_fd(' ', 1);
 	}
-	if ((cmd->cmd[1] && !valid_flag(cmd->cmd[1])) \
+	if ((cmd->cmd[1] && !ft_strcmp(cmd->cmd[1], "-n") == 0) \
 			|| count_args(cmd) == 1)
 		ft_putchar_fd('\n', 1);
 	shell->exit_status = 0;
-}
-
-static int	valid_flag(char *flag)
-{
-	int	i;
-
-	if (ft_strcmp(flag, "-n") == 0)
-		return (1);
-	else if (ft_strncmp(flag, "-n", 2) == 0)
-	{
-		i = 2;
-		while (flag[i])
-			if (flag[i++] != 'n')
-				return (0);
-		return (1);
-	}
-	return (0);
 }
