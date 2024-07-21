@@ -78,6 +78,7 @@ void	free_redirs(t_redir *list)
 	{
 		aux = list;
 		list = list->next;
+		free(aux->file);
 		free(aux);
 	}
 }
