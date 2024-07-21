@@ -26,6 +26,25 @@ int	contains_quote(const char *str)
 	return (0);
 }
 
+/* 
+ * Checks whether a string is all spaces.
+ */
+int	ft_only_spaces(char *input)
+{
+	int		i;
+	char	*aux;
+
+	i = 0;
+	aux = input;
+	while (aux[i])
+	{
+		if (!ft_isspace(aux[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 /*
  * Removes all the quotes (double/simple) in a string.
  */
