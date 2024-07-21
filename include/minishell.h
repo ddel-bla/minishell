@@ -105,6 +105,8 @@ int		ft_open(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
 int		is_builtin(char *cmd);
 char	*ft_trim_quotes(char *str);
-int	contains_space(const char *str);
+int		contains_space(const char *str);
 void	ft_strncpy(char *dest, char *src, int n);
+int		ft_only_spaces(char *input);
+
 #endif

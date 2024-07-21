@@ -47,7 +47,7 @@ exit 1 2 3
 exit 1 2 3;echo should not exit
 exit 1 not numeric bro
 exit not numeric bro 2
-exit 42 | cat
+exit 42 | cat (no debe hacer exit)
 Exit 1;echo is not a buildin!
 aaa;exit@not found then exit
 aaa;exit 1@not found then exit 1
