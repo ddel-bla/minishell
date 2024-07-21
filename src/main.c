@@ -39,11 +39,14 @@ void	start_minishell(char **envp, int color)
 	while (1)
 	{
 		input = readline(select_prompt(color));
-		if (*input)
+		handle_ctrl_d(input);
+		if (*input && !ft_only_spaces(input))
 		{
 			add_history(input);
 			process(shell, input);
 		}
+		else
+			free(input);
 	}
 	free_env_and_shell(shell);
 }

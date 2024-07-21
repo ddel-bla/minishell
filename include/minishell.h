@@ -94,4 +94,5 @@ int		ft_fork(void);
 int		ft_open(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
 int		is_builtin(char *cmd);
+int		ft_only_spaces(char *input);
 #endif
