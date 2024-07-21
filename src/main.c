@@ -62,11 +62,11 @@ int	process(t_shell *shell, char *input)
 		free_lexer_err(shell, input);
 		return (1);
 	}
-	print_tokens(shell->token);//DEBUG
+	//print_tokens(shell->token);//DEBUG
 	parser(&shell->token, &shell->cmd);
-	print_cmd(shell->cmd);//DEBUG
-	expander(shell, &shell->exp);
-	print_cmd(shell->exp);//DEBUG
+	//print_cmd(shell->cmd);//DEBUG
+	expander(shell, shell->cmd);
+	//print_cmd(shell->cmd);//DEBUG
 	executer(shell);
 	free_loop(shell, input);
 	return (0);

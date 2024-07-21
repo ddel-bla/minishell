@@ -19,7 +19,7 @@ void	executer(t_shell *shell)
 	int		prev_fd;
 	pid_t	pid;
 
-	current = shell->exp;
+	current = shell->cmd;
 	g_signal = S_CMD;
 	prev_fd = 0;
 	if (current->next == NULL && is_builtin(current->cmd[0]))

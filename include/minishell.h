@@ -64,7 +64,7 @@ int		check_syntax(t_token **tokens);
 // ____________ parser __________
 void	parser(t_token **tokens, t_cmd **cmd);
 // ____________ expander ________
-void	expander(t_shell *shell, t_cmd **exp);
+void	expander(t_shell *shell, t_cmd *cmd);
 // ____________ executer ________
 void	executer(t_shell *shell);
 // __________ built-ins _________
@@ -104,4 +104,7 @@ int		ft_fork(void);
 int		ft_open(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
 int		is_builtin(char *cmd);
+char	*ft_trim_quotes(char *str);
+int	contains_space(const char *str);
+void	ft_strncpy(char *dest, char *src, int n);
 #endif
