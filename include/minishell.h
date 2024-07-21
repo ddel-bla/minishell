@@ -100,6 +100,7 @@ int		ft_isspecial(char c);
 char	*ft_trim_spaces(char *str);
 int		contains_quote(const char *str);
 char	*remove_quotes(const char *str);
+int		ft_only_spaces(char *input);
 int		ft_fork(void);
 int		ft_open(char *file, int mode, int flag);
 void	ft_pipe(int *fds);
@@ -108,5 +109,4 @@ char	*ft_trim_quotes(char *str);
 int		contains_space(const char *str);
 void	ft_strncpy(char *dest, char *src, int n);
 int		ft_only_spaces(char *input);
-
 #endif
