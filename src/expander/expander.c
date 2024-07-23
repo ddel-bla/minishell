@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/17 10:28:45 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:31:30 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	expander(t_shell *shell, t_cmd **exp)
 {
 	int		i;
 	t_cmd	*current;
+	t_redir	*cu_redir;
 
 	*exp = copy_cmd(shell->cmd);
 	current = *exp;
@@ -49,7 +50,16 @@ void	expander(t_shell *shell, t_cmd **exp)
 	{
 		i = -1;
 		while (current->cmd[++i] != NULL)
+		{
 			current->cmd[i] = expand_quotes(shell, current->cmd[i]);
+			cu_redir = current->redirection;
+			while(cu_redir != NULL)
+			{
+				if (cu_redir->type == T_RED_APP || cu_redir->type == T_RED_OUT)
+					cu_redir->file = expand_quotes(shell, cu_redir->file);
+				cu_redir = cu_redir->next;
+			}
+		}
 		current = current->next;
 	}
 }
