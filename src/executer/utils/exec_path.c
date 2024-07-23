@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:01:23 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/06 17:09:51 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:20:20 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static char	**ft_get_path(t_env *env)
 	tab = ft_split(myenv->value, ':');
 	return (tab);
 }
+
 int	ft_find_path(char *cmd, t_env *env, char **cmd_path)
 {
 	char	**paths;

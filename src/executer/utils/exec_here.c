@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 13:56:02 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/16 21:09:32 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:16:34 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,3 @@ char	*here_expand(char *line, t_shell *shell)
 	}
 	return (new);
 }
-
-/*
-void	red_her(int fds[2], t_shell *shell, char *limiter, int mode)
-{
-	char	*line;
-
-	while (1)
-	{
-		write(1, "heredoc> ", 9);
-		line = get_next_line(0);
-		if (!ft_strncmp(line, limiter, ft_strlen(line)) && line)
-			break ;
-		line = check_expand(line, shell, mode);
-		fprintf(stderr, "Str: '%s'", line);
-		write(fds[1], line, ft_strlen(line));
-		free(line);
-	}
-	free(line);
-	close(fds[1]);
-	dup2(fds[0], STDIN_FILENO);
-	close(fds[0]);
-}
-*/
