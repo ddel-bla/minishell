@@ -44,23 +44,26 @@ void	ft_export(t_shell *shell, t_cmd	*cmd)
  */
 static void	without_args(t_env *env)
 {
-	t_env	*sorted_env_list;
+	t_env	*sorted_list;
 	t_env	*aux;
 
-	sorted_env_list = copy_list(env);
-	sort_env_list(&sorted_env_list);
-	aux = sorted_env_list;
-	while (aux)
+	sorted_list = copy_list(env);
+	if (sorted_list)
 	{
-		if (aux->value == NULL)
-			printf("declare -x %s\n", aux->name);
-		else if (ft_strcmp(aux->name, "_") == 0)
-			printf("declare -x=\n");
-		else
-			printf("declare -x %s=%s\n", aux->name, aux->value);
-		aux = aux->next;
+		sort_env_list(&sorted_list);
+		aux = sorted_list;
+		while (aux)
+		{
+			if (aux->value == NULL)
+				printf("declare -x %s\n", aux->name);
+			else if (ft_strcmp(aux->name, "_") == 0)
+				(void)aux->value;
+			else
+				printf("declare -x %s=%s\n", aux->name, aux->value);
+			aux = aux->next;
+		}
 	}
-	free_env(sorted_env_list);
+	free_env(sorted_list);
 }
 
 /*
