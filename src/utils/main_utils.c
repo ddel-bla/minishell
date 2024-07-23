@@ -53,8 +53,8 @@ void	free_loop(t_shell *shell, char *input)
 	if (shell->token)
 		free_tokens(shell->token);
 	shell->token = NULL;
-	free_cmd(shell->cmd);
-	free_cmd(shell->exp);
+	free_cmd(shell->cmd, 0);
+	free_cmd(shell->exp, 1);
 	shell->cmd = NULL;
 	shell->exp = NULL;
 	free(input);

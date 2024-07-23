@@ -22,15 +22,15 @@ void	sort_env_list(t_env **list)
 	t_env	*lptr;
 	t_env	*temp;
 
+	swapped = 1;
 	lptr = NULL;
-	swapped = 0;
 	while (swapped)
 	{
 		swapped = 0;
 		ptr = list;
 		while ((*ptr)->next != lptr)
 		{
-			if (strcmp((*ptr)->name, (*ptr)->next->name) > 0)
+			if (ft_strcmp((*ptr)->name, (*ptr)->next->name) > 0)
 			{
 				temp = *ptr;
 				*ptr = (*ptr)->next;

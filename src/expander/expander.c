@@ -53,7 +53,7 @@ void	expander(t_shell *shell, t_cmd **exp)
 		{
 			current->cmd[i] = expand_quotes(shell, current->cmd[i]);
 			cu_redir = current->redirection;
-			while(cu_redir != NULL)
+			while (cu_redir != NULL)
 			{
 				if (cu_redir->type == T_RED_APP || cu_redir->type == T_RED_OUT)
 					cu_redir->file = expand_quotes(shell, cu_redir->file);

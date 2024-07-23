@@ -70,7 +70,7 @@ void	add_redir(t_redir **list, t_redir *redir)
 /*
  * Frees all the elements of a given cmd list.
  */
-void	free_redirs(t_redir *list)
+void	free_redirs(t_redir *list, int free_file)
 {
 	t_redir	*aux;
 
@@ -78,6 +78,8 @@ void	free_redirs(t_redir *list)
 	{
 		aux = list;
 		list = list->next;
+		if (free_file)
+			free(aux->file);
 		free(aux);
 	}
 }
