@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:17:26 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/17 11:52:13 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:00:29 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,31 @@ void	check_out(int *fds, int *prev_fd, t_cmd *exp)
 		*prev_fd = 0;
 }
 
-static void	red_her(t_shell *shell, char *limiter, int mode, int fd)
+static void red_her(void *shell, char *limiter, int mode, int fds[2])
 {
-	char	*line;
+	char *line;
 
 	g_signal = S_HEREDOC;
 	while (1)
 	{
-		write(1, "heredoc> ", 9);
-		line = get_next_line(STDIN_FILENO);
+		line = readline("heredoc> ");
 		if (!line || (!ft_strncmp(line, limiter, ft_strlen(line))))
-			break ;
+			break;
+		if (*line)
+			add_history(line);
 		if (mode)
 			line = here_expand(line, shell);
-		write(fd, line, ft_strlen(line));
+		write(fds[1], line, ft_strlen(line));
+		write(fds[1], "\n", 1);
 		free(line);
 		line = NULL;
 	}
 	if (line)
 		free(line);
-	dup2(fd, STDIN_FILENO);
+	free(line);
+	close(fds[1]);
+	dup2(fds[0], STDIN_FILENO);
+	close(fds[0]);
 	g_signal = S_HEREDOC_END;
 }
 
