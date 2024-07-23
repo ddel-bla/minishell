@@ -71,7 +71,7 @@ void	add_cmd(t_cmd **list, t_cmd *cmd)
 /*
  * Frees all the elements of a given list.
  */
-void	free_cmd(t_cmd *list)
+void	free_cmd(t_cmd *list, int free_file)
 {
 	t_cmd	*aux;
 	t_cmd	*next;
@@ -88,7 +88,7 @@ void	free_cmd(t_cmd *list)
 			i++;
 		}
 		free(aux->cmd);
-		free_redirs(aux->redirection);
+		free_redirs(aux->redirection, free_file);
 		free(aux);
 		aux = next;
 	}
