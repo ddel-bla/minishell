@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:17:26 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/23 16:00:29 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:14:55 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check_out(int *fds, int *prev_fd, t_cmd *exp)
 		*prev_fd = 0;
 }
 
-static void red_her(void *shell, char *limiter, int mode, int fds[2])
+static void red_her(void *shell, char *limiter, int mode, int *fds)
 {
 	char *line;
 
@@ -84,9 +84,9 @@ void	check_in(t_shell *shell, int *prev_fd, int *fds, t_cmd *exp)
 			*prev_fd = 0;
 		}
 		else if (act->type == T_RED_HER)
-			red_her(shell, act->file, 0, fds[1]);
+			red_her(shell, act->file, 0, fds);
 		else if (act->type == T_RED_HER_EX)
-			red_her(shell, act->file, 0, fds[1]);
+			red_her(shell, act->file, 0, fds);
 		act = act->next;
 	}
 }
