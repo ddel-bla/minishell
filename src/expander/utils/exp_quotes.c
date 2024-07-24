@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:05 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/10 10:37:31 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:30:23 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,22 @@ char	*dollar(char *cmd, t_shell *shell, char **new)
 {
 	char	*var_name;
 	t_env	*myenv;
-	char	*aux;
 	int		i;
 
 	i = 1;
 	if (cmd[i] == '?')
 		return (ft_status(cmd, shell, new));
-	while (cmd[i] != ' ' && cmd[i] != '$' && cmd[i] != '\''
-		&& cmd[i] != '\"' && cmd[i] != '\0')
+	while (cmd[i] != '\0' && (ft_isalnum(cmd[i]) || cmd[i] == '_'))
 		i++;
 	if (i == 1)
-		return (cmd + 2);
-	var_name = ft_substr(cmd, 1, i - 1);
-	myenv = get_env_by_name(shell->env, var_name);
-	free(var_name);
-	if (myenv)
+		*new = ft_add_var(*new, "$");
+	else
 	{
-		aux = ft_strjoin(*new, myenv->value);
-		free(*new);
-		*new = aux;
+		var_name = ft_substr(cmd, 1, i - 1);
+		myenv = get_env_by_name(shell->env, var_name);
+		free(var_name);
+		if (myenv)
+			*new = ft_add_var(*new, myenv->value);
 	}
 	return (cmd + i);
 }

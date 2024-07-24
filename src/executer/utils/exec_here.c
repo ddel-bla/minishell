@@ -6,20 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 13:56:02 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/23 19:16:34 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:37:47 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-static char	*ft_add_var(char *line, char *var)
-{
-	char	*new;
-
-	new = ft_strjoin(line, var);
-	free(line);
-	return (new);
-}
 
 static char	*exp_dollar(char *cmd, t_shell *shell, char **new)
 {
@@ -47,19 +38,6 @@ static char	*exp_dollar(char *cmd, t_shell *shell, char **new)
 	if (myenv)
 		*new = ft_add_var(*new, myenv->value);
 	return (cmd + i);
-}
-
-static char	*ft_add(char *line, int len, char **new)
-{
-	char	*add;
-	char	*aux;
-
-	add = ft_substr(line, 0, len);
-	aux = ft_strjoin(*new, add);
-	free(add);
-	free(*new);
-	*new = aux;
-	return (line + len + 1);
 }
 
 char	*here_expand(char *line, t_shell *shell)

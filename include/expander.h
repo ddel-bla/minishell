@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/16 21:06:09 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:47:49 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,6 @@ char	*quote(char *cmd, char **new);
 char	*dquote(char *cmd, t_shell *shell, char **new);
 char	*squote(char *cmd, char **new);
 
+char	*ft_add_var(char *line, char *var);
+char	*ft_add(char *line, int len, char **new);
 #endif

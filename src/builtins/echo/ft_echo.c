@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 16:05:21 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/28 16:05:23 by claferna         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:52:56 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_echo(t_shell *shell, t_cmd *cmd)
 		ft_putchar_fd('\n', 1);
 	shell->exit_status = 0;
 }
-
+/*
 static int	valid_flag(char *flag)
 {
 	int	i;
@@ -48,4 +48,21 @@ static int	valid_flag(char *flag)
 		return (1);
 	}
 	return (0);
+}
+*/
+
+static int	valid_flag(char *flag)
+{
+	int	i;
+
+	i = 0;
+	if (flag[i] == '-')
+	{
+		while (flag[++i] != 0 && flag[i])
+			if (flag[i] != 'n')
+				return (0);
+		return (1);
+	}
+	else
+		return (0);
 }
