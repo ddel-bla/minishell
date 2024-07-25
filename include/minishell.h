@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/15 14:00:14 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:28:03 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ char	*remove_quotes(const char *str);
 int		ft_only_spaces(char *input);
 int		ft_fork(void);
 int		ft_open(char *file, int mode, int flag);
-void	ft_pipe(int *fds);
+void	*ft_malloc(size_t size);
 int		is_builtin(char *cmd);
 #endif

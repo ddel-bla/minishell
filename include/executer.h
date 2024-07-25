@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/17 11:40:16 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:09:38 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ int			ft_find_path(char *exp, t_env *env, char **cmd_path);
 void		ft_add_pid(t_pid_node **list, t_pid_node *pid_node);
 t_pid_node	*ft_create_pid_node(pid_t pid);
 
-void		ft_handle_child(int *fds, int prev_fd, t_shell *shell, t_cmd *exp);
-void		ft_handle_parent(int *fds, int *prev_fd);
-void		ft_handle_last(int *fds, int prev_fd, t_shell *shell, t_cmd *exp);
+void		ft_create_pipes(int pipe_count, int **pipes);
+void		ft_close_pipes(int pipe_count, int **pipes);
+void		ft_handle_first(int **pipes, t_shell *shell, t_cmd *cmd);
+void		ft_handle_middle(int **pipes, int i, t_shell *shell, t_cmd *cmd);
+void		ft_handle_last(int **pipes, int i, t_shell *shell, t_cmd *cmd);
 
 void		check_out(int *fds, int *prev_fd, t_cmd *exp);
 void		check_in(t_shell *shell, int *prev_fd, int *fds, t_cmd *exp);
