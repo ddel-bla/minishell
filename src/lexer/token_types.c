@@ -98,7 +98,6 @@ char	*get_str_types(int type)
 void	post_process_redirs(t_token **tokens)
 {
 	t_token	*aux;
-	char	*eol;
 	char	*process;
 
 	aux = *tokens;
@@ -110,9 +109,7 @@ void	post_process_redirs(t_token **tokens)
 				aux->type = T_RED_HER_EX;
 			process = remove_quotes(aux->next->value);
 			free(aux->next->value);
-			eol = ft_strjoin(process, "\n");
-			free(process);
-			aux->next->value = eol;
+			aux->next->value = process;
 		}
 		aux = aux->next;
 	}
