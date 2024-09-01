@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:08 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/23 19:32:48 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/08/28 15:22:23 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	expander(t_shell *shell, t_cmd **exp)
 
 	*exp = copy_cmd(shell->cmd);
 	current = *exp;
+	shell->n_cmds = 0;
+	shell->n_hdcs = 0;
 	while (current != NULL)
 	{
 		i = -1;
@@ -61,5 +63,6 @@ void	expander(t_shell *shell, t_cmd **exp)
 			}
 		}
 		current = current->next;
+		shell->n_cmds++;
 	}
 }

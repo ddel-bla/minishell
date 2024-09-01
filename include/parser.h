@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/18 16:55:08 by claferna         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:49:12 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_redirection
 {
 	int						type;
 	char					*file;
+	char					*heredoc_file;
 	struct s_redirection	*next;
 }							t_redir;
 // ---------- COMMAND -----------
@@ -26,6 +27,7 @@ typedef struct s_command
 {
 	char					**cmd;
 	int						operator_type;
+	int						n_hds;
 	struct s_redirection	*redirection;
 	struct s_command		*next;
 }							t_cmd;

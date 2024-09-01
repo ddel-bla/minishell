@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/25 21:42:25 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/01 17:42:05 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,61 +35,62 @@ static void	ft_exitstatus(t_shell *shell)
 	shell->pid_list = NULL;
 }
 
-int	ft_count_commands(t_cmd *cmd)
+static void	ft_set_input_child(int prev_fd)
 {
-	int	count;
-
-	count = 0;
-	while (cmd)
+	if (prev_fd != -1)
 	{
-		count++;
-		cmd = cmd->next;
+		dup2(prev_fd, STDIN_FILENO);
+		close(prev_fd);
 	}
-	return (count);
 }
 
-void	ft_handle_single(t_shell *shell, t_cmd *cmd)
+static void	ft_set_input_parent(int prev_fd, int pipe_fds[2], t_cmd *current)
 {
+	if (prev_fd != -1)
+		close(prev_fd);
+	if (ft_is_last_cmd(current))
+	{
+		close(pipe_fds[1]);
+		prev_fd = pipe_fds[0];
+	}
+}
+
+void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
+{
+	t_cmd	*c;
 	pid_t	pid;
 
-	pid = ft_fork();
-	if (pid == 0)
-		ft_exec_proc(shell, cmd);
-	else
-		ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
+	c = shell->exp;
+	ft_read_here_doc(shell);
+	while (c)
+	{
+		if (!ft_is_last_cmd(c))
+			ft_pipe(pipe_fds);
+		pid = ft_fork();
+		if (pid == 0)
+		{
+			ft_set_input_child(prev_fd);
+			ft_handle_s_redir(c->redirection, pipe_fds, ft_is_last_cmd(c));
+			ft_exec_proc(shell, c);
+		}
+		else
+		{
+			ft_set_input_parent(prev_fd, pipe_fds, c);
+			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
+		}
+		c = c->next;
+	}
 }
 
 void	executer(t_shell *shell)
 {
-	t_cmd	*current;
-	int		pipe_count;
-	int		**pipes;
-	int		i;
+	int		prev_fd;
+	int		pipe_fds[2];
 
-	pipe_count = ft_count_commands(shell->exp);
-	if (pipe_count == 1)
-	{
-		if (is_builtin(shell->exp->cmd[0]))
-			exec_builtin(shell, shell->exp);
-		else
-			ft_handle_single(shell, shell->exp);
-	}
+	prev_fd = -1;
+	if (shell->n_cmds == 1 && is_builtin(shell->exp->cmd[0]))
+		exec_builtin(shell, shell->exp);
 	else
-	{
-		pipes = (int **)ft_malloc(pipe_count * sizeof(int *));
-		ft_create_pipes(pipe_count, pipes);
-		current = shell->exp;
-		ft_handle_first(pipes, shell, current);
-		current = current->next;
-		i = 1;
-		while (current->next)
-		{
-			ft_handle_middle(pipes, i, shell, current);
-			current = current->next;
-			i++;
-		}
-		ft_handle_last(pipes, i, shell, current);
-		ft_close_pipes(pipe_count, pipes);
-	}
+		ft_exec(shell, prev_fd, pipe_fds);
 	ft_exitstatus(shell);
 }

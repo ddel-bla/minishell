@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:23:05 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/13 19:54:40 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/08/16 08:43:42 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmd	*create_cmd(char **arg, int operator_type, t_redir *redir)
 		return (NULL);
 	cmd->cmd = arg;
 	cmd->operator_type = operator_type;
+	cmd->n_hds = 0;
 	cmd->redirection = redir;
 	cmd->next = NULL;
 	return (cmd);

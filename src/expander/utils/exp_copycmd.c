@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:01 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/10 09:05:00 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/08/16 08:43:12 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ t_cmd	*copy_cmd(t_cmd *original)
 		return (NULL);
 	}
 	copy->operator_type = original->operator_type;
+	copy->n_hds = original->n_hds;
 	copy->redirection = copy_redirections(original->redirection);
 	copy->next = copy_cmd(original->next);
 	return (copy);

@@ -51,11 +51,11 @@ SRC		=	./src/main.c \
 		./src/utils/func_utils.c \
 		./src/executer/executer.c \
 		./src/executer/utils/exec_exe.c \
-		./src/executer/utils/exec_here.c \
 		./src/executer/utils/exec_path.c \
 		./src/executer/utils/exec_pid.c \
-		./src/executer/utils/exec_pipe.c \
+		./src/executer/utils/exec_readhd.c \
 		./src/executer/utils/exec_redir.c \
+		./src/executer/utils/exec_utils.c \
 		./src/signals/signals.c
 		
 

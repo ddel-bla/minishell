@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:18:10 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/25 21:27:33 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:54:27 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ int	ft_open(char *file, int mode, int flag)
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
+}
+
+void	ft_pipe(int *fds)
+{
+	if (pipe(fds) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	*ft_malloc(size_t size)
