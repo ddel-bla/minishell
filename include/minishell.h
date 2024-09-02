@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/08/31 19:22:15 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:07:58 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_shell
 	int			n_hdcs;
 	char		**envp;
 	t_pid_node	*pid_list;
+	char 		*input;
 }			t_shell;
 
 // ......... FUNCTIONS ..........
