@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/02 17:23:01 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:29:04 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static char	*here_expand(char *line, t_shell *shell)
 void	ft_here_docs(t_shell *shell, t_redir *red)
 {
 	char	*line;
-	char	*aux;
 	int		fd;
 
 	g_signal = S_HEREDOC;
@@ -50,19 +49,6 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 		if (!line || ((!ft_strncmp(line, red->file, ft_strlen(red->file))
 					&& ft_strlen(red->file) == ft_strlen(line))))
 			break ;
-		// Habría que modificar varg[0] añadiendo line 
-		// y después de acabar todos los heredoc hacer el add_history
-		// if (line)
-		// 	add_history(line);
-
-		fprintf(stderr, "shell input = %s\n", shell->input);
-		fprintf(stderr, "line = %s\n", line);
-		aux = ft_strjoin(shell->input, line);
-		fprintf(stderr, "aux = %s\n", aux);
-		fprintf(stderr, "shell input = %s\n", shell->input);
-		free(shell->input);
-		shell->input = aux;
-		fprintf(stderr, "shell input = %s\n", shell->input);
 		if (red->type == T_RED_HER_EX)
 			line = here_expand(line, shell);
 		ft_putendl_fd(line, fd);

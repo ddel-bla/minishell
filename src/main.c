@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:18:35 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/02 17:31:02 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:39:59 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ void	start_minishell(char **envp, int color)
 		handle_ctrl_d(input);
 		if (*input && !ft_only_spaces(input))
 		{
-			// add_history(shell->input);
-			shell->input = ft_strdup(input);
+			add_history(input);
 			process(shell, input);
-			add_history(shell->input);
 		}
 		else
 			free(input);
