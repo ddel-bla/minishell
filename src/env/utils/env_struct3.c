@@ -70,3 +70,21 @@ t_env	*copy_list(t_env *list)
 	}
 	return (new_list);
 }
+
+/* 
+ * Increment SHLVL env variable
+ */
+void	increment_shlvl(void)
+{
+	char	*shlvl_str;
+	int		shlvl;
+	char	*new_shlvl;
+
+	shlvl_str = getenv("SHLVL");
+	shlvl = 1;
+	if (shlvl_str != NULL)
+		shlvl = ft_atoi(shlvl_str) + 1;
+	new_shlvl_str = ft_itoa(shlvl);
+	setenv("SHLVL", new_shlvl_str, 1);
+	free(new_shlvl_str);
+}

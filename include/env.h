@@ -37,4 +37,5 @@ t_env	*get_env_by_name(t_env *list, char *name);
 void	delete_env_by_name(t_env *list, char *name);
 void	sort_env_list(t_env **list);
 t_env	*copy_list(t_env *list);
+void	increment_shlvl(void);
 #endif

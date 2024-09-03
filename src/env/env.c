@@ -24,6 +24,7 @@ void	save_env(t_env **list, char **envp)
 	char	*value;
 
 	i = 0;
+	increment_shlvl();
 	while (envp[i])
 	{
 		env = strdup(envp[i]);
