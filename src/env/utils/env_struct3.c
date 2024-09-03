@@ -78,7 +78,7 @@ void	increment_shlvl(void)
 {
 	char	*shlvl_str;
 	int		shlvl;
-	char	*new_shlvl;
+	char	*new_shlvl_str;
 
 	shlvl_str = getenv("SHLVL");
 	shlvl = 1;

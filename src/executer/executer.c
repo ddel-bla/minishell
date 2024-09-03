@@ -94,6 +94,7 @@ void	executer(t_shell *shell)
 	int		pipe_fds[2];
 
 	prev_fd = -1;
+	g_signal = S_CMD;
 	if (shell->n_cmds == 1 && is_builtin(shell->exp->cmd[0]))
 		exec_builtin(shell, shell->exp);
 	else

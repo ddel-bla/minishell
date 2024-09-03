@@ -55,7 +55,6 @@ static void	sigint_handler(int signal)
 	else if (g_signal == S_CMD)
 	{
 		ft_putstr_fd("\n", 1);
-		g_signal = S_INIT;
 	}
 	else if (g_signal == S_HEREDOC)
 	{
