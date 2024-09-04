@@ -58,8 +58,8 @@ static void	sigint_handler(int signal)
 	}
 	else if (g_signal == S_HEREDOC)
 	{
-		ioctl(0, TIOCSTI, '\n');
-		exit(0);
+		ioctl(0, TIOCSTI, "\n");
+		g_signal = S_HEREDOC_MID;
 	}
 	if (g_signal == S_HEREDOC_END)
 		ft_putstr_fd("\n", 1);
@@ -75,6 +75,7 @@ static void	sigquit_handler(int signal)
 	{
 		printf("Quit (core dump)\n");
 		rl_on_new_line();
+		g_signal = S_INIT;
 	}
 	else
 	{

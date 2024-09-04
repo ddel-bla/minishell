@@ -17,5 +17,6 @@
 # define S_HEREDOC      21  // Signal heredoc
 # define S_HEREDOC_END  22  // Signal end heredoc
 # define S_CMD          23  // Signal cmd
+# define S_HEREDOC_MID  24  // Signal middle heredoc
 
 #endif

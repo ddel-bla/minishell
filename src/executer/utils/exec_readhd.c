@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/04 15:39:32 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:49:36 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 	{
 		line = readline("> ");
 		if (!line || ((!ft_strncmp(line, red->file, ft_strlen(red->file))
-					&& ft_strlen(red->file) == ft_strlen(line))))
+					&& ft_strlen(red->file) == ft_strlen(line)))
+			|| g_signal == S_HEREDOC_MID)
 			break ;
 		if (red->type == T_RED_HER_EX)
 			line = here_expand(line, shell);
