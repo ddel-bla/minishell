@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/03 17:29:04 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:39:32 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*here_expand(char *line, t_shell *shell)
 	while (line[i] != '\0')
 	{
 		if (line[i] == '$')
-			line = dollar(++line, shell, &new);
+			line = dollar(line, shell, &new);
 		else
 		{
 			while (line[i] != '\0' && line[i] != '\n' && line[i] != '$')
