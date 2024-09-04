@@ -24,6 +24,7 @@ t_redir	*create_redir(int type, char *file)
 		return (NULL);
 	redir->type = type;
 	redir->file = file;
+	redir->heredoc_file = NULL;
 	redir->next = NULL;
 	return (redir);
 }
@@ -80,6 +81,8 @@ void	free_redirs(t_redir *list, int free_file)
 		list = list->next;
 		if (free_file)
 			free(aux->file);
+		if (aux->heredoc_file)
+			free(aux->heredoc_file);
 		free(aux);
 	}
 }
