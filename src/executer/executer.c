@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/03 17:44:07 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/04 09:13:23 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ static void	ft_set_input_parent(int *prev_fd, int pipe_fds[2], t_cmd *current)
 	if (*prev_fd != -1)
 		close(*prev_fd);
 	if (!ft_is_last_cmd(current))
+	{
 		*prev_fd = pipe_fds[0];
-	else
-		close(pipe_fds[0]);
-	close(pipe_fds[1]);
+		close(pipe_fds[1]);
+	}
 }
 
 void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])

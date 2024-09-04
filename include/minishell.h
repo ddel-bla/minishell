@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/03 17:28:54 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/04 08:43:45 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // ........... MACROS ...........
 // __________ visuals ___________
 # define PROMPT "minishell>$ "
-# define COLORED_PROMPT "\033[1;36mminishell> $\033[1;37m"
+# define COLORED_PROMPT "\033[1;36mminishell>$ \033[1;37m"
 
 // ............ LIBS ............
 # include <stdio.h>
