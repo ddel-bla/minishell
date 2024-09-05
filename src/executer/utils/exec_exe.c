@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:38:59 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/16 21:09:43 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:48:48 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_exec_proc(t_shell *shell, t_cmd *exp)
 		exec_builtin(shell, exp);
 		exit(shell->exit_status);
 	}
-	if (exp->cmd[0])
+	if (exp->cmd[0] && ft_strlen(exp->cmd[0]))
 	{
 		if (!ft_find_path(exp->cmd[0], shell->env, &path))
 			execve(path, exp->cmd, shell->envp);
