@@ -40,11 +40,13 @@ void	start_minishell(char **envp, int color)
 	while (1)
 	{
 		g_signal = S_INIT;
+		printf("%p\n",  &g_signal);
 		input = readline(select_prompt(color));
 		handle_ctrl_d(input);
 		if (*input && !ft_only_spaces(input))
 		{
 			add_history(input);
+			printf("asd\n");
 			process(shell, input);
 		}
 		else
@@ -64,8 +66,11 @@ int	process(t_shell *shell, char *input)
 		free_lexer_err(shell, input);
 		return (1);
 	}
+	//print_tokens(shell->token);
 	parser(&shell->token, &shell->cmd);
+	//print_cmd(shell->cmd);
 	expander(shell, &shell->exp);
+	//print_cmd(shell->exp);
 	executer(shell);
 	free_loop(shell, input);
 	return (0);

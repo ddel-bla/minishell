@@ -20,8 +20,6 @@ static void	handle_heredoc_redirection(t_redir *red)
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	unlink(red->heredoc_file);
-	free(red->heredoc_file);
-	red->heredoc_file = NULL;
 }
 
 static void	handle_input_redirection(t_redir *red)

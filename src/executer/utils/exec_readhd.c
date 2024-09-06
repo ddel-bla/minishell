@@ -39,9 +39,11 @@ static char	*here_expand(char *line, t_shell *shell)
 void	ft_here_docs(t_shell *shell, t_redir *red)
 {
 	char	*line;
+	char 	*aux;
 	int		fd;
 
-	g_signal = S_HEREDOC;
+	line = NULL;
+	aux = NULL;
 	fd = ft_open(red->heredoc_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
@@ -51,14 +53,14 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 			|| g_signal == S_HEREDOC_MID)
 			break ;
 		if (red->type == T_RED_HER_EX)
-			line = here_expand(line, shell);
-		ft_putendl_fd(line, fd);
+			aux = here_expand(line, shell);
+		ft_putendl_fd(aux, fd);
+		free(aux);
 		free(line);
 		line = NULL;
 	}
 	if (line)
 		free(line);
-	g_signal = S_HEREDOC_END;
 	close(fd);
 }
 
@@ -69,10 +71,11 @@ void	ft_read_here_doc(t_shell *shell)
 	t_redir	*red;
 
 	current = shell->exp;
+	g_signal = S_HEREDOC;
 	while (current != NULL)
 	{
 		red = current->redirection;
-		while (red != NULL)
+		while (red != NULL && g_signal != S_HEREDOC_MID)
 		{
 			if (red->type == T_RED_HER || red->type == T_RED_HER_EX)
 			{

@@ -68,8 +68,10 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 
 	c = shell->exp;
 	ft_read_here_doc(shell);
-	while (c)
+	while (c && g_signal != S_HEREDOC_MID)
 	{
+		g_signal = S_CMD;
+		printf("Se ha asignado cmd %d %p", g_signal, &g_signal);
 		if (!ft_is_last_cmd(c))
 			ft_pipe(pipe_fds);
 		pid = ft_fork();
@@ -85,6 +87,7 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
 		}
 		c = c->next;
+		//g_signal = S_INIT;
 	}
 }
 
@@ -94,10 +97,10 @@ void	executer(t_shell *shell)
 	int		pipe_fds[2];
 
 	prev_fd = -1;
-	g_signal = S_CMD;
 	if (shell->n_cmds == 1 && is_builtin(shell->exp->cmd[0]))
 		exec_builtin(shell, shell->exp);
 	else
 		ft_exec(shell, prev_fd, pipe_fds);
 	ft_exitstatus(shell);
+	g_signal = S_INIT;
 }
