@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/06 16:14:49 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:01:40 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ static void	ft_add_prefix(char **hd, t_env *env)
 {
 	t_env	*myenv;
 	char	*aux;
+	char	*under;
 
 	myenv = get_env_by_name(env, "SYSTEMD_EXEC_PID");
 	if (!myenv || !myenv->value)
 		return ;
-	aux = ft_strjoin(*hd, myenv->value);
+	under = ft_strjoin("_", myenv->value);
+	aux = ft_strjoin(*hd, under);
+	free(under);
 	free(*hd);
 	*hd = aux;
 }
@@ -91,9 +94,9 @@ void	ft_read_here_doc(t_shell *shell)
 			{
 				shell->n_hdcs++;
 				hd_number = ft_itoa(shell->n_hdcs);
-				red->heredoc_file = ft_strjoin("./build/tmp_", hd_number);
-				free(hd_number);
+				red->heredoc_file = ft_strjoin("./tmp_", hd_number);
 				ft_add_prefix(&red->heredoc_file, shell->env);
+				free(hd_number);
 				ft_here_docs(shell, red);
 			}
 			red = red->next;
