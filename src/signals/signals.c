@@ -23,7 +23,6 @@ static void	sigquit_handler(int signal);
 void	signal_init(void)
 {
 	g_signal = S_INIT;
-	printf("%dAquie\n", g_signal);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 }
@@ -49,7 +48,7 @@ static void	sigint_handler(int signal)
 	if (g_signal == S_INIT)
 	{
 		rl_on_new_line();
-		ft_putstr_fd("\n", 1);
+		//ft_putstr_fd("\n", 1);
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
@@ -69,17 +68,17 @@ static void	sigint_handler(int signal)
  */
 static void	sigquit_handler(int signal)
 {
-	(void)signal;printf("%d", g_signal);
+	(void)signal;
 	if (g_signal == S_CMD)
 	{
 		printf("Quit (core dump)\n");
 		rl_on_new_line();
 		g_signal = S_INIT;
 	}
-	else if(g_signal == S_CMD || g_signal == S_HEREDOC)
+	else
 	{
 		rl_replace_line("", 0);
 		printf(PROMPT);
-		g_signal = S_INIT;
+		//g_signal = S_INIT;
 	}
 }

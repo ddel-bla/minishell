@@ -23,7 +23,7 @@ char	**add_to_args(char **args, t_token **tokens)
 		count++;
 	while (*tokens && (*tokens)->type == T_COMMAND)
 	{
-		new_args = malloc((count + 2) * sizeof(char *));
+		new_args = ft_malloc((count + 2) * sizeof(char *));
 		i = 0;
 		while (i < count)
 		{

@@ -16,9 +16,7 @@ t_redir	*copy_redir_node(t_redir *original)
 {
 	t_redir	*copy;
 
-	copy = malloc(sizeof(t_redir));
-	if (copy == NULL)
-		return (NULL);
+	copy = ft_malloc(sizeof(t_redir));
 	copy->type = original->type;
 	if (original->file)
 	{
@@ -31,6 +29,7 @@ t_redir	*copy_redir_node(t_redir *original)
 	}
 	else
 		copy->file = NULL;
+	copy->heredoc_file = NULL;
 	copy->next = NULL;
 	return (copy);
 }
@@ -66,9 +65,7 @@ char	**copy_commands(char **original_cmd)
 	int		j;
 
 	count = count_commands(original_cmd);
-	copy_cmd = malloc((count + 1) * sizeof(char *));
-	if (copy_cmd == NULL)
-		return (NULL);
+	copy_cmd = ft_malloc((count + 1) * sizeof(char *));
 	i = 0;
 	while (i < count)
 	{
@@ -93,9 +90,7 @@ t_cmd	*copy_cmd(t_cmd *original)
 
 	if (original == NULL)
 		return (NULL);
-	copy = malloc(sizeof(t_cmd));
-	if (copy == NULL)
-		return (NULL);
+	copy =  ft_malloc(sizeof(t_cmd));
 	copy->cmd = copy_commands(original->cmd);
 	if (original->cmd && copy->cmd == NULL)
 	{

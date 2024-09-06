@@ -32,7 +32,7 @@ int	ft_open(char *file, int mode, int flag)
 	fd = open(file, mode, flag);
 	if (fd < 0)
 	{
-		//perror("open");
+		perror("open");
 		exit(EXIT_FAILURE);
 	}
 	return (fd);

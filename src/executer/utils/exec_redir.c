@@ -19,7 +19,6 @@ static void	handle_heredoc_redirection(t_redir *red)
 	fd = ft_open(red->heredoc_file, O_RDONLY, 0);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	unlink(red->heredoc_file);
 }
 
 static void	handle_input_redirection(t_redir *red)

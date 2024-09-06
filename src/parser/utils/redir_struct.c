@@ -82,7 +82,10 @@ void	free_redirs(t_redir *list, int free_file)
 		if (free_file)
 			free(aux->file);
 		if (aux->heredoc_file)
+		{
+			unlink(aux->heredoc_file);
 			free(aux->heredoc_file);
+		}
 		free(aux);
 	}
 }
