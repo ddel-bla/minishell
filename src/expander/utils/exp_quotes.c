@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:06:05 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/07/24 17:30:23 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:41:07 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 char	*ft_status(char *cmd, t_shell *shell, char **new)
 {
 	char	*aux;
+	char	*num;
 
-	aux = ft_strjoin(*new, ft_itoa(shell->exit_status));
+	num = ft_itoa(shell->exit_status);
+	aux = ft_strjoin(*new, num);
+	free(num);
 	free(*new);
 	*new = aux;
 	return (cmd + 2);
