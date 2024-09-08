@@ -6,26 +6,34 @@
 /*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:01:10 by claferna          #+#    #+#             */
-/*   Updated: 2024/07/19 09:52:02 by claferna         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:52:02 by claferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#include "../../include/minishell.h"
 
-# define S_INIT         20  // Signal init
-# define S_HEREDOC      21  // Signal heredoc
-# define S_HEREDOC_END  22  // Signal end heredoc
-# define S_CMD          23  // Signal cmd
-# define S_HEREDOC_MID  24  // Signal middle heredoc
+void	treat_parent_signals(int wstatus, int pid)
+{
+	ignore_signals();
+	waitpid(pid, &wstatus, 0);
+	if (WIFSIGNALED(wstatus))
+	{
+		if (WTERMSIG(wstatus) == SIGINT)
+			ft_putstr_fd("\n", 1);
+		else if (WTERMSIG(wstatus) == SIGQUIT)
+			ft_putstr_fd("Quit (core dumped)\n", 1);
+	}
+	signal_init();
+	if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+}
 
-// ......... FUNCTIONS ..........
-void	signal_init(void);
-void	handle_ctrl_d(char *input);
-void	restore_signals(void);
-void	ignore_signals(void);
-void	signal_init(void);
-void	treat_parent_signals(int wstatus, int pid);
-void	ft_sigemptyset(sigset_t *set);
-
-#endif
+void	ft_sigemptyset(sigset_t *set)
+{
+	if (set == NULL)
+		return ;
+	ft_memset(set, 0, sizeof(sigset_t));
+}

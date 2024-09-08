@@ -39,5 +39,6 @@ void		ft_read_here_doc(t_shell *shell);
 void		ft_handle_s_redir(t_redir *red, int pipe_fd[2], int is_last_cmd);
 
 int			ft_is_last_cmd(t_cmd *current);
+pid_t		aux_ft_exec(int pipe_fds[2], t_cmd *cmd);
 
 #endif

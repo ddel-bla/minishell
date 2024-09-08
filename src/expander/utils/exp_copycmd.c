@@ -90,7 +90,7 @@ t_cmd	*copy_cmd(t_cmd *original)
 
 	if (original == NULL)
 		return (NULL);
-	copy =  ft_malloc(sizeof(t_cmd));
+	copy = ft_malloc(sizeof(t_cmd));
 	copy->cmd = copy_commands(original->cmd);
 	if (original->cmd && copy->cmd == NULL)
 	{

@@ -18,6 +18,7 @@ static void	ft_exitstatus(t_shell *shell)
 	t_pid_node	*temp;
 	int			wstatus;
 
+	wstatus = 0;
 	current = shell->pid_list;
 	while (current)
 	{
@@ -65,23 +66,24 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 {
 	t_cmd	*c;
 	pid_t	pid;
+	int		wstatus;
 
 	c = shell->exp;
 	ft_read_here_doc(shell);
+	wstatus = 0;
 	while (c && g_signal != S_HEREDOC_MID)
 	{
-		g_signal = S_CMD;
-		if (!ft_is_last_cmd(c))
-			ft_pipe(pipe_fds);
-		pid = ft_fork();
+		pid = aux_ft_exec(pipe_fds, c);
 		if (pid == 0)
 		{
+			restore_signals();
 			ft_set_input_child(prev_fd, pipe_fds, ft_is_last_cmd(c));
 			ft_handle_s_redir(c->redirection, pipe_fds, ft_is_last_cmd(c));
 			ft_exec_proc(shell, c);
 		}
 		else
 		{
+			treat_parent_signals(wstatus, pid);
 			ft_set_input_parent(&prev_fd, pipe_fds, c);
 			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
 		}

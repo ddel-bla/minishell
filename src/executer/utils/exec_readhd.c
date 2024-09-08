@@ -39,7 +39,7 @@ static char	*here_expand(char *line, t_shell *shell)
 void	ft_here_docs(t_shell *shell, t_redir *red)
 {
 	char	*line;
-	char 	*aux;
+	char	*aux;
 	int		fd;
 
 	line = NULL;

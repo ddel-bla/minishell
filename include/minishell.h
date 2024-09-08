@@ -80,9 +80,6 @@ void	ft_exit(t_shell *shell, t_cmd *cmd);
 void	ft_cd(t_shell *shell, t_cmd *cmd);
 int		count_args(t_cmd *cmd);
 int		validate_syntax(char *argv);
-// ____________ signals _________
-void	signal_init(void);
-void	handle_ctrl_d(char *input);
 // ____________ prints __________
 void	print_header(void);
 void	print_header_nc(void);
