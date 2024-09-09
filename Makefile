@@ -6,7 +6,7 @@ NAME	=	minishell
 
 CC		=	gcc
 
-CFLAGS	=	-g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS	=	-g -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 RM		=	rm -f
 
