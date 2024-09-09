@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claferna <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 16:06:22 by claferna          #+#    #+#             */
-/*   Updated: 2024/06/28 16:06:24 by claferna         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:00:26 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_exit(t_shell *shell, t_cmd	*cmd)
 	{
 		if (cmd->cmd[1])
 			shell->exit_status = ft_atoi(cmd->cmd[1]);
-		exit(shell->exit_status);
+		else
+			exit(shell->exit_status);
 	}
 }
 
