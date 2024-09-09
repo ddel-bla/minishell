@@ -65,6 +65,7 @@ void	signal_init(void)
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
 
+	g_signal = 0;
 	sa_int.sa_handler = sigint_handler;
 	ft_sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = SA_RESTART;
@@ -80,23 +81,24 @@ void	signal_init(void)
  */
 static void	sigint_handler(int signal)
 {
-	(void)signal;
-	if (g_signal == S_INIT)
-	{
-		rl_on_new_line();
-		ft_putstr_fd("\n", 1);
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_signal = S_INIT;
-	}
-	else if (g_signal == S_CMD)
-	{
-		ft_putstr_fd("\n", 1);
-		g_signal = S_INIT;
-	}
-	else if (g_signal == S_HEREDOC)
-	{
-		g_signal = S_HEREDOC_MID;
-		ioctl(0, TIOCSTI, "\n");
-	}
+	if (signal == SIGINT)
+    {	
+		if (g_signal == SIGHUP)
+		{
+			g_signal = SIGINT;
+			ioctl(0, TIOCSTI, "\n");
+		}
+		else
+		{
+			rl_replace_line("", 0);
+			write(1, "\n", 1);
+			rl_on_new_line();
+			rl_redisplay();
+		}
+    }
+    else if (signal == SIGQUIT)
+    {
+        rl_on_new_line();
+        rl_redisplay();
+    }
 }

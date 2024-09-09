@@ -71,7 +71,7 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 	c = shell->exp;
 	ft_read_here_doc(shell);
 	wstatus = 0;
-	while (c && g_signal != S_HEREDOC_MID)
+	while (c && g_signal != SIGINT)
 	{
 		pid = aux_ft_exec(pipe_fds, c);
 		if (pid == 0)
@@ -102,5 +102,5 @@ void	executer(t_shell *shell)
 	else
 		ft_exec(shell, prev_fd, pipe_fds);
 	ft_exitstatus(shell);
-	g_signal = S_INIT;
+	g_signal = 0;
 }

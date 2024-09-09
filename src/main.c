@@ -39,7 +39,7 @@ void	start_minishell(char **envp, int color)
 	shell = init(envp);
 	while (1)
 	{
-		g_signal = S_INIT;
+		g_signal = 0;
 		input = readline(select_prompt(color));
 		handle_ctrl_d(input);
 		if (*input && !ft_only_spaces(input))

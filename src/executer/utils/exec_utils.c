@@ -21,7 +21,6 @@ pid_t	aux_ft_exec(int pipe_fds[2], t_cmd *cmd)
 {
 	pid_t	pid;
 
-	g_signal = S_CMD;
 	if (!ft_is_last_cmd(cmd))
 		ft_pipe(pipe_fds);
 	pid = ft_fork();
