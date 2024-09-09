@@ -37,3 +37,18 @@ void	ft_sigemptyset(sigset_t *set)
 		return ;
 	ft_memset(set, 0, sizeof(sigset_t));
 }
+
+void	ft_here_docs_handle_signal(struct sigaction *sa_old, \
+		struct sigaction *sa_new)
+{
+	sa_new->sa_handler = heredoc_sigint_handler;
+	ft_sigemptyset(&sa_new->sa_mask);
+	sa_new->sa_flags = 0;
+	sigaction(SIGINT, sa_new, sa_old);
+}
+
+void	heredoc_sigint_handler(int signal)
+{
+	if (signal == SIGINT)
+		g_signal = signal;
+}

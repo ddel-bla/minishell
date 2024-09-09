@@ -82,23 +82,15 @@ void	signal_init(void)
 static void	sigint_handler(int signal)
 {
 	if (signal == SIGINT)
-    {	
-		if (g_signal == SIGHUP)
-		{
-			g_signal = SIGINT;
-			ioctl(0, TIOCSTI, "\n");
-		}
-		else
-		{
-			rl_replace_line("", 0);
-			write(1, "\n", 1);
-			rl_on_new_line();
-			rl_redisplay();
-		}
-    }
-    else if (signal == SIGQUIT)
-    {
-        rl_on_new_line();
-        rl_redisplay();
-    }
+	{
+		rl_replace_line("", 0);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (signal == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }

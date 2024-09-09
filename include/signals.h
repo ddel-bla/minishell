@@ -13,12 +13,6 @@
 #ifndef SIGNALS_H
 # define SIGNALS_H
 
-# define S_INIT         20  // Signal init
-# define S_HEREDOC      21  // Signal heredoc
-# define S_HEREDOC_END  22  // Signal end heredoc
-# define S_CMD          23  // Signal cmd
-# define S_HEREDOC_MID  24  // Signal middle heredoc
-
 // ......... FUNCTIONS ..........
 void	signal_init(void);
 void	handle_ctrl_d(char *input);
@@ -27,5 +21,10 @@ void	ignore_signals(void);
 void	signal_init(void);
 void	treat_parent_signals(int wstatus, int pid);
 void	ft_sigemptyset(sigset_t *set);
+void	ft_process_here_doc(t_shell *shell, t_redir *red, \
+		struct sigaction *sa_old);
+void	ft_here_docs_handle_signal(struct sigaction *sa_old, \
+		struct sigaction *sa_new);
+void	heredoc_sigint_handler(int signal);
 
 #endif
