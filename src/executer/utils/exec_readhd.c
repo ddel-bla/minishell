@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/06 18:01:40 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:52:05 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static char	*here_expand(char *line, t_shell *shell)
 {
 	char	*new;
 	int		i;
+	char	*tmp;
 
 	new = ft_strdup("");
-	if (new == NULL)
-		return (NULL);
+	tmp = line;
 	i = 0;
 	while (line[i] != '\0')
 	{
@@ -33,17 +33,16 @@ static char	*here_expand(char *line, t_shell *shell)
 		}
 		i = 0;
 	}
+	free(tmp);
 	return (new);
 }
 
 void	ft_here_docs(t_shell *shell, t_redir *red)
 {
 	char	*line;
-	char	*aux;
 	int		fd;
 
 	line = NULL;
-	aux = NULL;
 	fd = ft_open(red->heredoc_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
@@ -52,10 +51,9 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 					&& ft_strlen(red->file) == ft_strlen(line)))
 			|| g_signal == S_HEREDOC_MID)
 			break ;
-		if (red->type == T_RED_HER_EX)
-			aux = here_expand(line, shell);
-		ft_putendl_fd(aux, fd);
-		free(aux);
+		if (red->type == T_RED_HER_EX && line)
+			line = here_expand(line, shell);
+		ft_putendl_fd(line, fd);
 		free(line);
 		line = NULL;
 	}
