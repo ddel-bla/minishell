@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/04 09:13:23 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:23:05 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,20 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 {
 	t_cmd	*c;
 	pid_t	pid;
-	int		wstatus;
 
 	c = shell->exp;
 	ft_read_here_doc(shell);
-	wstatus = 0;
-	while (c && g_signal != SIGINT)
+	while (c)
 	{
 		pid = aux_ft_exec(pipe_fds, c);
 		if (pid == 0)
 		{
-			restore_signals();
 			ft_set_input_child(prev_fd, pipe_fds, ft_is_last_cmd(c));
 			ft_handle_s_redir(c->redirection, pipe_fds, ft_is_last_cmd(c));
 			ft_exec_proc(shell, c);
 		}
 		else
 		{
-			treat_parent_signals(wstatus, pid);
 			ft_set_input_parent(&prev_fd, pipe_fds, c);
 			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
 		}
@@ -102,5 +98,4 @@ void	executer(t_shell *shell)
 	else
 		ft_exec(shell, prev_fd, pipe_fds);
 	ft_exitstatus(shell);
-	g_signal = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/09 19:52:05 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:35:51 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ static char	*here_expand(char *line, t_shell *shell)
 	return (new);
 }
 
-void	ft_process_here_doc(t_shell *shell, t_redir *red, \
-		struct sigaction *sa_old)
+void	ft_here_docs(t_shell *shell, t_redir *red)
 {
 	char	*line;
 	int		fd;
@@ -47,8 +46,6 @@ void	ft_process_here_doc(t_shell *shell, t_redir *red, \
 	fd = ft_open(red->heredoc_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
-		if (g_signal == SIGINT)
-			break ;
 		line = readline("> ");
 		if (!line || (!ft_strncmp(line, red->file, ft_strlen(red->file)) && \
 					ft_strlen(red->file) == ft_strlen(line)))
@@ -62,16 +59,6 @@ void	ft_process_here_doc(t_shell *shell, t_redir *red, \
 	if (line)
 		free(line);
 	close(fd);
-	sigaction(SIGINT, sa_old, NULL);
-}
-
-void	ft_here_docs(t_shell *shell, t_redir *red)
-{
-	struct sigaction	sa_old;
-	struct sigaction	sa_new;
-
-	ft_here_docs_handle_signal(&sa_old, &sa_new);
-	ft_process_here_doc(shell, red, &sa_old);
 }
 
 static void	ft_add_prefix(char **hd, t_env *env)
@@ -110,8 +97,6 @@ void	ft_read_here_doc(t_shell *shell)
 				ft_add_prefix(&red->heredoc_file, shell->env);
 				free(hd_number);
 				ft_here_docs(shell, red);
-				if (g_signal == SIGINT)
-					return ;
 			}
 			red = red->next;
 		}
