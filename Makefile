@@ -6,7 +6,7 @@ NAME	=	minishell
 
 CC		=	gcc
 
-CFLAGS	=	-g -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS	=	-g -Wall -Wextra -Werror -g3 -fsanitize=address
 
 RM		=	rm -f
 
@@ -56,8 +56,8 @@ SRC		=	./src/main.c \
 		./src/executer/utils/exec_readhd.c \
 		./src/executer/utils/exec_redir.c \
 		./src/executer/utils/exec_utils.c \
-		./src/signals/signals.c\
-		./src/signals/signals2.c
+		./src/signals/signalhandler.c\
+		./src/signals/signal.c
 		
 
 OBJS	=	$(patsubst ./src/%.c, ./build/%.o, $(SRC))

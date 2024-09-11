@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:18:35 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/10 15:21:50 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:57:35 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,19 @@ void	start_minishell(char **envp, int color)
 	shell = init(envp);
 	while (1)
 	{
+		signals_terminal();
 		input = readline(select_prompt(color));
-		if (*input && !ft_only_spaces(input))
+		if (!input)
+			exit(shell->exit_status);
+		if (!ft_only_spaces(input))
 		{
+			signals_execution();
 			add_history(input);
 			process(shell, input);
 		}
 		else
 			free(input);
+		signals_terminal();
 	}
 	free_env_and_shell(shell);
 }

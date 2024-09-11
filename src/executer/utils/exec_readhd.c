@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/10 15:35:51 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:04:23 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 	int		fd;
 
 	line = NULL;
+	//g_signal = 0;
+	//signal(SIGINT, signals_hd);
 	fd = ft_open(red->heredoc_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
@@ -59,6 +61,10 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 	if (line)
 		free(line);
 	close(fd);
+	//if (g_signal == SIGINT)
+	//	printf("SIGINT\n");
+	//	unlink(red->heredoc_file); ??
+	//g_signal = 0;
 }
 
 static void	ft_add_prefix(char **hd, t_env *env)
@@ -89,6 +95,7 @@ void	ft_read_here_doc(t_shell *shell)
 		red = current->redirection;
 		while (red != NULL)
 		{
+			
 			if (red->type == T_RED_HER || red->type == T_RED_HER_EX)
 			{
 				shell->n_hdcs++;

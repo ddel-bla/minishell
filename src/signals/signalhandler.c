@@ -1,13 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals2.c                                         :+:      :+:    :+:   */
+/*   signalhandler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:01:10 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/10 15:16:31 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:20:31 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	g_signal;
+
+void	signals_terminal(void)
+{
+	signal(SIGINT, sig_int_muted);
+	signal(SIGQUIT, sig_quit_muted);
+}
+
+void	signals_execution(void)
+{
+	signal(SIGINT, sig_int_muted);
+	signal(SIGQUIT, sig_quit_active);
+}
+
+void	signals_hd(void)
+{
+	signal(SIGINT, sig_int_active);
+	signal(SIGINT, sig_int_hd);
+}

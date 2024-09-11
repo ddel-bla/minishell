@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/10 15:23:05 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:46:49 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 	pid_t	pid;
 
 	c = shell->exp;
+	
 	ft_read_here_doc(shell);
 	while (c)
 	{
@@ -80,6 +81,7 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 		}
 		else
 		{
+			//signals_notty();	
 			ft_set_input_parent(&prev_fd, pipe_fds, c);
 			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
 		}
@@ -93,6 +95,7 @@ void	executer(t_shell *shell)
 	int		pipe_fds[2];
 
 	prev_fd = -1;
+	//g_signal = 0;
 	if (shell->n_cmds == 1 && is_builtin(shell->exp->cmd[0]))
 		exec_builtin(shell, shell->exp);
 	else
