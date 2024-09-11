@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/11 15:46:49 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:08:34 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static void	ft_exitstatus(t_shell *shell)
 		current = temp;
 	}
 	shell->pid_list = NULL;
+	//HAY QUE REVISAR
+	/*
+		if (g_signal == 2)
+		shell->exit_status = 130;
+	else if (g_signal == 3)
+		shell->exit_status = 131;
+	g_signal = 0;
+	*/
 }
 
 static void	ft_set_input_child(int prev_fd, int pipe_fds[2], int is_last_cmd)
@@ -69,18 +77,21 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 
 	c = shell->exp;
 	
+	signals_hd();
 	ft_read_here_doc(shell);
 	while (c)
 	{
 		pid = aux_ft_exec(pipe_fds, c);
 		if (pid == 0)
 		{
+			signals_notty();
 			ft_set_input_child(prev_fd, pipe_fds, ft_is_last_cmd(c));
 			ft_handle_s_redir(c->redirection, pipe_fds, ft_is_last_cmd(c));
 			ft_exec_proc(shell, c);
 		}
 		else
 		{
+			signals_execution();
 			//signals_notty();	
 			ft_set_input_parent(&prev_fd, pipe_fds, c);
 			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
