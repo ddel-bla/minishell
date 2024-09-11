@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/11 11:04:23 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:29:46 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,12 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 	int		fd;
 
 	line = NULL;
-	//g_signal = 0;
-	//signal(SIGINT, signals_hd);
 	fd = ft_open(red->heredoc_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
 		line = readline("> ");
 		if (!line || (!ft_strncmp(line, red->file, ft_strlen(red->file)) && \
-					ft_strlen(red->file) == ft_strlen(line)))
+					ft_strlen(red->file) == ft_strlen(line)) || g_signal == 2)
 			break ;
 		if (red->type == T_RED_HER_EX && line)
 			line = here_expand(line, shell);
@@ -93,7 +91,7 @@ void	ft_read_here_doc(t_shell *shell)
 	while (current != NULL)
 	{
 		red = current->redirection;
-		while (red != NULL)
+		while (red != NULL && g_signal != 2)
 		{
 			
 			if (red->type == T_RED_HER || red->type == T_RED_HER_EX)
