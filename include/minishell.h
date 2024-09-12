@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/10 15:26:02 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:25:49 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@
 # include "./signals.h"
 
 // ...... GLOBAL VARIBALE .......
-extern int	g_signal;
 
 // .......... STRUCTS ...........
 typedef struct s_shell

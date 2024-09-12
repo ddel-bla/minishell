@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:01:10 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/11 18:30:15 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:34:57 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	signals_terminal(void)
 
 void	signals_execution(void)
 {
-	signal(SIGINT, sig_int_active);
+	signal(SIGINT, sig_int_muted);
 	signal(SIGQUIT, sig_quit_active);
 }
 
 void	signals_hd(void)
 {
 	g_signal = 0;
-	//signal(SIGINT, sig_int_active);
 	signal(SIGINT, sig_int_hd);
 	signal(SIGQUIT, SIG_IGN);
 }
-void	signals_notty(void)
+
+void	signals_ignore(void)
 {
-	signal(SIGINT, sig_int_null);
-	signal(SIGQUIT, sig_quit_null);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

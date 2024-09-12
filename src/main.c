@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:18:35 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/11 18:01:57 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:24:39 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	start_minishell(char **envp, int color)
 			printf("exit\n");
 			exit(shell->exit_status);
 		}
+		if (g_signal)
+			shell->exit_status = 128 + g_signal;
 		if (!ft_only_spaces(input))
 		{
 			add_history(input);

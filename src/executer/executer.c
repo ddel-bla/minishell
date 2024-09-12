@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/11 18:08:34 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 12:28:53 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,30 @@ static void	ft_exitstatus(t_shell *shell)
 
 	wstatus = 0;
 	current = shell->pid_list;
+	
 	while (current)
 	{
 		waitpid(current->pid, &wstatus, 0);
-		if (WIFEXITED(wstatus))
-			shell->exit_status = WEXITSTATUS(wstatus);
-		else if (WIFSIGNALED(wstatus))
-			shell->exit_status = WTERMSIG(wstatus);
-		else
-			shell->exit_status = EXIT_FAILURE;
+		if (!current->next)
+		{
+			if (WIFSIGNALED(wstatus))
+			{
+				shell->exit_status = 128 + WTERMSIG(wstatus);
+				if (WTERMSIG(wstatus) == SIGQUIT)
+					fprintf(stderr, "Core dump\n");
+				if (WTERMSIG(wstatus) == SIGINT)
+					fprintf(stderr, "\n");
+			}
+			else if (WIFEXITED(wstatus))
+				shell->exit_status = WEXITSTATUS(wstatus);
+			else
+				shell->exit_status = EXIT_FAILURE;
+		}
 		temp = current->next;
 		free(current);
 		current = temp;
 	}
 	shell->pid_list = NULL;
-	//HAY QUE REVISAR
-	/*
-		if (g_signal == 2)
-		shell->exit_status = 130;
-	else if (g_signal == 3)
-		shell->exit_status = 131;
-	g_signal = 0;
-	*/
 }
 
 static void	ft_set_input_child(int prev_fd, int pipe_fds[2], int is_last_cmd)
@@ -79,20 +81,19 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 	
 	signals_hd();
 	ft_read_here_doc(shell);
+	signals_ignore();
 	while (c)
 	{
 		pid = aux_ft_exec(pipe_fds, c);
 		if (pid == 0)
 		{
-			signals_notty();
+			signals_execution();
 			ft_set_input_child(prev_fd, pipe_fds, ft_is_last_cmd(c));
 			ft_handle_s_redir(c->redirection, pipe_fds, ft_is_last_cmd(c));
 			ft_exec_proc(shell, c);
 		}
 		else
 		{
-			signals_execution();
-			//signals_notty();	
 			ft_set_input_parent(&prev_fd, pipe_fds, c);
 			ft_add_pid(&shell->pid_list, ft_create_pid_node(pid));
 		}
