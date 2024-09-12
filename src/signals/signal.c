@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:01:10 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/12 12:26:29 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:31:42 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void	sig_int_muted(int signal)
 void	sig_int_hd(int signal)
 {
 	g_signal = signal;
-	ioctl(0,TIOCSTI, "\n");
-	//ft_putchar_fd('\n', STDERR_FILENO);
-	//close(0);
+	ioctl(0, TIOCSTI, "\n");
+	ft_putchar_fd('\n', STDERR_FILENO);
 }
 
 void	sig_quit_active(int signal)

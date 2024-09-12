@@ -6,7 +6,7 @@ NAME	=	minishell
 
 CC		=	gcc
 
-CFLAGS	=	-g -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	=	-g -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 RM		=	rm -f
 
@@ -51,6 +51,7 @@ SRC		=	./src/main.c \
 		./src/utils/func_utils.c \
 		./src/executer/executer.c \
 		./src/executer/utils/exec_exe.c \
+		./src/executer/utils/exec_exit.c \
 		./src/executer/utils/exec_path.c \
 		./src/executer/utils/exec_pid.c \
 		./src/executer/utils/exec_readhd.c \

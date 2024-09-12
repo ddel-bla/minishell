@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/11 18:29:46 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:59:19 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,19 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 	char	*line;
 	int		fd;
 
-	line = NULL;
 	fd = ft_open(red->heredoc_file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	while (1)
+	line = readline("> ");
+	while (line && ft_strncmp(line, red->file, ft_strlen(red->file) + 1))
 	{
-		line = readline("> ");
-		if (!line || (!ft_strncmp(line, red->file, ft_strlen(red->file)) && \
-					ft_strlen(red->file) == ft_strlen(line)) || g_signal == 2)
-			break ;
-		if (red->type == T_RED_HER_EX && line)
+		if (red->type == T_RED_HER_EX)
 			line = here_expand(line, shell);
 		ft_putendl_fd(line, fd);
 		free(line);
-		line = NULL;
+		line = readline("> ");
 	}
 	if (line)
 		free(line);
 	close(fd);
-	//if (g_signal == SIGINT)
-	//	printf("SIGINT\n");
-	//	unlink(red->heredoc_file); ??
-	//g_signal = 0;
 }
 
 static void	ft_add_prefix(char **hd, t_env *env)
@@ -91,9 +83,8 @@ void	ft_read_here_doc(t_shell *shell)
 	while (current != NULL)
 	{
 		red = current->redirection;
-		while (red != NULL && g_signal != 2)
+		while (red != NULL)
 		{
-			
 			if (red->type == T_RED_HER || red->type == T_RED_HER_EX)
 			{
 				shell->n_hdcs++;

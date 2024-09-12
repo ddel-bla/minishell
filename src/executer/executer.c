@@ -6,45 +6,11 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/12 12:28:53 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:41:42 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static void	ft_exitstatus(t_shell *shell)
-{
-	t_pid_node	*current;
-	t_pid_node	*temp;
-	int			wstatus;
-
-	wstatus = 0;
-	current = shell->pid_list;
-	
-	while (current)
-	{
-		waitpid(current->pid, &wstatus, 0);
-		if (!current->next)
-		{
-			if (WIFSIGNALED(wstatus))
-			{
-				shell->exit_status = 128 + WTERMSIG(wstatus);
-				if (WTERMSIG(wstatus) == SIGQUIT)
-					fprintf(stderr, "Core dump\n");
-				if (WTERMSIG(wstatus) == SIGINT)
-					fprintf(stderr, "\n");
-			}
-			else if (WIFEXITED(wstatus))
-				shell->exit_status = WEXITSTATUS(wstatus);
-			else
-				shell->exit_status = EXIT_FAILURE;
-		}
-		temp = current->next;
-		free(current);
-		current = temp;
-	}
-	shell->pid_list = NULL;
-}
 
 static void	ft_set_input_child(int prev_fd, int pipe_fds[2], int is_last_cmd)
 {
@@ -78,7 +44,6 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 	pid_t	pid;
 
 	c = shell->exp;
-	
 	signals_hd();
 	ft_read_here_doc(shell);
 	signals_ignore();
@@ -107,7 +72,6 @@ void	executer(t_shell *shell)
 	int		pipe_fds[2];
 
 	prev_fd = -1;
-	//g_signal = 0;
 	if (shell->n_cmds == 1 && is_builtin(shell->exp->cmd[0]))
 		exec_builtin(shell, shell->exp);
 	else

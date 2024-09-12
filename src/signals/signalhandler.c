@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:01:10 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/12 11:34:57 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:00:31 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	signals_terminal(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+// sig_int_muted hace lo mismo que active
 void	signals_execution(void)
 {
 	signal(SIGINT, sig_int_muted);

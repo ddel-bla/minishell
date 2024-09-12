@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/10 15:34:00 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:40:49 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_pid_node
 // ......... FUNCTIONS ..........
 // ___________ command __________
 void		ft_exec_proc(t_shell *shell, t_cmd *exp);
+
+void		ft_exitstatus(t_shell *shell);
 
 int			ft_find_path(char *exp, t_env *env, char **cmd_path);
 
