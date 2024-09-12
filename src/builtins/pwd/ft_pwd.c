@@ -21,6 +21,11 @@ void	ft_pwd(t_shell *shell, t_cmd *cmd)
 
 	(void)cmd;
 	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		perror("pwd");
+		return ;
+	}
 	printf("%s\n", pwd);
 	free(pwd);
 	shell->exit_status = 0;

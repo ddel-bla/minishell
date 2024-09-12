@@ -88,3 +88,20 @@ void	increment_shlvl(void)
 	setenv("SHLVL", new_shlvl_str, 1);
 	free(new_shlvl_str);
 }
+
+/*
+ * Gets an element of a env list by its name.
+ */
+char	*get_env_value(t_env *list, char *name)
+{
+	t_env	*aux;
+
+	aux = list;
+	while (aux != NULL)
+	{
+		if (ft_strcmp(aux->name, name) == 0)
+			return (aux->value);
+		aux = aux->next;
+	}
+	return (NULL);
+}
