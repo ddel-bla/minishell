@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 16:06:22 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/09 16:00:26 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:20:06 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ static int	check_number(char *cmd);
  */
 void	ft_exit(t_shell *shell, t_cmd	*cmd)
 {
-	shell->exit_status = validate_exit(cmd);
-	if (shell->exit_status != 1 && shell->exit_status != 2)
+	if (!validate_exit(cmd))
 	{
 		if (cmd->cmd[1])
 			shell->exit_status = ft_atoi(cmd->cmd[1]);
-		else
-			exit(shell->exit_status);
+		exit(shell->exit_status);
 	}
 }
 
@@ -43,7 +41,7 @@ static int	validate_exit(t_cmd *cmd)
 	if (count_args(cmd) == 1)
 		return (0);
 	if (cmd->cmd[1] && !check_number(cmd->cmd[1]))
-		return (2);
+		return (1);
 	return (0);
 }
 
