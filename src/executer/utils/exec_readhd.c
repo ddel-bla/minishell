@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:33:29 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/12 15:59:19 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:54:47 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ void	ft_here_docs(t_shell *shell, t_redir *red)
 	line = readline("> ");
 	while (line && ft_strncmp(line, red->file, ft_strlen(red->file) + 1))
 	{
+		if (g_signal == SIGINT)
+		{
+			free(line);
+			close(fd);
+			shell_cleanup_here_docs(shell);
+			return ;
+		}
 		if (red->type == T_RED_HER_EX)
 			line = here_expand(line, shell);
 		ft_putendl_fd(line, fd);
@@ -83,7 +90,7 @@ void	ft_read_here_doc(t_shell *shell)
 	while (current != NULL)
 	{
 		red = current->redirection;
-		while (red != NULL)
+		while (red != NULL && g_signal != SIGINT)
 		{
 			if (red->type == T_RED_HER || red->type == T_RED_HER_EX)
 			{

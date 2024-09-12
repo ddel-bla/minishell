@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:53:47 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/12 15:40:49 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:46:30 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void		ft_handle_s_redir(t_redir *red, int pipe_fd[2], int is_last_cmd);
 
 int			ft_is_last_cmd(t_cmd *current);
 pid_t		aux_ft_exec(int pipe_fds[2], t_cmd *cmd);
+void		shell_cleanup_here_docs(t_shell *shell);
 
 #endif

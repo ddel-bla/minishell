@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:34:40 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/12 15:41:42 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:55:14 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_exec(t_shell *shell, int prev_fd, int pipe_fds[2])
 	c = shell->exp;
 	signals_hd();
 	ft_read_here_doc(shell);
+	if (g_signal == SIGINT)
+		return ;
 	signals_ignore();
 	while (c)
 	{
