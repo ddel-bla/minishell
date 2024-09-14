@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:22:14 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/12 19:15:00 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/13 08:10:17 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <unistd.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
+# include <errno.h>
 
 // .......... HEADERS ...........
 # include "../lib/libft/libft.h"
