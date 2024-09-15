@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 16:06:22 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/12 18:20:06 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:01:30 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	validate_exit(t_cmd *cmd)
 	if (count_args(cmd) == 1)
 		return (0);
 	if (cmd->cmd[1] && !check_number(cmd->cmd[1]))
-		return (1);
+		return (0);
 	return (0);
 }
 
