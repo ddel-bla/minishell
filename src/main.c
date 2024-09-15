@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:18:35 by claferna          #+#    #+#             */
-/*   Updated: 2024/09/12 13:24:39 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:58:38 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ void	start_minishell(char **envp, int color)
 		if (g_signal)
 			shell->exit_status = 128 + g_signal;
 		if (!ft_only_spaces(input))
-		{
-			add_history(input);
 			process(shell, input);
-		}
 		else
 			free(input);
 	}
@@ -65,6 +62,7 @@ int	process(t_shell *shell, char *input)
 {
 	if (lexer(input, &shell->token))
 	{
+		add_history(input);
 		print_error("minishell: syntax error");
 		free_lexer_err(shell, input);
 		return (1);
@@ -72,6 +70,8 @@ int	process(t_shell *shell, char *input)
 	parser(&shell->token, &shell->cmd);
 	expander(shell, &shell->exp);
 	executer(shell);
+	if (shell->exit_status == 0)
+		add_history(input);
 	free_loop(shell, input);
 	return (0);
 }
