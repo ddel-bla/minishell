@@ -6,7 +6,7 @@
 /*   By: ddel-bla <ddel-bla@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:38:59 by ddel-bla          #+#    #+#             */
-/*   Updated: 2024/09/12 15:54:30 by ddel-bla         ###   ########.fr       */
+/*   Updated: 2024/09/15 09:34:37 by ddel-bla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	update_exit_status(t_shell *shell, int wstatus)
 {
 	if (WIFSIGNALED(wstatus))
 	{
-		shell->exit_status = 128 + wstatus;
-		if (wstatus == SIGQUIT)
+		shell->exit_status = 128 + WTERMSIG(wstatus);
+		if (WTERMSIG(wstatus) == SIGQUIT)
 			fprintf(stderr, "Core dump\n");
-		else if (wstatus == SIGINT)
+		else if (WTERMSIG(wstatus) == SIGINT)
 			fprintf(stderr, "\n");
 	}
 	else if (WIFEXITED(wstatus))
